@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   View,
 } from "react-native";
+import authStore from "../stores/authStore";
 import { Button, VStack, Stack, HStack } from "native-base";
 import RegisterSVG from "../assets/register.svg";
 import MntBtnPrimary from "../components/MntBtnPrimary";
@@ -18,6 +19,7 @@ const Register = ({ navigation }) => {
   const [step, setStep] = useState(1);
   const [user, setUser] = useState(null);
   console.log(user);
+
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <SafeAreaView />
@@ -181,15 +183,19 @@ const StepThree = ({ step, setStep, setUser, user }) => {
   );
 };
 
-const StepFour = ({ step, setStep, setUser, user }) => {
+const StepFour = ({ step, setStep, setUser, user, navigation }) => {
   const handleMentor = () => {
     setUser({ ...user, isMentor: true });
-    setStep(step - 1);
+    // setStep(step - 1);
+    authStore.signup(user, navigation);
   };
+
   const handleStudent = () => {
     setUser({ ...user, isMentor: false });
-    setStep(step - 1);
+    // setStep(step - 1);
+    authStore.signup(user, navigation);
   };
+
   return (
     <VStack
       style={{
