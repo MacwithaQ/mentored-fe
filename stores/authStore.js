@@ -40,14 +40,14 @@ class AuthStore {
   //   };
 
   //! To be implemented when sign-out button is complete - alqallaf
-  //   signout = async () => {
-  //     try {
-  //       await AsyncStorage.removeItem("token");
-  //       this.user = null;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  signout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      this.user = null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   setUser = async (token) => {
     try {

@@ -12,13 +12,21 @@ import RegisterSVG from "../assets/register.svg";
 import MntBtnPrimary from "../components/MntBtnPrimary";
 import MntBtnSecondary from "../components/MntBtnSecondary";
 import Input from "../components/Input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 const Register = ({ navigation }) => {
   const [step, setStep] = useState(1);
   const [user, setUser] = useState(null);
+  console.log(step);
   console.log(user);
+
+  const handleRegister = () => {
+    authStore.signup(user, navigation);
+    setUser(null);
+    setStep(1);
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -50,6 +58,32 @@ const Register = ({ navigation }) => {
       )}
       {step === 4 && (
         <StepFour step={step} setStep={setStep} setUser={setUser} user={user} />
+      )}
+      {step === 5 && user.isMentor === true && (
+        <StepMentor
+          step={step}
+          setStep={setStep}
+          setUser={setUser}
+          user={user}
+          handleRegister={handleRegister}
+        />
+      )}
+      {step === 5 && user.isMentor === false && (
+        <StepStudentOne
+          step={step}
+          setStep={setStep}
+          setUser={setUser}
+          user={user}
+        />
+      )}
+      {step === 6 && user.isMentor === false && (
+        <StepStudentTwo
+          step={step}
+          setStep={setStep}
+          setUser={setUser}
+          user={user}
+          handleRegister={handleRegister}
+        />
       )}
     </KeyboardAvoidingView>
   );
@@ -183,17 +217,17 @@ const StepThree = ({ step, setStep, setUser, user }) => {
   );
 };
 
-const StepFour = ({ step, setStep, setUser, user, navigation }) => {
+const StepFour = ({ step, setStep, setUser, user }) => {
   const handleMentor = () => {
     setUser({ ...user, isMentor: true });
-    // setStep(step - 1);
-    authStore.signup(user, navigation);
+    setStep(step + 1);
+    // authStore.signup(user, navigation);
   };
 
   const handleStudent = () => {
     setUser({ ...user, isMentor: false });
-    // setStep(step - 1);
-    authStore.signup(user, navigation);
+    setStep(step + 1);
+    // authStore.signup(user, navigation);
   };
 
   return (
@@ -230,6 +264,190 @@ const StepFour = ({ step, setStep, setUser, user, navigation }) => {
   );
 };
 
+const StepMentor = ({ step, setStep, setUser, user, handleRegister }) => {
+  return (
+    <VStack
+      style={{
+        width: "100%",
+        padding: 12,
+        paddingBottom: 50,
+        paddingTop: 20,
+        backgroundColor: "#fff",
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+      }}
+    >
+      <Input
+        placeholder="Major"
+        onChangeText={(major) => setUser({ ...user, major })}
+      />
+      <Input
+        placeholder="Facility"
+        onChangeText={(employer) => setUser({ ...user, employer })}
+      />
+      <VStack>
+        <MntBtnPrimary text="Register" onPress={handleRegister} />
+        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+      </VStack>
+
+      <HStack
+        style={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text>Already User ? </Text>
+        <Pressable>
+          <Text style={styles.link}>Login</Text>
+        </Pressable>
+      </HStack>
+    </VStack>
+  );
+};
+
+const StepStudentOne = ({ step, setStep, setUser, user }) => {
+  const pickerRef = useRef();
+  const open = () => pickerRef.current.focus();
+  const close = () => pickerRef.current.blur();
+  const OPTIONS = [
+    {
+      id: 1,
+      educationLevel: "Grade 9",
+    },
+    {
+      id: 2,
+      educationLevel: "Grade 10",
+    },
+    {
+      id: 3,
+      educationLevel: "Grade 11",
+    },
+    {
+      id: 4,
+      educationLevel: "Grade 12",
+    },
+    {
+      id: 5,
+      educationLevel: "Deploma",
+    },
+    {
+      id: 6,
+      educationLevel: "Bachelor",
+    },
+    {
+      id: 7,
+      educationLevel: "Master",
+    },
+    {
+      id: 8,
+      educationLevel: "PHD",
+    },
+  ];
+  return (
+    <VStack
+      style={{
+        width: "100%",
+        padding: 12,
+        paddingBottom: 50,
+        paddingTop: 20,
+        backgroundColor: "#fff",
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+      }}
+    >
+      <Input
+        placeholder="Age"
+        keyboardType="number-pad"
+        onChangeText={(age) => setUser({ ...user, age })}
+      />
+      <Picker
+        style={{
+          backgroundColor: "#F5F4F9",
+          height: 70,
+          justifyContent: "center",
+          overflow: "hidden",
+          borderRadius: 20,
+          marginBottom: 5,
+          textAlign: "left",
+        }}
+        itemStyle={{ fontSize: 14, textAlign: "left" }}
+        ref={pickerRef}
+        selectedValue={user.educationLevel}
+        onValueChange={(itemValue) => {
+          setUser({ ...user, educationLevel: itemValue });
+        }}
+      >
+        {OPTIONS.map((option) => (
+          <Picker.Item
+            key={option.id}
+            value={option.educationLevel}
+            label={option.educationLevel}
+          />
+        ))}
+      </Picker>
+      <VStack>
+        <MntBtnPrimary text="Next" onPress={() => setStep(step + 1)} />
+        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+      </VStack>
+
+      <HStack
+        style={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text>Already User ? </Text>
+        <Pressable>
+          <Text style={styles.link}>Login</Text>
+        </Pressable>
+      </HStack>
+    </VStack>
+  );
+};
+
+const StepStudentTwo = ({ step, setStep, setUser, user, handleRegister }) => {
+  return (
+    <VStack
+      style={{
+        width: "100%",
+        padding: 12,
+        paddingBottom: 50,
+        paddingTop: 20,
+        backgroundColor: "#fff",
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+      }}
+    >
+      <Input
+        placeholder="Guardian"
+        onChangeText={(guardian) => setUser({ ...user, guardian })}
+      />
+      <Input
+        placeholder="Phone Number"
+        onChangeText={(gPhone) => setUser({ ...user, gPhone })}
+      />
+      <VStack>
+        <MntBtnPrimary text="Register" onPress={handleRegister} />
+        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+      </VStack>
+
+      <HStack
+        style={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text>Already User ? </Text>
+        <Pressable>
+          <Text style={styles.link}>Login</Text>
+        </Pressable>
+      </HStack>
+    </VStack>
+  );
+};
 export default Register;
 
 const styles = StyleSheet.create({
