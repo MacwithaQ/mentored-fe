@@ -48,7 +48,7 @@ const Home = ({ navigation }) => {
         </HStack>
       </VStack>
       <VStack style={styles.body}>
-        <Text style={{ fontWeight: "bold", fontSize: "20rem" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
           Mentors For You
         </Text>
         <ScrollView horizontal={true}>
@@ -56,7 +56,7 @@ const Home = ({ navigation }) => {
             <MentorListCardLg />
           </HStack>
         </ScrollView>
-        <Text style={{ fontWeight: "bold", fontSize: "20rem", margin: 5 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 20, margin: 5 }}>
           Major Name
         </Text>
         <ScrollView horizontal={true}>
