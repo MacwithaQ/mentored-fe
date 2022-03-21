@@ -15,7 +15,6 @@ import { observer } from "mobx-react";
 import MentorListCardSm from "../components/MentorListCardSm";
 
 const Home = ({ navigation }) => {
-  console.log("user:", authStore.user);
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
