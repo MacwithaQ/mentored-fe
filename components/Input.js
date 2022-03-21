@@ -10,6 +10,9 @@ const Input = ({
 }) => {
   return (
     <TextInput
+      autoCapitalize="none"
+      autoComplete="off"
+      autoCorrect={false}
       placeholder={placeholder}
       value={value}
       secureTextEntry={secureTextEntry}

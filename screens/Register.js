@@ -19,8 +19,6 @@ import { Picker } from "@react-native-picker/picker";
 const Register = ({ navigation }) => {
   const [step, setStep] = useState(1);
   const [user, setUser] = useState(null);
-  console.log(step);
-  console.log(user);
 
   const handleRegister = () => {
     authStore.signup(user, navigation);
@@ -40,7 +38,7 @@ const Register = ({ navigation }) => {
         />
       </View>
       <VStack flex={1} alignItems="center" justifyContent="center">
-        <RegisterSVG width={300} height={300} />
+        <RegisterSVG width={300} />
       </VStack>
       {step === 1 && (
         <StepOne step={step} setStep={setStep} setUser={setUser} user={user} />

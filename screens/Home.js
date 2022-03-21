@@ -13,7 +13,6 @@ import authStore from "../stores/authStore";
 import { observer } from "mobx-react";
 
 const Home = ({ navigation }) => {
-  console.log("user:", authStore.user);
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>

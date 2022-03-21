@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Input from "../components/Input";
 import MntBtnPrimary from "../components/MntBtnPrimary";
 import React from "react";
@@ -14,6 +14,7 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <SafeAreaView />
       <Text>Login</Text>
       <Input
         placeholder="Email"
@@ -21,6 +22,7 @@ const Login = ({ navigation }) => {
       />
       <Input
         placeholder="Password"
+        secureTextEntry={true}
         onChangeText={(password) => setUser({ ...user, password })}
       />
       <MntBtnPrimary text="Sign In" onPress={handleSignin} />

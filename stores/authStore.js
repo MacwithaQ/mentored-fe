@@ -33,7 +33,9 @@ class AuthStore {
       await this.setUser(token);
       console.log(token);
       navigation.navigate("Home");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //! To be implemented when sign-out button is complete - alqallaf
