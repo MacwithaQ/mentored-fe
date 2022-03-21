@@ -26,24 +26,23 @@ class AuthStore {
   };
 
   //! To be implemented when sign-in page is complete - alqallaf
-  //   signin = async (userData, navigation) => {
-  //     try {
-  //       const res = await instance.post("/users/signin", userData);
-  //       const { token } = res.data;
-  //       await this.setUser(token);
-  //       console.log(this.user._id);
-  //       profileStore.fetchSingleProfile(this.user._id);
-  //       navigation.navigate("Trip List");
-  //     } catch (error) {
-
-  //     }
-  //   };
+  signin = async (userData, navigation) => {
+    try {
+      const res = await instance.post("/users/signin", userData);
+      const { token } = res.data;
+      await this.setUser(token);
+      console.log(token);
+      navigation.navigate("Home");
+    } catch (error) {}
+  };
 
   //! To be implemented when sign-out button is complete - alqallaf
   signout = async () => {
     try {
       await AsyncStorage.removeItem("token");
       this.user = null;
+      console.log("Here");
+      console.log(this.user);
     } catch (error) {
       console.log(error);
     }

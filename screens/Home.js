@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import Logo from "../assets/Logo.svg";
 import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 
-export default function Home({ navigation }) {
+const Home = ({ navigation }) => {
   console.log("user:", authStore.user);
   return (
     <View style={styles.container}>
@@ -50,8 +51,8 @@ export default function Home({ navigation }) {
       </VStack>
     </View>
   );
-}
-
+};
+export default observer(Home);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
