@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { HStack, VStack } from "native-base";
+import { HStack, VStack, ScrollView, Hidden } from "native-base";
 import {
   Image,
   Pressable,
@@ -8,9 +8,11 @@ import {
   Text,
   View,
 } from "react-native";
+import MentorListCardLg from "../components/MentorListCardLg";
 import Logo from "../assets/Logo.svg";
 import authStore from "../stores/authStore";
 import { observer } from "mobx-react";
+import MentorListCardSm from "../components/MentorListCardSm";
 
 const Home = ({ navigation }) => {
   console.log("user:", authStore.user);
@@ -47,7 +49,22 @@ const Home = ({ navigation }) => {
         </HStack>
       </VStack>
       <VStack style={styles.body}>
-        <Text>Home</Text>
+        <Text style={{ fontWeight: "bold", fontSize: "20rem" }}>
+          Mentors For You
+        </Text>
+        <ScrollView horizontal={true}>
+          <HStack>
+            <MentorListCardLg />
+          </HStack>
+        </ScrollView>
+        <Text style={{ fontWeight: "bold", fontSize: "20rem", margin: 5 }}>
+          Major Name
+        </Text>
+        <ScrollView horizontal={true}>
+          <HStack>
+            <MentorListCardSm />
+          </HStack>
+        </ScrollView>
       </VStack>
     </View>
   );
@@ -72,7 +89,23 @@ const styles = StyleSheet.create({
   headerLogoImg: { width: 40, height: 40 },
   headerLogoText: { marginLeft: 5, fontWeight: "bold", fontSize: 20 },
   headerProfileImg: { width: 50, height: 50, borderRadius: 50 },
+  cardImg: {
+    width: 75,
+    height: 75,
+    margin: 5,
+    borderRadius: 15,
+  },
   body: {
     padding: 12,
+  },
+  mentorCard: {
+    alignItems: "flex-start",
+    margin: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    height: 95,
+    width: 250,
+    borderRadius: 20,
+    padding: 5,
   },
 });
