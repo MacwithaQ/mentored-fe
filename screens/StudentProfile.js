@@ -15,7 +15,7 @@ import NotUserPage from "../components/NotUserPage";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 
-const MentorProfile = ({ profile, setProfile }) => {
+const StudentProfile = ({ profile, setProfile }) => {
   const navigation = useNavigation();
   const [info, setInfo] = useState(true);
   const handleInfo = () => setInfo(true);
@@ -31,7 +31,7 @@ const MentorProfile = ({ profile, setProfile }) => {
           color="black"
           style={{ alignSelf: "flex-end", marginRight: 12, color: "#57A0D7" }}
           onPress={() =>
-            navigation.navigate("MentorProfileUpdate", { profile, setProfile })
+            navigation.navigate("StudentProfileUpdate", { profile, setProfile })
           }
         />
         <Image
@@ -66,23 +66,35 @@ const MyInfo = ({ profile }) => {
     <VStack>
       <VStack>
         <VStack>
-          <Text>Major:</Text>
-          <Text>{profile.major}</Text>
+          <Text>Age:</Text>
+          {/* <Text>{profile.major}</Text> */}
         </VStack>
         <VStack>
-          <Text>Employer:</Text>
-          <Text>{profile.employer}</Text>
+          <Text>EducationLevel:</Text>
+          {/* <Text>{profile.employer}</Text> */}
         </VStack>
         <VStack>
-          <Text>Bio:</Text>
-          <Text>{profile.bio}</Text>
+          <Text>Balance:</Text>
+          {/* <Text>{profile.bio}</Text> */}
+        </VStack>
+        <VStack>
+          <Text>Phone:</Text>
+          {/* <Text>{profile.bio}</Text> */}
+        </VStack>
+        <VStack>
+          <Text>guardian:</Text>
+          {/* <Text>{profile.bio}</Text> */}
+        </VStack>
+        <VStack>
+          <Text>guardian Phone:</Text>
+          {/* <Text>{profile.bio}</Text> */}
         </VStack>
       </VStack>
     </VStack>
   );
 };
 
-export default observer(MentorProfile);
+export default observer(StudentProfile);
 
 const styles = StyleSheet.create({
   container: {
