@@ -6,6 +6,7 @@ import TabNavigator from "./TabNavigation";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../../screens/Login";
+import MentorProfileUpdate from "../../screens/MentorProfileUpdate";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const RootNavigator = () => {
@@ -22,6 +23,11 @@ const RootNavigator = () => {
         options={{ headerShown: false }}
       />
       <Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Screen
+        name="MentorProfileUpdate"
+        component={MentorProfileUpdate}
+        options={{ headerShown: false }}
+      />
     </Navigator>
   );
 };

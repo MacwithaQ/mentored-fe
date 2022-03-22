@@ -7,6 +7,7 @@ const Input = ({
   onChangeText,
   keyboardType,
   secureTextEntry,
+  defaultValue,
 }) => {
   return (
     <TextInput
@@ -15,6 +16,7 @@ const Input = ({
       autoCorrect={false}
       placeholder={placeholder}
       value={value}
+      defaultValue={defaultValue}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       onChangeText={onChangeText}

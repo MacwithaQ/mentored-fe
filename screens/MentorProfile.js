@@ -11,12 +11,13 @@ import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import { Ionicons } from "@expo/vector-icons";
+
 import Loader from "../components/Loader";
 import MessagesNavigator from "../components/navigation/MessagesNavigator";
 import NotUserPage from "../components/NotUserPage";
 import { observer } from "mobx-react";
 
-const Profile = ({ navigation }) => {
+const MentorProfile = ({ navigation }) => {
   let user = authStore.user || null;
   const [info, setInfo] = useState(true);
   const [profile, setProfile] = useState(null);
@@ -44,7 +45,9 @@ const Profile = ({ navigation }) => {
           size={24}
           color="black"
           style={{ alignSelf: "flex-end", marginRight: 12, color: "#57A0D7" }}
-          onPress={() => {}}
+          onPress={() =>
+            navigation.navigate("MentorProfileUpdate", { profile, setProfile })
+          }
         />
         <Image
           source={{
@@ -94,7 +97,7 @@ const MyInfo = ({ profile }) => {
   );
 };
 
-export default observer(Profile);
+export default observer(MentorProfile);
 
 const styles = StyleSheet.create({
   container: {
