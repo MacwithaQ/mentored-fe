@@ -6,14 +6,14 @@ import MntBtnPrimary from "../components/MntBtnPrimary";
 import MntBtnSecondary from "../components/MntBtnSecondary";
 import mentorStore from "../stores/mentorStore";
 
-const ProfileUpdate = ({ navigation, route }) => {
+const MentorProfileUpdate = ({ navigation, route }) => {
   const [updatedMentor, setUpdatedMentor] = useState(route.params.profile);
   //   const { profile } = route.params;
   console.log("update mentor", updatedMentor);
   const handleSubmit = async () => {
     await mentorStore.updateMentor(updatedMentor, updatedMentor._id);
     route.params.setProfile(updatedMentor);
-    navigation.navigate("Profile");
+    navigation.navigate("MentorProfile");
   };
   return (
     <VStack style={styles.container}>
@@ -53,16 +53,25 @@ const ProfileUpdate = ({ navigation, route }) => {
           }
         />
       </VStack>
+      <VStack>
+        <Input
+          placeholder={"Bio"}
+          defaultValue={updatedMentor.bio}
+          onChangeText={(value) =>
+            setUpdatedMentor({ ...updatedMentor, bio: value })
+          }
+        />
+      </VStack>
       <MntBtnPrimary text="Submit" onPress={handleSubmit} />
       <MntBtnSecondary
         text="Cancel"
-        onPress={() => navigation.navigate("Profile")}
+        onPress={() => navigation.navigate("MentorProfile")}
       />
     </VStack>
   );
 };
 
-export default ProfileUpdate;
+export default MentorProfileUpdate;
 
 const styles = StyleSheet.create({
   container: {

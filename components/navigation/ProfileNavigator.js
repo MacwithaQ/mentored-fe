@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-import Profile from "../../screens/Profile";
+import MentorProfile from "../../screens/MentorProfile";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -9,10 +9,10 @@ const { Navigator, Screen } = createNativeStackNavigator();
 const ProfileNavigator = () => {
   return (
     <Navigator
-      initialRouteName="Profile"
+      initialRouteName="MentorProfile"
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
-      <Screen component={Profile} name="Profile" />
+      <Screen component={MentorProfile} name="MentorProfile" />
     </Navigator>
   );
 };
