@@ -455,6 +455,7 @@ const styles = StyleSheet.create({
     margin: 0,
     backgroundColor: "#F5F4F9",
     // padding: 12,
+    marginTop: 30,
   },
   link: {
     color: "#57A0D7",
