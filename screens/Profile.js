@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
+import { Ionicons } from "@expo/vector-icons";
 
 const Profile = () => {
   const [user, setUser] = useState(authStore.user);
@@ -19,6 +20,7 @@ const Profile = () => {
       ? mentorStore.mentors.find((mentor) => mentor.user._id === user._id)
       : null
   );
+  console.log(profile);
 
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
@@ -26,6 +28,13 @@ const Profile = () => {
     <View style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
+        <Ionicons
+          name="create-outline"
+          size={24}
+          color="black"
+          style={{ alignSelf: "flex-end", marginRight: 12, color: "#57A0D7" }}
+          onPress={() => {}}
+        />
         <Image
           source={{
             uri: profile.image
@@ -35,7 +44,7 @@ const Profile = () => {
           style={styles.headerProfileImg}
         />
         <Text style={styles.headerName}>
-          {user.firstName} {user.lastName}
+          {profile.firstName} {profile.lastName}
         </Text>
       </VStack>
       <HStack>
