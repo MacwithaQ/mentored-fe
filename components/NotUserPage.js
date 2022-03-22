@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Loader = () => {
+const NotUserPage = () => {
   return (
     <View>
-      <Text>Loader</Text>
+      <Text>NotUserPage</Text>
     </View>
   );
 };
 
-export default Loader;
+export default NotUserPage;
 
 const styles = StyleSheet.create({});

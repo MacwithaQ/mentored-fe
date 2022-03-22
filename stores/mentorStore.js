@@ -7,11 +7,13 @@ class MentorStore {
   }
 
   mentors = [];
+  loading = true;
 
   fetchMentors = async () => {
     try {
       const response = await instance.get("/mentors");
       this.mentors = response.data;
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }
