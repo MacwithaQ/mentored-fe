@@ -2,6 +2,7 @@ import decode from "jwt-decode";
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import mentorStore from "./mentorStore";
 
 class AuthStore {
   user = null;
@@ -14,6 +15,13 @@ class AuthStore {
       const res = await instance.post("/users/signup", userData);
       const { token } = res.data;
       this.setUser(token);
+      await mentorStore.fetchMentors();
+      // mentorStore.mentors.push({
+      //   firstName: userData.firstName,
+      //   lastName: userData.lastName,
+      //   major: userData.major,
+      //   employer: userData.employer,
+      // });
       navigation.navigate("App");
     } catch (error) {
       console.log(error);
@@ -26,6 +34,7 @@ class AuthStore {
       const res = await instance.post("/users/signin", userData);
       const { token } = res.data;
       this.setUser(token);
+      mentorStore.fetchMentors();
       navigation.navigate("Home");
     } catch (error) {
       console.log(error);

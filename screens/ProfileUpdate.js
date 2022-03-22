@@ -19,7 +19,8 @@ const ProfileUpdate = ({ navigation, route }) => {
     <VStack style={styles.container}>
       <VStack>
         <Input
-          placeholder={"First name"}
+          placeholder={"First Name"}
+          defaultValue={updatedMentor.firstName}
           onChangeText={(value) =>
             setUpdatedMentor({ ...updatedMentor, firstName: value })
           }
@@ -27,7 +28,8 @@ const ProfileUpdate = ({ navigation, route }) => {
       </VStack>
       <VStack>
         <Input
-          placeholder={"Last name"}
+          placeholder={"Last Name"}
+          defaultValue={updatedMentor.lastName}
           onChangeText={(value) =>
             setUpdatedMentor({ ...updatedMentor, lastName: value })
           }
@@ -36,6 +38,7 @@ const ProfileUpdate = ({ navigation, route }) => {
       <VStack>
         <Input
           placeholder={"Major"}
+          defaultValue={updatedMentor.major}
           onChangeText={(value) =>
             setUpdatedMentor({ ...updatedMentor, major: value })
           }
@@ -44,6 +47,7 @@ const ProfileUpdate = ({ navigation, route }) => {
       <VStack>
         <Input
           placeholder={"Employer"}
+          defaultValue={updatedMentor.employer}
           onChangeText={(value) =>
             setUpdatedMentor({ ...updatedMentor, employer: value })
           }
