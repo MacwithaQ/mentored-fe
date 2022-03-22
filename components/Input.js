@@ -20,8 +20,9 @@ const Input = ({
       onChangeText={onChangeText}
       style={{
         backgroundColor: "#F5F4F9",
-        padding: 10,
-        marginBottom: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        marginVertical: 5,
         borderRadius: 100,
       }}
     />
