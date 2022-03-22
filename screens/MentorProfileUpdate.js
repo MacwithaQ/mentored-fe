@@ -13,7 +13,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   const handleSubmit = async () => {
     await mentorStore.updateMentor(updatedMentor, updatedMentor._id);
     route.params.setProfile(updatedMentor);
-    navigation.navigate("MentorProfile");
+    navigation.navigate("Profile");
   };
   return (
     <VStack style={styles.container}>
@@ -83,14 +83,4 @@ const styles = StyleSheet.create({
     // padding: 12,
     marginTop: 50,
   },
-
-  //   input: {
-  //     height: 40,
-  //     width: 300,
-  //     borderWidth: 1,
-  //     borderRadius: 5,
-  //     padding: 10,
-  //     margin: 12,
-  //   },
-  title: {},
 });
