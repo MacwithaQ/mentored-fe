@@ -11,6 +11,8 @@ import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import { Ionicons } from "@expo/vector-icons";
+
+
 import Loader from "../components/Loader";
 import MessagesNavigator from "../components/navigation/MessagesNavigator";
 import NotUserPage from "../components/NotUserPage";
@@ -28,6 +30,7 @@ const Profile = ({ navigation }) => {
     }
   }, [user]);
 
+
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
 
@@ -44,7 +47,9 @@ const Profile = ({ navigation }) => {
           size={24}
           color="black"
           style={{ alignSelf: "flex-end", marginRight: 12, color: "#57A0D7" }}
-          onPress={() => {}}
+          onPress={() =>
+            navigation.navigate("ProfileUpdate", { profile, setProfile })
+          }
         />
         <Image
           source={{
