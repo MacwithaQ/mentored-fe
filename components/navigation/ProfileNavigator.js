@@ -4,15 +4,28 @@ import React from "react";
 import MentorProfile from "../../screens/MentorProfile";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Profile from "../../screens/Profile";
+import MentorProfileUpdate from "../../screens/MentorProfileUpdate";
+import StudentProfileUpdate from "../../screens/StudentProfileUpdate";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const ProfileNavigator = () => {
   return (
     <Navigator
-      initialRouteName="MentorProfile"
+      initialRouteName="Profile"
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
-      <Screen component={MentorProfile} name="MentorProfile" />
+      <Screen component={Profile} name="Profile" />
+      <Screen
+        name="MentorProfileUpdate"
+        component={MentorProfileUpdate}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="StudentProfileUpdate"
+        component={StudentProfileUpdate}
+        options={{ headerShown: false }}
+      />
     </Navigator>
   );
 };

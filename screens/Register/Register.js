@@ -21,8 +21,11 @@ import StepMentor from "./StepMentor";
 import StepStudentOne from "./StepStudentOne";
 
 const Register = ({ navigation }) => {
+  // authStore.user && navigation.navigate("Home");
+
   const [step, setStep] = useState(1);
   const [user, setUser] = useState(null);
+  console.log(user);
 
   const handleRegister = () => {
     authStore.signup(user, navigation);
