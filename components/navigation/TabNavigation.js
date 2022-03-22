@@ -1,4 +1,3 @@
-import Register from "../../screens/Register";
 import HomeNavigator from "./HomeNavigator";
 import SearchNavigator from "./SearchNavigator";
 

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet } from "react-native";
 import React from "react";
 
-import Register from "../../screens/Register";
+import Register from "../../screens/Register/Register";
 import TabNavigator from "./TabNavigation";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
