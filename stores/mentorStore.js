@@ -27,6 +27,7 @@ class MentorStore {
         // image: updatedMentor.image,
         major: updatedMentor.major,
         employer: updatedMentor.employer,
+        bio: updatedMentor.bio,
       };
       const response = await instance.put(`/mentors/${id}`, newMentor);
       if (response) {
