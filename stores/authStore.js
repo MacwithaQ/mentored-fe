@@ -11,13 +11,8 @@ class AuthStore {
 
   signup = async (userData, navigation) => {
     try {
-      console.log(userData);
       const res = await instance.post("/users/signup", userData);
       const { token } = res.data;
-      console.log(token);
-      this.user = decode(token);
-      console.log(this.user);
-      await AsyncStorage.setItem("token", token);
       this.setUser(token);
       navigation.navigate("App");
     } catch (error) {
@@ -30,8 +25,7 @@ class AuthStore {
     try {
       const res = await instance.post("/users/signin", userData);
       const { token } = res.data;
-      await this.setUser(token);
-      console.log(token);
+      this.setUser(token);
       navigation.navigate("Home");
     } catch (error) {
       console.log(error);
@@ -43,8 +37,6 @@ class AuthStore {
     try {
       await AsyncStorage.removeItem("token");
       this.user = null;
-      console.log("Here");
-      console.log(this.user);
     } catch (error) {
       console.log(error);
     }

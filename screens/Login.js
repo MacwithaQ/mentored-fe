@@ -49,16 +49,15 @@ const Login = ({ navigation }) => {
       >
         <Input
           placeholder="Email"
-          secureTextEntry={true}
           onChangeText={(username) => setUser({ ...user, username })}
         />
         <Input
           placeholder="Password"
           secureTextEntry={true}
-          onChangeText={(Password) => setUser({ ...user, Password })}
+          onChangeText={(password) => setUser({ ...user, password })}
         />
         <VStack>
-          <MntBtnPrimary text="Login" onPress={() => {}} />
+          <MntBtnPrimary text="Login" onPress={handleSignin} />
         </VStack>
 
         <HStack

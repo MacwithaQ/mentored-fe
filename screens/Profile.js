@@ -6,25 +6,38 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import { Ionicons } from "@expo/vector-icons";
+
+
+import Loader from "../components/Loader";
+import MessagesNavigator from "../components/navigation/MessagesNavigator";
+import NotUserPage from "../components/NotUserPage";
 import { observer } from "mobx-react";
 
 const Profile = ({ navigation }) => {
-  const [user, setUser] = useState(authStore.user);
+  let user = authStore.user || null;
   const [info, setInfo] = useState(true);
-  const [profile, setProfile] = useState(
-    user.isMentor
-      ? mentorStore.mentors.find((mentor) => mentor.user._id === user._id)
-      : null
-  );
-  console.log("profile", profile);
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    if (user != null) {
+      setProfile(
+        mentorStore.mentors.find((mentor) => mentor.user._id === user._id)
+      );
+    }
+  }, [user]);
+
 
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
+
+  if (user == null) return <NotUserPage />;
+  if (profile == null) {
+    return <Loader />;
+  }
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
