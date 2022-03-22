@@ -23,14 +23,16 @@ class StudentStore {
         firstName: updatedStudent.firstName,
         lastName: updatedStudent.lastName,
         // image: updatedStudent.image,
-        major: updatedStudent.major,
-        employer: updatedStudent.employer,
-        bio: updatedStudent.bio,
+        age: updatedStudent.age,
+        educationLevel: updatedStudent.educationLevel,
+        phone: updatedStudent.phone,
+        guardian: updatedStudent.guardian,
+        // bio: updatedStudent.bio,
       };
       const response = await instance.put(`/students/${id}`, newStudent);
       if (response) {
         this.students = this.students.map((student) => {
-          return student._id === id ? updateStudent : student;
+          return student._id === id ? updatedStudent : student;
         });
       }
     } catch (error) {

@@ -1,8 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-
-import MentorProfile from "../../screens/MentorProfile";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "../../screens/Profile";
 import MentorProfileUpdate from "../../screens/MentorProfileUpdate";

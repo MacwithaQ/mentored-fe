@@ -1,20 +1,19 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { Button, HStack, VStack } from "native-base";
+import { VStack } from "native-base";
 import Input from "../components/Input";
 import MntBtnPrimary from "../components/MntBtnPrimary";
 import MntBtnSecondary from "../components/MntBtnSecondary";
-import mentorStore from "../stores/mentorStore";
 import studentStore from "../stores/studentStore";
 
 const StudentProfileUpdate = ({ navigation, route }) => {
   const [updatedStudent, setUpdatedStudent] = useState(route.params.profile);
   //   const { profile } = route.params;
-  console.log("update mentor", updatedStudent);
+  console.log("update student", updatedStudent);
   const handleSubmit = async () => {
     await studentStore.updateStudent(updatedStudent, updatedStudent._id);
     route.params.setProfile(updatedStudent);
-    navigation.navigate("StudentProfileUpdate");
+    navigation.navigate("Profile");
   };
   return (
     <VStack style={styles.container}>
@@ -39,7 +38,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
       <VStack>
         <Input
           placeholder={"Age"}
-          defaultValue={updatedStudent.age}
+          // defaultValue={updatedStudent.age} give error because default only take string.
           onChangeText={(value) =>
             setUpdatedStudent({ ...updatedStudent, age: value })
           }
@@ -84,14 +83,4 @@ const styles = StyleSheet.create({
     // padding: 12,
     marginTop: 50,
   },
-
-  //   input: {
-  //     height: 40,
-  //     width: 300,
-  //     borderWidth: 1,
-  //     borderRadius: 5,
-  //     padding: 10,
-  //     margin: 12,
-  //   },
-  title: {},
 });
