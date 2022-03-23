@@ -28,11 +28,12 @@ const Search = () => {
     )
     .filter((mentor) => mentor.major.includes(active))
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
-
-  const majorButtonsList = mentorStore.mentors.map((mentor) => (
+  let majors = mentorStore.mentors.map((mentor) => mentor.major);
+  let uniqueMajors = [...new Set(majors)];
+  const majorButtonsList = uniqueMajors.map((major) => (
     <MentorSearchBtn
-      major={mentor.major}
-      isActive={active === mentor.major}
+      major={major}
+      isActive={active === major }
       active={active}
       setActive={setActive}
     />

@@ -72,7 +72,7 @@ class AuthStore {
         if (Date.now() < +decodedToken.exp) {
           await this.setUser(token);
         } else {
-          this.signOut();
+          this.signout();
         }
       }
     } catch (error) {

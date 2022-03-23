@@ -26,10 +26,8 @@ const StepMentor = ({ step, setStep, setUser, user, handleRegister }) => {
         }}
       />
       <Input
-        placeholder="Facility"
-        onChangeText={(employer) => {
-          setUser({ ...user, employer });
-        }}
+        placeholder="Employer"
+        onChangeText={(employer) => setUser({ ...user, employer })}
       />
       <VStack>
         <MntBtnPrimary text="Register" onPress={handleRegister} />
