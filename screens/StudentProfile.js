@@ -77,11 +77,11 @@ const MyInfo = ({ profile }) => {
       <VStack>
         <VStack>
           <Text>Age:</Text>
-          {/* <Text>{profile.age}</Text> */}
+          <Text>{profile.age}</Text>
         </VStack>
         <VStack>
           <Text>EducationLevel:</Text>
-          {/* <Text>{profile.educationLevel}</Text> */}
+          <Text>{profile.educationLevel}</Text>
         </VStack>
         <VStack>
           <Text>Balance:</Text>
@@ -89,15 +89,15 @@ const MyInfo = ({ profile }) => {
         </VStack>
         <VStack>
           <Text>Phone:</Text>
-          {/* <Text>{profile.phone}</Text> */}
+          <Text>{profile.phone}</Text>
         </VStack>
         <VStack>
           <Text>Guardian:</Text>
-          {/* <Text>{profile.guardian}</Text> */}
+          <Text>{profile.guardian}</Text>
         </VStack>
         <VStack>
           <Text>Guardian Phone:</Text>
-          {/* <Text>{profile.gPhone}</Text> */}
+          <Text>{profile.gPhone}</Text>
         </VStack>
       </VStack>
     </VStack>
