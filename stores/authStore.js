@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import mentorStore from "./mentorStore";
-
+import { Toast } from "native-base";
 class AuthStore {
   user = null;
   constructor() {
@@ -37,6 +37,10 @@ class AuthStore {
       mentorStore.fetchMentors();
       navigation.navigate("Home");
     } catch (error) {
+      Toast.show({
+        title: "Invalid Email or Password Combination",
+        placement: "top",
+      });
       console.log(error);
     }
   };

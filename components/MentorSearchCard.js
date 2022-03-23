@@ -15,7 +15,7 @@ const MentorSearchCard = ({ mentor }) => {
       <HStack style={{ alignSelf: "center" }}>
         <VStack>
           <Text style={{ fontWeight: "bold" }}>
-            {`${mentor.firstName} ${mentor.firstName}`}
+            {`${mentor.firstName} ${mentor.lastName}`}
           </Text>
           <Text style={{ color: "#BDBDBD" }}>{`${mentor.major}`}</Text>
           <Text style={{ color: "#BDBDBD" }}>{`${mentor.employer}`}</Text>
