@@ -11,8 +11,9 @@ import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
+import MentorMyInfo from "./MentorMyInfo";
 
-const MentorProfile = ({ profile, setProfile }) => {
+const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
   //* declare nav :
   const navigation = useNavigation();
 
@@ -42,9 +43,9 @@ const MentorProfile = ({ profile, setProfile }) => {
         {/* Show profile img + firstName  - lastName: */}
         <Image
           source={{
-            uri: profile.image
-              ? profile.image
-              : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            uri:
+              profile.image ||
+              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
         />
@@ -64,32 +65,17 @@ const MentorProfile = ({ profile, setProfile }) => {
           </Text>
         </Pressable>
       </HStack>
-      {info ? <MyInfo profile={profile} /> : <Text>My Meetings</Text>}
+      <VStack style={{ padding: 12 }}>
+        {info ? <MentorMyInfo profile={profile} /> : <Text>My Meetings</Text>}
+        <Text style={{ marginVertical: 10, fontSize: 18, fontWeight: "bold" }}>
+          Reviews ({stars})
+        </Text>
+      </VStack>
     </View>
   );
 };
 
 //* info in the box below the img:
-const MyInfo = ({ profile }) => {
-  return (
-    <VStack>
-      <VStack>
-        <VStack>
-          <Text>Major:</Text>
-          <Text>{profile.major}</Text>
-        </VStack>
-        <VStack>
-          <Text>Employer:</Text>
-          <Text>{profile.employer}</Text>
-        </VStack>
-        <VStack>
-          <Text>Bio:</Text>
-          <Text>{profile.bio}</Text>
-        </VStack>
-      </VStack>
-    </VStack>
-  );
-};
 
 export default observer(MentorProfile);
 

@@ -11,6 +11,7 @@ import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
+import StudentMtInfo from "./StudentMtInfo";
 
 const StudentProfile = ({ profile, setProfile }) => {
   //* declare nav :
@@ -42,9 +43,9 @@ const StudentProfile = ({ profile, setProfile }) => {
         {/* Show profile img + firstName  - lastName: */}
         <Image
           source={{
-            uri: profile.image
-              ? profile.image
-              : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            uri:
+              profile.image ||
+              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
         />
@@ -65,44 +66,14 @@ const StudentProfile = ({ profile, setProfile }) => {
           </Text>
         </Pressable>
       </HStack>
-      {info ? <MyInfo profile={profile} /> : <Text>My Meetings</Text>}
+      <VStack style={{ padding: 12 }}>
+        {info ? <StudentMtInfo profile={profile} /> : <Text>My Meetings</Text>}
+      </VStack>
     </View>
   );
 };
 
 //* info in the box below the img:
-const MyInfo = ({ profile }) => {
-  return (
-    <VStack>
-      <VStack>
-        <VStack>
-          <Text>Age:</Text>
-          <Text>{profile.age}</Text>
-        </VStack>
-        <VStack>
-          <Text>EducationLevel:</Text>
-          <Text>{profile.educationLevel}</Text>
-        </VStack>
-        <VStack>
-          <Text>Balance:</Text>
-          {/* <Text>{profile.balance}</Text> */}
-        </VStack>
-        <VStack>
-          <Text>Phone:</Text>
-          <Text>{profile.phone}</Text>
-        </VStack>
-        <VStack>
-          <Text>Guardian:</Text>
-          <Text>{profile.guardian}</Text>
-        </VStack>
-        <VStack>
-          <Text>Guardian Phone:</Text>
-          <Text>{profile.gPhone}</Text>
-        </VStack>
-      </VStack>
-    </VStack>
-  );
-};
 
 export default observer(StudentProfile);
 

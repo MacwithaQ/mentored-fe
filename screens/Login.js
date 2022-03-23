@@ -67,7 +67,7 @@ const Login = ({ navigation }) => {
         />
         {/* LOGIN BUTTON: */}
         <VStack>
-          <MntBtnPrimary text="Login" onPress={handleSignin} />
+          <MntBtnPrimary onPress={handleSignin}>Login</MntBtnPrimary>
         </VStack>
 
         <HStack

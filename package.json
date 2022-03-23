@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@motify/components": "^0.17.1",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "2.2.1",
@@ -36,12 +37,12 @@
     "react-native-calendar-picker": "^7.1.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-numeric-input": "^1.9.1",
-    "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-svg": "12.1.1",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-native-reanimated": "~2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

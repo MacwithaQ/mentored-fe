@@ -20,17 +20,18 @@ const Home = ({ navigation }) => {
     <View style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
-        {/*  Img & logo img & text: */}
         <HStack style={styles.headerWrapper}>
+          {/*  Navbar >>> */}
           <HStack style={styles.headerLogo}>
             <Logo style={styles.headerLogoImg} />
             <Text style={styles.headerLogoText}>Mentored</Text>
           </HStack>
+          {/*  <<< Navbar */}
 
           {/*  show the button & img if their is user signin: */}
           {authStore.user ? (
             // <Text>{authStore.user.firstName}</Text>
-            <Pressable onPress={() => authStore.signout()}>
+            <Pressable onPress={authStore.signout}>
               <Image
                 source={{
                   uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
@@ -74,7 +75,9 @@ const Home = ({ navigation }) => {
     </View>
   );
 };
+
 export default observer(Home);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

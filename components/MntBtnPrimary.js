@@ -2,12 +2,12 @@ import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { Button } from "native-base";
 
-const MntBtnPrimary = ({ text, onPress }) => {
+const MntBtnPrimary = ({ children, text, onPress, ...props }) => {
   return (
     <Button
+      {...props}
       style={{
         width: "100%",
-        // flex: 1,
         borderRadius: 100,
         backgroundColor: "#57A0D7",
         padding: 12,
@@ -15,7 +15,7 @@ const MntBtnPrimary = ({ text, onPress }) => {
       }}
       onPress={onPress}
     >
-      <Text style={{ color: "#fff", fontSize: 16 }}>{text}</Text>
+      <Text style={{ color: "#fff", fontSize: 16 }}>{children ?? text}</Text>
     </Button>
   );
 };

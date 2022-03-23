@@ -2,11 +2,11 @@ import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { VStack } from "native-base";
 //* Customized tags components:
-import Input from "../components/Input";
-import MntBtnPrimary from "../components/MntBtnPrimary";
-import MntBtnSecondary from "../components/MntBtnSecondary";
+import Input from "../../components/Input";
+import MntBtnPrimary from "../../components/MntBtnPrimary";
+import MntBtnSecondary from "../../components/MntBtnSecondary";
 //* Stores:
-import mentorStore from "../stores/mentorStore";
+import mentorStore from "../../stores/mentorStore";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //* State to take the profile already created from the params:

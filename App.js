@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./components/navigation";
+import "react-native-reanimated";
 
 export default function App() {
   return (
@@ -12,12 +12,3 @@ export default function App() {
     </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

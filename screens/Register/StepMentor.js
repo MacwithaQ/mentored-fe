@@ -21,7 +21,9 @@ const StepMentor = ({ step, setStep, setUser, user, handleRegister }) => {
     >
       <Input
         placeholder="Major"
-        onChangeText={(major) => setUser({ ...user, major })}
+        onChangeText={(major) => {
+          setUser({ ...user, major });
+        }}
       />
       <Input
         placeholder="Employer"
@@ -29,7 +31,12 @@ const StepMentor = ({ step, setStep, setUser, user, handleRegister }) => {
       />
       <VStack>
         <MntBtnPrimary text="Register" onPress={handleRegister} />
-        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+        <MntBtnSecondary
+          text="Back"
+          onPress={() => {
+            setStep(step - 1);
+          }}
+        />
       </VStack>
     </VStack>
   );

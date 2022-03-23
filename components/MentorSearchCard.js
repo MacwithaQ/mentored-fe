@@ -17,8 +17,8 @@ const MentorSearchCard = ({ mentor }) => {
           <Text style={{ fontWeight: "bold" }}>
             {`${mentor.firstName} ${mentor.lastName}`}
           </Text>
-          <Text style={{ color: "#BDBDBD" }}>{`${mentor.major}`}</Text>
-          <Text style={{ color: "#BDBDBD" }}>{`${mentor.employer}`}</Text>
+          <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
+          <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
         </VStack>
       </HStack>
     </HStack>
