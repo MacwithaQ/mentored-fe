@@ -14,7 +14,7 @@ const MentorMyInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Major:</Text>
+          <Text style={{ fontSize: 16 }}>Major:</Text>
           <Text style={{ color: "#828282" }}>{profile.major}</Text>
         </VStack>
       </HStack>
@@ -26,7 +26,7 @@ const MentorMyInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Employer:</Text>
+          <Text style={{ fontSize: 16 }}>Employer:</Text>
           <Text style={{ color: "#828282" }}>{profile.employer}</Text>
         </VStack>
       </HStack>
@@ -38,7 +38,7 @@ const MentorMyInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Bio:</Text>
+          <Text style={{ fontSize: 16 }}>Bio:</Text>
           <Text style={{ color: "#828282" }}>{profile.bio}</Text>
         </VStack>
       </HStack>
@@ -50,7 +50,7 @@ const MentorMyInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Phone:</Text>
+          <Text style={{ fontSize: 16 }}>Phone:</Text>
           <Text style={{ color: "#828282" }}>{profile.phone}</Text>
         </VStack>
       </HStack>
