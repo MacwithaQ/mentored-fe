@@ -1,11 +1,12 @@
-import HomeNavigator from "./HomeNavigator";
-import SearchNavigator from "./SearchNavigator";
-
 import { Ionicons } from "@expo/vector-icons";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+//* Navigators:
+import HomeNavigator from "./HomeNavigator";
 import MessagesNavigator from "./MessagesNavigator";
 import ProfileNavigator from "./ProfileNavigator";
+import SearchNavigator from "./SearchNavigator";
+
+//? import from ^^
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {

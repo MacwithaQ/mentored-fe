@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-
+//*Screen:
 import Home from "../../screens/Home";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+//? import from native-stack^^
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const HomeNavigator = () => {

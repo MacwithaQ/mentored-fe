@@ -28,7 +28,7 @@ class AuthStore {
     }
   };
 
-  //! To be implemented when sign-in page is complete - alqallaf
+  //* To be implemented when sign-in page is complete - alqallaf
   signin = async (userData, navigation) => {
     try {
       const res = await instance.post("/users/signin", userData);
@@ -41,7 +41,7 @@ class AuthStore {
     }
   };
 
-  //! To be implemented when sign-out button is complete - alqallaf
+  //* To be implemented when sign-out button is complete - alqallaf
   signout = async () => {
     try {
       await AsyncStorage.removeItem("token");
@@ -53,8 +53,8 @@ class AuthStore {
 
   setUser = async (token) => {
     try {
-      const decodedtoken = decode(token);
-      this.user = decodedtoken;
+      const decodedToken = decode(token);
+      this.user = decodedToken;
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
       await AsyncStorage.setItem("token", token);
     } catch (error) {}

@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { HStack, VStack, ScrollView, Hidden } from "native-base";
+import { HStack, VStack, ScrollView } from "native-base";
 import {
   Image,
   Pressable,
@@ -8,22 +7,27 @@ import {
   Text,
   View,
 } from "react-native";
-import MentorListCardLg from "../components/MentorListCardLg";
-import Logo from "../assets/Logo.svg";
-import authStore from "../stores/authStore";
 import { observer } from "mobx-react";
+//* Customized tags components & SVG:
+import MentorListCardLg from "../components/MentorListCardLg";
 import MentorListCardSm from "../components/MentorListCardSm";
+import Logo from "../assets/Logo.svg";
+//* Stores:
+import authStore from "../stores/authStore";
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
+        {/*  Img & logo img & text: */}
         <HStack style={styles.headerWrapper}>
           <HStack style={styles.headerLogo}>
             <Logo style={styles.headerLogoImg} />
             <Text style={styles.headerLogoText}>Mentored</Text>
           </HStack>
+
+          {/*  show the button & img if their is user signin: */}
           {authStore.user ? (
             // <Text>{authStore.user.firstName}</Text>
             <Pressable onPress={() => authStore.signout()}>
@@ -36,6 +40,7 @@ const Home = ({ navigation }) => {
             </Pressable>
           ) : (
             <HStack>
+              {/* Else give me two text pressable: */}
               <Pressable onPress={() => navigation.navigate("Login")}>
                 <Text style={{ color: "#57A0D7" }}>Login</Text>
               </Pressable>
@@ -47,6 +52,7 @@ const Home = ({ navigation }) => {
           )}
         </HStack>
       </VStack>
+      {/* Show mentors list : */}
       <VStack style={styles.body}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>
           Mentors For You

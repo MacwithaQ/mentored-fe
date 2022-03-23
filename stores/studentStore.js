@@ -37,7 +37,7 @@ class StudentStore {
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: StudentStore.js ~ line 16 ~ StudentStore ~ updateStudent= ~ error",
+        "🚀 ~ file: StudentStore.js ~ line 40 ~ StudentStore ~ updateStudent= ~ error",
         error
       );
     }
