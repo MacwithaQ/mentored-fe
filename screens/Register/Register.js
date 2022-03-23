@@ -34,7 +34,6 @@ const Register = ({ navigation }) => {
     guardian: "",
     gPhone: "",
   });
-  console.log(user);
 
   const handleRegister = () => {
     if (user.isMentor) {
@@ -94,7 +93,7 @@ const Register = ({ navigation }) => {
   const steps = [
     <StepOne step={step} setStep={setStep} setUser={setUser} user={user} />,
     <StepTwo step={step} setStep={setStep} setUser={setUser} user={user} />,
-    isMetor ? (
+    user.isMentor ? (
       <StepMentor
         step={step}
         setStep={setStep}
@@ -131,7 +130,7 @@ const Register = ({ navigation }) => {
       <VStack flex={1} alignItems="center" justifyContent="center">
         <RegisterSVG width={300} />
       </VStack>
-      {steps[step + 1]}
+      {steps[step - 1]}
     </KeyboardAvoidingView>
   );
 };
