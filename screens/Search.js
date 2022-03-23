@@ -27,9 +27,10 @@ const Search = () => {
           mentor.employer.toLowerCase().includes(query.toLowerCase())) &&
         mentor.major.includes(active)
     )
-    .map((mentor) => <MentorSearchCard mentor={mentor} />);
+    .map((mentor) => <MentorSearchCard key={mentor._id} mentor={mentor} />);
   const majorButtonsList = mentorStore.mentors.map((mentor) => (
     <MentorSearchBtn
+      key={mentor._id}
       major={mentor.major}
       isActive={active === mentor.major ? true : false}
       active={active}

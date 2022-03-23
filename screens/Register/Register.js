@@ -4,7 +4,7 @@ import {
   KeyboardAvoidingView,
   View,
 } from "react-native";
-import { VStack } from "native-base";
+import { Toast, VStack } from "native-base";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 //* from register folder  :
@@ -21,13 +21,74 @@ const Register = ({ navigation }) => {
   //TODO: alkarji don't for get to make if else statement HERE!! authStore.user && navigation.navigate("Home");
 
   const [step, setStep] = useState(1);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    major: "",
+    employer: "",
+    age: "",
+    educationLevel: "",
+    guardian: "",
+    gPhone: "",
+  });
   console.log(user);
 
   const handleRegister = () => {
-    authStore.signup(user, navigation);
-    setUser(null);
-    setStep(1);
+    if (user.isMentor) {
+      if (user.major === "" || user.employer === "") {
+        Toast.show({
+          title: "One of the fields is empty",
+          placement: "top",
+        });
+      } else {
+        authStore.signup(user, navigation);
+        setUser({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          password: "",
+          major: "",
+          employer: "",
+          age: "",
+          educationLevel: "",
+          guardian: "",
+          gPhone: "",
+        });
+        setStep(1);
+      }
+    } else {
+      if (
+        user.age === "" ||
+        user.educationLevel === "" ||
+        user.guardian === "" ||
+        user.gPhone === ""
+      ) {
+        Toast.show({
+          title: "One of the fields is empty",
+          placement: "top",
+        });
+      } else {
+        authStore.signup(user, navigation);
+        setUser({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          password: "",
+          major: "",
+          employer: "",
+          age: "",
+          educationLevel: "",
+          guardian: "",
+          gPhone: "",
+        });
+        setStep(1);
+      }
+    }
   };
 
   return (

@@ -75,6 +75,7 @@ const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
           setUser({ ...user, educationLevel: itemValue });
         }}
       >
+        <Picker.Item label="Select level" />
         {OPTIONS.map((option) => (
           <Picker.Item
             key={option.id}

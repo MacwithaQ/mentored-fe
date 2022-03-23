@@ -24,7 +24,7 @@ const StepMentor = ({ step, setStep, setUser, user, handleRegister }) => {
         onChangeText={(major) => setUser({ ...user, major })}
       />
       <Input
-        placeholder="Facility"
+        placeholder="Employer"
         onChangeText={(employer) => setUser({ ...user, employer })}
       />
       <VStack>
