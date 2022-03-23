@@ -30,7 +30,6 @@ const Search = () => {
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
   let majors = mentorStore.mentors.map((mentor) => mentor.major);
   let uniqueMajors = [...new Set(majors)];
-
   const majorButtonsList = uniqueMajors.map((major) => (
     <MentorSearchBtn
       major={major}
