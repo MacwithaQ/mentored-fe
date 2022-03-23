@@ -84,6 +84,15 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           }
         />
       </VStack>
+      <VStack>
+        <Input
+          placeholder={"Phone"}
+          defaultValue={updatedStudent.phone}
+          onChangeText={(value) =>
+            setUpdatedStudent({ ...updatedStudent, phone: value })
+          }
+        />
+      </VStack>
       <Picker
         style={{
           backgroundColor: "#F5F4F9",
