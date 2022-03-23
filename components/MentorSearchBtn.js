@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { useState } from "react";
 import { observer } from "mobx-react";
 import { Ionicons } from "@expo/vector-icons";
 import { HStack } from "native-base";

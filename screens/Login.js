@@ -6,18 +6,21 @@ import {
   Pressable,
   KeyboardAvoidingView,
 } from "react-native";
-import Input from "../components/Input";
-import MntBtnPrimary from "../components/MntBtnPrimary";
 import { VStack, HStack } from "native-base";
 import { useState } from "react";
-import authStore from "../stores/authStore";
-import login from "../assets/login.svg";
 import { Ionicons } from "@expo/vector-icons";
+//* Customized tags components & SVG:
+import Input from "../components/Input";
+import MntBtnPrimary from "../components/MntBtnPrimary";
 import LoginSVG from "../assets/login.svg";
+//* Stores:
+import authStore from "../stores/authStore";
 
 const Login = ({ navigation }) => {
+  //* To store the user info in it:
   const [user, setUser] = useState(null);
 
+  //* Handler:
   const handleSignin = () => {
     authStore.signin(user, navigation);
   };
@@ -25,6 +28,7 @@ const Login = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <SafeAreaView />
+      {/*  ICON: */}
       <View style={{ padding: 12 }}>
         <Ionicons
           name="close-outline"
@@ -33,6 +37,8 @@ const Login = ({ navigation }) => {
           onPress={() => navigation.navigate("App")}
         />
       </View>
+
+      {/* SVG IMG: */}
       <VStack flex={1} alignItems="center" justifyContent="center">
         <LoginSVG width={300} />
       </VStack>
@@ -47,15 +53,19 @@ const Login = ({ navigation }) => {
           borderTopLeftRadius: 30,
         }}
       >
+        {/* EMAIL: */}
         <Input
           placeholder="Email"
           onChangeText={(username) => setUser({ ...user, username })}
         />
+
+        {/* PASSWORD: */}
         <Input
           placeholder="Password"
           secureTextEntry={true}
           onChangeText={(password) => setUser({ ...user, password })}
         />
+        {/* LOGIN BUTTON: */}
         <VStack>
           <MntBtnPrimary text="Login" onPress={handleSignin} />
         </VStack>
@@ -68,6 +78,7 @@ const Login = ({ navigation }) => {
           }}
         >
           <Text>Dont Have an Account? </Text>
+          {/* REGISTER TEXT */}
           <Pressable
             onPress={() => {
               navigation.navigate("Register");
@@ -89,7 +100,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 0,
     backgroundColor: "#F5F4F9",
-    // padding: 12,
   },
   link: {
     color: "#57A0D7",

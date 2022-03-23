@@ -6,18 +6,20 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import Loader from "../components/Loader";
-import MessagesNavigator from "../components/navigation/MessagesNavigator";
-import NotUserPage from "../components/NotUserPage";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 
 const MentorProfile = ({ profile, setProfile }) => {
+  //* declare nav :
   const navigation = useNavigation();
+
+  //* to change the buttons and Background:
   const [info, setInfo] = useState(true);
+
+  //* handlers (Buttons to change back and forth):
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
 
@@ -25,6 +27,8 @@ const MentorProfile = ({ profile, setProfile }) => {
     <View style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
+
+        {/* EDIT ICON: */}
         <Ionicons
           name="create-outline"
           size={24}
@@ -34,6 +38,8 @@ const MentorProfile = ({ profile, setProfile }) => {
             navigation.navigate("MentorProfileUpdate", { profile, setProfile })
           }
         />
+
+        {/* Show profile img + firstName  - lastName: */}
         <Image
           source={{
             uri: profile.image
@@ -46,6 +52,8 @@ const MentorProfile = ({ profile, setProfile }) => {
           {profile.firstName} {profile.lastName}
         </Text>
       </VStack>
+
+      {/* Show to Buttons(My info - My meeting) to move between them: */}
       <HStack>
         <Pressable onPress={handleInfo} style={styles.switcherItem}>
           <Text style={{ color: info ? "#57A0D7" : "#4F4F4F" }}>My Info</Text>
@@ -61,6 +69,7 @@ const MentorProfile = ({ profile, setProfile }) => {
   );
 };
 
+//* info in the box below the img:
 const MyInfo = ({ profile }) => {
   return (
     <VStack>

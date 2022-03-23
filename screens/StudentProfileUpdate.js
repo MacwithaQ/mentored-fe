@@ -1,20 +1,24 @@
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { VStack } from "native-base";
+//* Customized tags components:
 import Input from "../components/Input";
 import MntBtnPrimary from "../components/MntBtnPrimary";
 import MntBtnSecondary from "../components/MntBtnSecondary";
+//* Stores:
 import studentStore from "../stores/studentStore";
 
 const StudentProfileUpdate = ({ navigation, route }) => {
+  //* State to take the profile already created from the params:
   const [updatedStudent, setUpdatedStudent] = useState(route.params.profile);
-  //   const { profile } = route.params;
-  console.log("update student", updatedStudent);
+
+  // * handler to call update method & navigate:
   const handleSubmit = async () => {
     await studentStore.updateStudent(updatedStudent, updatedStudent._id);
     route.params.setProfile(updatedStudent);
     navigation.navigate("Profile");
   };
+
   return (
     <VStack style={styles.container}>
       <VStack>
@@ -38,13 +42,14 @@ const StudentProfileUpdate = ({ navigation, route }) => {
       <VStack>
         <Input
           placeholder={"Age"}
-          // defaultValue={updatedStudent.age} give error because default only take string.
+          //* defaultValue={updatedStudent.age} give error because default only take string.
           onChangeText={(value) =>
             setUpdatedStudent({ ...updatedStudent, age: value })
           }
         />
       </VStack>
       <VStack>
+        {/* THIS SHOULD BE DROP DOWN!!------------------------------------ */}
         <Input
           placeholder={"educationLevel"}
           defaultValue={updatedStudent.educationLevel}
@@ -78,9 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     margin: 0,
-    // backgroundColor: "blue",
     backgroundColor: "white",
-    // padding: 12,
     marginTop: 50,
   },
 });

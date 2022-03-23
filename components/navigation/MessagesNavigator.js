@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+//* Screen:
 import Messages from "../../screens/Messages";
+//?import from native-stack^^
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const MessagesNavigator = () => {

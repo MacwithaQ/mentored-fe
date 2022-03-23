@@ -35,7 +35,7 @@ class MentorStore {
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: MentorStore.js ~ line 16 ~ MentorStore ~ updateMentor= ~ error",
+        "🚀 ~ file: MentorStore.js ~ line 38 ~ MentorStore ~ updateMentor= ~ error",
         error
       );
     }

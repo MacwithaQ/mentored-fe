@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
+//* Customized tags components :
 import Input from "../../components/Input";
 import MntBtnPrimary from "../../components/MntBtnPrimary";
 

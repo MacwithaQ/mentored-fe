@@ -5,6 +5,7 @@ const Loader = () => {
   return (
     <View>
       <Text>Loader</Text>
+      <Text>COMING SOON...</Text>
     </View>
   );
 };

@@ -1,27 +1,24 @@
 import {
   StyleSheet,
-  Text,
-  Pressable,
   SafeAreaView,
   KeyboardAvoidingView,
   View,
 } from "react-native";
-import { Button, VStack, Stack, HStack } from "native-base";
-import RegisterSVG from "../../assets/register.svg";
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import MntBtnSecondary from "../../components/MntBtnSecondary";
-import Input from "../../components/Input";
-import { useRef, useState } from "react";
+import { VStack } from "native-base";
+import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Picker } from "@react-native-picker/picker";
-import authStore from "../../stores/authStore";
+//* from register folder  :
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
-import StepMentor from "./StepMentor";
 import StepStudentOne from "./StepStudentOne";
+import StepMentor from "./StepMentor";
+//* Customized SVG :
+import RegisterSVG from "../../assets/register.svg";
+//* Stores:
+import authStore from "../../stores/authStore";
 
 const Register = ({ navigation }) => {
-  // authStore.user && navigation.navigate("Home");
+  //TODO: alkarji don't for get to make if else statement HERE!! authStore.user && navigation.navigate("Home");
 
   const [step, setStep] = useState(1);
   const [user, setUser] = useState(null);
@@ -36,6 +33,8 @@ const Register = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <SafeAreaView />
+
+      {/* ICON:  */}
       <View style={{ padding: 12 }}>
         <Ionicons
           name="close-outline"
@@ -44,6 +43,8 @@ const Register = ({ navigation }) => {
           onPress={() => navigation.navigate("App")}
         />
       </View>
+
+      {/* For every step if it's true do the step: */}
       <VStack flex={1} alignItems="center" justifyContent="center">
         <RegisterSVG width={300} />
       </VStack>

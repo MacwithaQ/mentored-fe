@@ -5,6 +5,7 @@ const NotUserPage = () => {
   return (
     <View>
       <Text>NotUserPage</Text>
+      <Text>COMING SOON...</Text>
     </View>
   );
 };
