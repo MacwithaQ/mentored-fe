@@ -7,41 +7,42 @@ import { Picker } from "@react-native-picker/picker";
 import MntBtnPrimary from "../../components/MntBtnPrimary";
 import MntBtnSecondary from "../../components/MntBtnSecondary";
 
+const OPTIONS = [
+  {
+    id: 1,
+    educationLevel: "Grade 9",
+  },
+  {
+    id: 2,
+    educationLevel: "Grade 10",
+  },
+  {
+    id: 3,
+    educationLevel: "Grade 11",
+  },
+  {
+    id: 4,
+    educationLevel: "Grade 12",
+  },
+  {
+    id: 5,
+    educationLevel: "Diploma",
+  },
+  {
+    id: 6,
+    educationLevel: "Bachelor",
+  },
+  {
+    id: 7,
+    educationLevel: "Master",
+  },
+  {
+    id: 8,
+    educationLevel: "PHD",
+  },
+];
+
 const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
-  const OPTIONS = [
-    {
-      id: 1,
-      educationLevel: "Grade 9",
-    },
-    {
-      id: 2,
-      educationLevel: "Grade 10",
-    },
-    {
-      id: 3,
-      educationLevel: "Grade 11",
-    },
-    {
-      id: 4,
-      educationLevel: "Grade 12",
-    },
-    {
-      id: 5,
-      educationLevel: "Deploma",
-    },
-    {
-      id: 6,
-      educationLevel: "Bachelor",
-    },
-    {
-      id: 7,
-      educationLevel: "Master",
-    },
-    {
-      id: 8,
-      educationLevel: "PHD",
-    },
-  ];
   return (
     <VStack
       style={{

@@ -30,6 +30,28 @@ const Register = ({ navigation }) => {
     setStep(1);
   };
 
+  const steps = [
+    <StepOne step={step} setStep={setStep} setUser={setUser} user={user} />,
+    <StepTwo step={step} setStep={setStep} setUser={setUser} user={user} />,
+    isMetor ? (
+      <StepMentor
+        step={step}
+        setStep={setStep}
+        setUser={setUser}
+        user={user}
+        handleRegister={handleRegister}
+      />
+    ) : (
+      <StepStudentOne
+        step={step}
+        setStep={setStep}
+        setUser={setUser}
+        user={user}
+        handleRegister={handleRegister}
+      />
+    ),
+  ];
+
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <SafeAreaView />
@@ -48,30 +70,7 @@ const Register = ({ navigation }) => {
       <VStack flex={1} alignItems="center" justifyContent="center">
         <RegisterSVG width={300} />
       </VStack>
-      {step === 1 && (
-        <StepOne step={step} setStep={setStep} setUser={setUser} user={user} />
-      )}
-      {step === 2 && (
-        <StepTwo step={step} setStep={setStep} setUser={setUser} user={user} />
-      )}
-      {step === 3 && user.isMentor === true && (
-        <StepMentor
-          step={step}
-          setStep={setStep}
-          setUser={setUser}
-          user={user}
-          handleRegister={handleRegister}
-        />
-      )}
-      {step === 3 && user.isMentor === false && (
-        <StepStudentOne
-          step={step}
-          setStep={setStep}
-          setUser={setUser}
-          user={user}
-          handleRegister={handleRegister}
-        />
-      )}
+      {steps[step + 1]}
     </KeyboardAvoidingView>
   );
 };

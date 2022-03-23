@@ -1,7 +1,7 @@
 import { StyleSheet, Text, Image } from "react-native";
 import { HStack, VStack } from "native-base";
 
-const MentorListCardSm = () => {
+const MentorListCardSm = ({ direction = "horizontal", size = "sm" }) => {
   return (
     <HStack style={styles.mentorCard}>
       <VStack>

@@ -5,11 +5,8 @@ import { HStack } from "native-base";
 
 const MentorSearchBtn = ({ major, isActive, setActive, active }) => {
   const toggleButton = () => {
-    if (active !== major) {
-      setActive(major);
-    } else {
-      setActive("");
-    }
+    const newMajor = active !== major ? major : "";
+    setActive(newMajor);
   };
   return isActive ? (
     <Pressable style={styles.majorButtonsActive} onPress={toggleButton}>

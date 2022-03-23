@@ -19,19 +19,20 @@ import mentorStore from "../stores/mentorStore";
 const Search = () => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("");
+
   const mentorList = mentorStore.mentors
-    .filter(
-      (mentor) =>
-        (mentor.firstName.toLowerCase().includes(query.toLowerCase()) ||
-          mentor.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          mentor.employer.toLowerCase().includes(query.toLowerCase())) &&
-        mentor.major.includes(active)
+    .filter((mentor) =>
+      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
+        name.toLowerCase().includes(query.toLowerCase())
+      )
     )
+    .filter((mentor) => mentor.major.includes(active))
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
+
   const majorButtonsList = mentorStore.mentors.map((mentor) => (
     <MentorSearchBtn
       major={mentor.major}
-      isActive={active === mentor.major ? true : false}
+      isActive={active === mentor.major}
       active={active}
       setActive={setActive}
     />
@@ -55,7 +56,9 @@ const Search = () => {
           <View style={{ flex: 1, marginLeft: 5 }}>
             <Input
               placeholder="Search"
-              onChangeText={(query) => setQuery(query)}
+              onChangeText={(q) => {
+                setQuery(q);
+              }}
             />
           </View>
           <Feather

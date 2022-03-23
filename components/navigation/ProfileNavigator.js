@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Profile from "../../screens/Profile/Profile";
 //* Screens:
-import Profile from "../../screens/Profile";
-import MentorProfileUpdate from "../../screens/MentorProfileUpdate";
-import StudentProfileUpdate from "../../screens/StudentProfileUpdate";
+import MentorProfileUpdate from "../../screens/Profile/MentorProfileUpdate";
+import StudentProfileUpdate from "../../screens/Profile/StudentProfileUpdate";
 
 //? import from native stack^^
 const { Navigator, Screen } = createNativeStackNavigator();

@@ -3,11 +3,46 @@ import React, { useState } from "react";
 import { VStack } from "native-base";
 import { Picker } from "@react-native-picker/picker";
 //* Customized tags components:
-import Input from "../components/Input";
-import MntBtnPrimary from "../components/MntBtnPrimary";
-import MntBtnSecondary from "../components/MntBtnSecondary";
+import Input from "../../components/Input";
+import MntBtnPrimary from "../../components/MntBtnPrimary";
+import MntBtnSecondary from "../../components/MntBtnSecondary";
 //* Stores:
-import studentStore from "../stores/studentStore";
+import studentStore from "../../stores/studentStore";
+
+const OPTIONS = [
+  {
+    id: 1,
+    educationLevel: "Grade 9",
+  },
+  {
+    id: 2,
+    educationLevel: "Grade 10",
+  },
+  {
+    id: 3,
+    educationLevel: "Grade 11",
+  },
+  {
+    id: 4,
+    educationLevel: "Grade 12",
+  },
+  {
+    id: 5,
+    educationLevel: "Deploma",
+  },
+  {
+    id: 6,
+    educationLevel: "Bachelor",
+  },
+  {
+    id: 7,
+    educationLevel: "Master",
+  },
+  {
+    id: 8,
+    educationLevel: "PHD",
+  },
+];
 
 const StudentProfileUpdate = ({ navigation, route }) => {
   //* State to take the profile already created from the params:
@@ -19,40 +54,6 @@ const StudentProfileUpdate = ({ navigation, route }) => {
     route.params.setProfile(updatedStudent);
     navigation.navigate("Profile");
   };
-  const OPTIONS = [
-    {
-      id: 1,
-      educationLevel: "Grade 9",
-    },
-    {
-      id: 2,
-      educationLevel: "Grade 10",
-    },
-    {
-      id: 3,
-      educationLevel: "Grade 11",
-    },
-    {
-      id: 4,
-      educationLevel: "Grade 12",
-    },
-    {
-      id: 5,
-      educationLevel: "Deploma",
-    },
-    {
-      id: 6,
-      educationLevel: "Bachelor",
-    },
-    {
-      id: 7,
-      educationLevel: "Master",
-    },
-    {
-      id: 8,
-      educationLevel: "PHD",
-    },
-  ];
 
   return (
     <VStack style={styles.container}>

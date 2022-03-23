@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import TabNavigator from "./TabNavigation";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -6,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../../screens/Login";
 import Register from "../../screens/Register/Register";
 
-//?import from native-stack ^^:
+// ?import from native-stack ^^:
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const RootNavigator = () => {
@@ -28,5 +27,3 @@ const RootNavigator = () => {
 };
 
 export default RootNavigator;
-
-const styles = StyleSheet.create({});
