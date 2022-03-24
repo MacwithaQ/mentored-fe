@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { HStack, Toast, VStack } from "native-base";
 //* Customized tags components :
@@ -7,7 +7,6 @@ import Input from "../../components/Input";
 import Btn from "../../components/Btn";
 
 const StepOne = ({ step, setStep, setUser, user, navigation }) => {
-
   const handleNext = () => {
     if (
       user.password === "" ||
@@ -41,6 +40,41 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
         borderTopLeftRadius: 30,
       }}
     >
+      <HStack style={{ alignSelf: "center", marginBottom: 15 }}>
+        <View
+          style={{
+            width: 14,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#57A0D7",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+      </HStack>
       <Input
         placeholder="First Name"
         defaultValue={user.firstName || ""}
@@ -84,7 +118,6 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
             navigation.navigate("Login");
           }}
         >
-
           <Text style={styles.link}>Login</Text>
         </Pressable>
       </HStack>

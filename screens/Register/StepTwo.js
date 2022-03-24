@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { VStack } from "native-base";
+import { HStack, VStack } from "native-base";
 //* Customized tags components :
 import Btn from "../../components/Btn";
 
@@ -31,6 +31,41 @@ const StepTwo = ({ step, setStep, setUser, user }) => {
         borderTopLeftRadius: 30,
       }}
     >
+      <HStack style={{ alignSelf: "center", marginBottom: 15 }}>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 14,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#57A0D7",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+      </HStack>
       {/*  MAIN two buttons: */}
       <VStack>
         <Btn onPress={handleMentor}>I am a Mentor</Btn>
