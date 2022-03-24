@@ -64,7 +64,7 @@ const StepOne = ({ step, setStep, setUser, user }) => {
       <Input
         placeholder="Password"
         defaultValue={user.password}
-        secureTextEntry={true}
+        secureTextEntry
         onChangeText={(password) => setUser({ ...user, password })}
       />
       <Btn onPress={handleNext}>Next</Btn>
