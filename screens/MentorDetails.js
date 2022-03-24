@@ -10,8 +10,11 @@ import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import MentorMyInfo from "./Profile/MentorMyInfo";
+import Btn from "../components/Btn";
+import { Ionicons } from "@expo/vector-icons";
+import Schedule from "../components/Schedule";
 
-const MentorDetails = ({ route, stars = "5.0" }) => {
+const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
 
   let isMentor = true;
@@ -20,22 +23,24 @@ const MentorDetails = ({ route, stars = "5.0" }) => {
   }
 
   //* to change the buttons and Background:
-  const [info, setInfo] = useState(true);
+  const [meeting, setMeeting] = useState(true);
 
   //* handlers (Buttons to change back and forth):
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
 
   return (
-    // <View style={styles.container}>
-    //   <Text>
-    //     {mentor.firstName} {mentor.lastName}
-    //   </Text>
-    // </View>
     <View style={styles.container}>
       <VStack style={styles.header}>
+        <View style={{ padding: 12, alignSelf: "flex-start", marginTop: 20 }}>
+          <Ionicons
+            name="close-outline"
+            size={24}
+            color="black"
+            onPress={() => navigation.navigate("Search")}
+          />
+        </View>
         <SafeAreaView />
-
         <Image
           source={{
             uri:
@@ -47,26 +52,44 @@ const MentorDetails = ({ route, stars = "5.0" }) => {
         <Text style={styles.headerName}>
           {mentor.firstName} {mentor.lastName}
         </Text>
+        <HStack style={{ marginTop: 20 }}>
+          <Btn>Message</Btn>
+          {meeting ? (
+            <Btn
+              outline
+              onPress={() => {
+                setMeeting(!meeting);
+              }}
+            >
+              {" "}
+              Schedule Meeting
+            </Btn>
+          ) : (
+            <Btn
+              outline
+              onPress={() => {
+                setMeeting(!meeting);
+              }}
+            >
+              {" "}
+              Mentor Info
+            </Btn>
+          )}
+        </HStack>
       </VStack>
 
-      <HStack>
-        <Pressable onPress={handleInfo} style={styles.switcherItem}>
-          <Text style={{ color: info ? "#57A0D7" : "#4F4F4F" }}>My Info</Text>
-        </Pressable>
-        {isMentor === false ? (
-          <Pressable onPress={handleMeetings} style={styles.switcherItem}>
-            <Text style={{ color: !info ? "#57A0D7" : "#4F4F4F" }}>
-              Set a Meeting
-            </Text>
-          </Pressable>
-        ) : null}
-      </HStack>
-      <VStack style={{ padding: 12 }}>
-        {info ? <MentorMyInfo profile={mentor} /> : <Text>My Meetings</Text>}
-        <Text style={{ marginVertical: 10, fontSize: 18, fontWeight: "bold" }}>
-          Reviews ({stars})
-        </Text>
-      </VStack>
+      {meeting ? (
+        <VStack style={{ padding: 12 }}>
+          <MentorMyInfo profile={mentor} />
+          <Text
+            style={{ marginVertical: 10, fontSize: 18, fontWeight: "bold" }}
+          >
+            Reviews ({stars})
+          </Text>
+        </VStack>
+      ) : (
+        <Schedule />
+      )}
     </View>
   );
 };
@@ -84,7 +107,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 70,
+
     paddingBottom: 20,
   },
   headerProfileImg: {
