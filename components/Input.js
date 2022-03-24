@@ -5,7 +5,7 @@ const Input = ({ ...props }) => {
   return (
     <TextInput
       {...props}
-      style={styles.input}
+      style={[styles.input, props.style]}
       autoCapitalize="none"
       autoComplete="off"
       autoCorrect={false}

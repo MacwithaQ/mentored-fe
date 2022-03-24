@@ -4,7 +4,10 @@ import { Button } from "native-base";
 
 const Btn = ({ children, outline, ...props }) => {
   return (
-    <Button {...props} style={[styles.btn, outline && styles.outline]}>
+    <Button
+      {...props}
+      style={[props.style, styles.btn, outline && styles.outline]}
+    >
       <Text style={outline ? { color: "#57a0d7" } : { color: "#fff" }}>
         {children}
       </Text>

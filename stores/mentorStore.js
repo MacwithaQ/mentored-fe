@@ -26,6 +26,7 @@ class MentorStore {
         major: updatedMentor.major,
         employer: updatedMentor.employer,
         bio: updatedMentor.bio,
+        phone: updatedMentor.phone,
       };
       const response = await instance.put(`/mentors/${id}`, newMentor);
       if (response) {
