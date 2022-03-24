@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 import MentorMyInfo from "./MentorMyInfo";
+import { baseURL } from "../../stores/instance";
 
 const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
   //* declare nav :
@@ -44,7 +45,7 @@ const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
         <Image
           source={{
             uri:
-              profile.image ||
+              baseURL + profile.image ||
               "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}

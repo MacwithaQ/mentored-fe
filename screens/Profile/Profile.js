@@ -27,7 +27,7 @@ const Profile = () => {
         : studentStore.students;
       setProfile(people.find((person) => person.user._id === user._id));
     }
-  }, [user]);
+  }, [user, mentorStore.mentors, studentStore.students]);
 
   //* If their is no [user] go> to NotUserPage & if the [profile] null go> the loader page:
   if (user == null) {
