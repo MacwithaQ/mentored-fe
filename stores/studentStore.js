@@ -27,7 +27,7 @@ class StudentStore {
         educationLevel: updatedStudent.educationLevel,
         phone: updatedStudent.phone,
         guardian: updatedStudent.guardian,
-        // bio: updatedStudent.bio,
+        gPhone: updatedStudent.gPhone,
       };
       const response = await instance.put(`/students/${id}`, newStudent);
       if (response) {
