@@ -57,6 +57,15 @@ const MentorProfileUpdate = ({ navigation, route }) => {
       </VStack>
       <VStack>
         <Input
+          placeholder={"Phone"}
+          defaultValue={updatedMentor.phone}
+          onChangeText={(value) =>
+            setUpdatedMentor({ ...updatedMentor, phone: value })
+          }
+        />
+      </VStack>
+      <VStack>
+        <Input
           placeholder={"Bio"}
           defaultValue={updatedMentor.bio}
           onChangeText={(value) =>

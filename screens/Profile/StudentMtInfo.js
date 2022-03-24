@@ -15,7 +15,7 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Age:</Text>
+          <Text style={{ fontSize: 16 }}>Age:</Text>
           <Text style={{ color: "#828282" }}>{profile.age}</Text>
         </VStack>
       </HStack>
@@ -27,14 +27,12 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            EducationLevel:
-          </Text>
+          <Text style={{ fontSize: 16 }}>EducationLevel:</Text>
           <Text style={{ color: "#828282" }}>{profile.educationLevel}</Text>
         </VStack>
       </HStack>
       {/* <VStack style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Balance:</Text>
+        <Text style={{ fontSize: 16,  }}>Balance:</Text>
         <Text style={{ color: "#828282" }}>{profile.balance}</Text>
       </VStack> */}
       <HStack style={{ alignItems: "center" }}>
@@ -45,7 +43,7 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Phone:</Text>
+          <Text style={{ fontSize: 16 }}>Phone:</Text>
           <Text style={{ color: "#828282" }}>{profile.phone}</Text>
         </VStack>
       </HStack>
@@ -57,7 +55,7 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Email:</Text>
+          <Text style={{ fontSize: 16 }}>Email:</Text>
           <Text style={{ color: "#828282" }}>{authStore.user.email}</Text>
         </VStack>
       </HStack>
@@ -69,7 +67,7 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Guardian:</Text>
+          <Text style={{ fontSize: 16 }}>Guardian:</Text>
           <Text style={{ color: "#828282" }}>{profile.guardian}</Text>
         </VStack>
       </HStack>
@@ -81,9 +79,7 @@ const StudentMtInfo = ({ profile }) => {
           style={{ marginRight: 12 }}
         />
         <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            Guardian Phone:
-          </Text>
+          <Text style={{ fontSize: 16 }}>Guardian Phone:</Text>
           <Text style={{ color: "#828282" }}>{profile.gPhone}</Text>
         </VStack>
       </HStack>

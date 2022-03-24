@@ -34,7 +34,6 @@ const Register = ({ navigation }) => {
     guardian: "",
     gPhone: "",
   });
-  console.log(user);
 
   const handleRegister = () => {
     if (user.isMentor) {
