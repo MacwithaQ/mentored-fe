@@ -5,7 +5,7 @@ import { HStack, Toast, VStack } from "native-base";
 import Input from "../../components/Input";
 import Btn from "../../components/Btn";
 
-const StepOne = ({ step, setStep, setUser, user }) => {
+const StepOne = ({ step, setStep, setUser, user, navigation }) => {
   const handleNext = () => {
     if (
       user.password === "" ||
@@ -76,7 +76,7 @@ const StepOne = ({ step, setStep, setUser, user }) => {
         }}
       >
         <Text>Already User ? </Text>
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate("Login")}>
           <Text style={styles.link}>Login</Text>
         </Pressable>
       </HStack>
