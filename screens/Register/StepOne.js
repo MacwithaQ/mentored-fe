@@ -3,7 +3,7 @@ import React from "react";
 import { HStack, Toast, VStack } from "native-base";
 //* Customized tags components :
 import Input from "../../components/Input";
-import MntBtnPrimary from "../../components/MntBtnPrimary";
+import Btn from "../../components/Btn";
 
 const StepOne = ({ step, setStep, setUser, user }) => {
   const handleNext = () => {
@@ -67,9 +67,7 @@ const StepOne = ({ step, setStep, setUser, user }) => {
         secureTextEntry={true}
         onChangeText={(password) => setUser({ ...user, password })}
       />
-      <VStack>
-        <MntBtnPrimary text="Next" onPress={handleNext} />
-      </VStack>
+      <Btn onPress={handleNext}>Next</Btn>
       <HStack
         style={{
           width: "100%",
