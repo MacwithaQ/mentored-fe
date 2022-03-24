@@ -47,7 +47,7 @@ const StudentMtInfo = ({ profile }) => {
           <Text style={{ color: "#828282" }}>{profile.phone}</Text>
         </VStack>
       </HStack>
-      <HStack style={{ alignItems: "center" }}>
+      {/* <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="mail-outline"
           size={30}
@@ -58,7 +58,7 @@ const StudentMtInfo = ({ profile }) => {
           <Text style={{ fontSize: 16 }}>Email:</Text>
           <Text style={{ color: "#828282" }}>{authStore.user.email}</Text>
         </VStack>
-      </HStack>
+      </HStack> */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="people-outline"

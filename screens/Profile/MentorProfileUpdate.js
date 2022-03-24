@@ -33,14 +33,6 @@ const MentorProfileUpdate = ({ navigation, route }) => {
       <VStack style={styles.header}>
         <SafeAreaView />
 
-        {/* EDIT ICON: */}
-        {/* <Ionicons
-          name="close-outline"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-start", padding: 12 }}
-          onPress={() => navigation.navigate("Profile")}
-        /> */}
         <Pressable
           style={{
             width: "100%",
@@ -51,13 +43,16 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           }}
         >
           <HStack style={{ justifyContent: "space-between" }}>
-            <Text style={{ fontWeight: "bold" }} onPress={handleSubmit}>
+            <Text
+              style={{ fontWeight: "600", fontSize: 16 }}
+              onPress={() => navigation.navigate("Profile")}
+            >
               Cancel
             </Text>
 
             <Text
-              style={{ fontWeight: "bold", color: "#57A0D7" }}
-              onPress={() => navigation.navigate("Profile")}
+              style={{ fontWeight: "bold", color: "#57A0D7", fontSize: 16 }}
+              onPress={handleSubmit}
             >
               Done
             </Text>
