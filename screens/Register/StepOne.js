@@ -3,9 +3,11 @@ import React from "react";
 import { HStack, Toast, VStack } from "native-base";
 //* Customized tags components :
 import Input from "../../components/Input";
+
 import Btn from "../../components/Btn";
 
 const StepOne = ({ step, setStep, setUser, user, navigation }) => {
+
   const handleNext = () => {
     if (
       user.password === "" ||
@@ -76,7 +78,13 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
         }}
       >
         <Text>Already User ? </Text>
-        <Pressable onPress={() => navigation.navigate("Login")}>
+
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
+
           <Text style={styles.link}>Login</Text>
         </Pressable>
       </HStack>

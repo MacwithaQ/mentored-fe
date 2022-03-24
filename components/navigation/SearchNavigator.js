@@ -4,6 +4,7 @@ import React from "react";
 import Search from "../../screens/Search";
 //* native stack:
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MentorDetails from "../../screens/MentorDetails";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const SearchNavigator = () => {
@@ -13,6 +14,7 @@ const SearchNavigator = () => {
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
       <Screen component={Search} name="Search" />
+      <Screen component={MentorDetails} name="MentorDetails" />
     </Navigator>
   );
 };
