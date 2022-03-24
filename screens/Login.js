@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
         {/* PASSWORD: */}
         <Input
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry
           onChangeText={(password) => setUser({ ...user, password })}
         />
         {/* LOGIN BUTTON: */}
