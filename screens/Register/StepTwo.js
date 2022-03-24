@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import { VStack } from "native-base";
 //* Customized tags components :
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import MntBtnSecondary from "../../components/MntBtnSecondary";
+import Btn from "../../components/Btn";
 
 const StepTwo = ({ step, setStep, setUser, user }) => {
   //* Handler for mentor:
@@ -34,9 +33,11 @@ const StepTwo = ({ step, setStep, setUser, user }) => {
     >
       {/*  MAIN two buttons: */}
       <VStack>
-        <MntBtnPrimary text="I am a Mentor" onPress={handleMentor} />
-        <MntBtnPrimary text="I am a Student" onPress={handleStudent} />
-        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+        <Btn onPress={handleMentor}>I am a Mentor</Btn>
+        <Btn onPress={handleStudent}>I am a Student</Btn>
+        <Btn outline onPress={() => setStep(step - 1)}>
+          Back
+        </Btn>
       </VStack>
     </VStack>
   );

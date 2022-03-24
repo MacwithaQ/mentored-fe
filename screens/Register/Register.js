@@ -91,7 +91,13 @@ const Register = ({ navigation }) => {
   };
 
   const steps = [
-    <StepOne step={step} setStep={setStep} setUser={setUser} user={user} />,
+    <StepOne
+      step={step}
+      setStep={setStep}
+      setUser={setUser}
+      user={user}
+      navigation={navigation}
+    />,
     <StepTwo step={step} setStep={setStep} setUser={setUser} user={user} />,
     user.isMentor ? (
       <StepMentor

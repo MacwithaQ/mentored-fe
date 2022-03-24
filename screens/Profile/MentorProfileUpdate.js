@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { VStack } from "native-base";
 //* Customized tags components:
 import Input from "../../components/Input";
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import MntBtnSecondary from "../../components/MntBtnSecondary";
+import Btn from "../../components/Btn";
 //* Stores:
 import mentorStore from "../../stores/mentorStore";
 
@@ -74,11 +73,10 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           }
         />
       </VStack>
-      <MntBtnPrimary text="Submit" onPress={handleSubmit} />
-      <MntBtnSecondary
-        text="Cancel"
-        onPress={() => navigation.navigate("Profile")}
-      />
+      <Btn onPress={handleSubmit}>Submit</Btn>
+      <Btn outline onPress={() => navigation.navigate("Profile")}>
+        Cancel
+      </Btn>
     </VStack>
   );
 };

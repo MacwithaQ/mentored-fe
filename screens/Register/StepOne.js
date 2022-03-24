@@ -3,11 +3,11 @@ import React from "react";
 import { HStack, Toast, VStack } from "native-base";
 //* Customized tags components :
 import Input from "../../components/Input";
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import { useNavigation } from "@react-navigation/native";
 
-const StepOne = ({ step, setStep, setUser, user }) => {
-  const navigation = useNavigation();
+import Btn from "../../components/Btn";
+
+const StepOne = ({ step, setStep, setUser, user, navigation }) => {
+
   const handleNext = () => {
     if (
       user.password === "" ||
@@ -66,12 +66,10 @@ const StepOne = ({ step, setStep, setUser, user }) => {
       <Input
         placeholder="Password"
         defaultValue={user.password}
-        secureTextEntry={true}
+        secureTextEntry
         onChangeText={(password) => setUser({ ...user, password })}
       />
-      <VStack>
-        <MntBtnPrimary text="Next" onPress={handleNext} />
-      </VStack>
+      <Btn onPress={handleNext}>Next</Btn>
       <HStack
         style={{
           width: "100%",
@@ -80,11 +78,13 @@ const StepOne = ({ step, setStep, setUser, user }) => {
         }}
       >
         <Text>Already User ? </Text>
+
         <Pressable
           onPress={() => {
             navigation.navigate("Login");
           }}
         >
+
           <Text style={styles.link}>Login</Text>
         </Pressable>
       </HStack>

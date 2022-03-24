@@ -11,10 +11,10 @@ import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 //* Customized tags components & SVG:
 import Input from "../components/Input";
-import MntBtnPrimary from "../components/MntBtnPrimary";
 import LoginSVG from "../assets/login.svg";
 //* Stores:
 import authStore from "../stores/authStore";
+import Btn from "../components/Btn";
 
 const Login = ({ navigation }) => {
   //* To store the user info in it:
@@ -62,13 +62,11 @@ const Login = ({ navigation }) => {
         {/* PASSWORD: */}
         <Input
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry
           onChangeText={(password) => setUser({ ...user, password })}
         />
         {/* LOGIN BUTTON: */}
-        <VStack>
-          <MntBtnPrimary onPress={handleSignin}>Login</MntBtnPrimary>
-        </VStack>
+        <Btn onPress={handleSignin}>Login</Btn>
 
         <HStack
           style={{
