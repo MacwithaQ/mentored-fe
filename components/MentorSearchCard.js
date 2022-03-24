@@ -1,27 +1,32 @@
-import { StyleSheet, Text, Image } from "react-native";
+import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 
 const MentorSearchCard = ({ mentor }) => {
+  const navigation = useNavigation();
+
   return (
-    <HStack style={styles.mentorCard}>
-      <VStack>
-        <Image
-          source={{
-            uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-          }}
-          style={styles.cardImg}
-        />
-      </VStack>
-      <HStack style={{ alignSelf: "center" }}>
+    <Pressable onPress={() => navigation.navigate("MentorDetails", { mentor })}>
+      <HStack style={styles.mentorCard}>
         <VStack>
-          <Text style={{ fontWeight: "bold" }}>
-            {`${mentor.firstName} ${mentor.lastName}`}
-          </Text>
-          <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
-          <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
+          <Image
+            source={{
+              uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            }}
+            style={styles.cardImg}
+          />
         </VStack>
+        <HStack style={{ alignSelf: "center" }}>
+          <VStack>
+            <Text style={{ fontWeight: "bold" }}>
+              {`${mentor.firstName} ${mentor.lastName}`}
+            </Text>
+            <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
+            <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
+          </VStack>
+        </HStack>
       </HStack>
-    </HStack>
+    </Pressable>
   );
 };
 

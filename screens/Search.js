@@ -33,7 +33,7 @@ const Search = () => {
   const majorButtonsList = uniqueMajors.map((major) => (
     <MentorSearchBtn
       major={major}
-      isActive={active === major }
+      isActive={active === major}
       active={active}
       setActive={setActive}
     />
