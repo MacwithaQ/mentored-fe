@@ -10,6 +10,17 @@ import SearchNavigator from "./SearchNavigator";
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
+  // const getTabBarVisibility = (route) => {
+  //   const routeName = route.state
+  //     ? route.state.routes[route.state.index].name
+  //     : "";
+  //   if (routeName == "MessagesNavigator") {
+  //     return false;
+  //   }
+  //   {
+  //     return true;
+  //   }
+  // };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,7 +52,9 @@ function TabNavigator() {
       <Tab.Screen
         name="MessagesNavigator"
         component={MessagesNavigator}
+        tabBar
         options={{
+          // tabBarVisible: getTabBarVisibility(route),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="chatbubble-ellipses" size={size} color={color} />
           ),
