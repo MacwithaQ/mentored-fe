@@ -4,8 +4,7 @@ import { VStack } from "native-base";
 import { Picker } from "@react-native-picker/picker";
 //* Customized tags components:
 import Input from "../../components/Input";
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import MntBtnSecondary from "../../components/MntBtnSecondary";
+import Btn from "../../components/Btn";
 //* Stores:
 import studentStore from "../../stores/studentStore";
 
@@ -117,20 +116,10 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           />
         ))}
       </Picker>
-      {/* <VStack>
-        <Input
-          placeholder={"Balance"}
-          defaultValue={updatedStudent.balance}
-          onChangeText={(value) =>
-            setUpdatedStudent({ ...updatedStudent, balance: value })
-          }
-        />
-      </VStack> */}
-      <MntBtnPrimary text="Submit" onPress={handleSubmit} />
-      <MntBtnSecondary
-        text="Cancel"
-        onPress={() => navigation.navigate("Profile")}
-      />
+      <Btn onPress={handleSubmit}>Submit</Btn>
+      <Btn outline onPress={() => navigation.navigate("Profile")}>
+        Cancel
+      </Btn>
     </VStack>
   );
 };

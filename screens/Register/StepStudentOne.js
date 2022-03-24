@@ -4,8 +4,7 @@ import { VStack } from "native-base";
 import Input from "../../components/Input";
 import { Picker } from "@react-native-picker/picker";
 //* Customized tags components :
-import MntBtnPrimary from "../../components/MntBtnPrimary";
-import MntBtnSecondary from "../../components/MntBtnSecondary";
+import Btn from "../../components/Btn";
 
 const OPTIONS = [
   {
@@ -94,8 +93,10 @@ const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
         onChangeText={(gPhone) => setUser({ ...user, gPhone })}
       />
       <VStack>
-        <MntBtnPrimary text="Register" onPress={handleRegister} />
-        <MntBtnSecondary text="Back" onPress={() => setStep(step - 1)} />
+        <Btn onPress={handleRegister}>Register</Btn>
+        <Btn outline onPress={() => setStep(step - 1)}>
+          Back
+        </Btn>
       </VStack>
     </VStack>
   );
