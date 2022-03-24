@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     padding: 12,
     marginVertical: 5,
+    marginHorizontal: 5,
     backgroundColor: "#57A0D7",
   },
   outline: {

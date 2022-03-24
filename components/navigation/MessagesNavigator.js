@@ -3,7 +3,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //* Screen:
 import Messages from "../../screens/Messages";
-//?import from native-stack^^
+import MessagingPage from "../../screens/MessagingPage";
+
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const MessagesNavigator = () => {
@@ -13,6 +14,7 @@ const MessagesNavigator = () => {
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
       <Screen component={Messages} name="Messages" />
+      <Screen component={MessagingPage} name="MessagingPage" />
     </Navigator>
   );
 };

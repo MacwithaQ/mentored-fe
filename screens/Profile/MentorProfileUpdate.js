@@ -17,6 +17,9 @@ import Input from "../../components/Input";
 import Btn from "../../components/Btn";
 //* Stores:
 import mentorStore from "../../stores/mentorStore";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import { baseURL } from "../../stores/instance";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
@@ -69,20 +72,37 @@ const MentorProfileUpdate = ({ navigation, route }) => {
       <VStack style={styles.header}>
         <SafeAreaView />
 
-        {/* EDIT ICON: */}
-        <Ionicons
-          name="close-outline"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-start", padding: 12 }}
-          onPress={() => navigation.navigate("Profile")}
-        />
+        <Pressable
+          style={{
+            width: "100%",
+            padding: 12,
+            borderBottomWidth: 0.3,
+            borderBottomColor: "#aaa",
+            marginBottom: 12,
+          }}
+        >
+          <HStack style={{ justifyContent: "space-between" }}>
+            <Text
+              style={{ fontWeight: "600", fontSize: 16 }}
+              onPress={() => navigation.navigate("Profile")}
+            >
+              Cancel
+            </Text>
+
+            <Text
+              style={{ fontWeight: "bold", color: "#57A0D7", fontSize: 16 }}
+              onPress={handleSubmit}
+            >
+              Done
+            </Text>
+          </HStack>
+        </Pressable>
 
         {/* Show profile img + firstName  - lastName: */}
         {/* <Image
           source={{
             uri:
-              profile.image ||
+              // baseURL + profile.image ||
               "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
@@ -136,7 +156,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 10 }}>
+              <VStack style={{ marginVertical: 10, flex: 1 }}>
                 <Text style={{ fontSize: 16, marginLeft: 5 }}>Major:</Text>
                 <Input
                   placeholder={"Major"}
@@ -155,7 +175,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 10 }}>
+              <VStack style={{ marginVertical: 10, flex: 1 }}>
                 <Text style={{ fontSize: 16, marginLeft: 5 }}>Employer:</Text>
                 <Input
                   placeholder={"Employer"}
@@ -174,7 +194,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 10 }}>
+              <VStack style={{ marginVertical: 10, flex: 1 }}>
                 <Text style={{ fontSize: 16, marginLeft: 5 }}>Bio:</Text>
                 <Input
                   placeholder={"Bio"}
@@ -193,7 +213,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 10 }}>
+              <VStack style={{ marginVertical: 10, flex: 1 }}>
                 <Text style={{ fontSize: 16, marginLeft: 5 }}>Phone:</Text>
                 <Input
                   placeholder={"Phone"}
@@ -207,11 +227,6 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             </HStack>
           </VStack>
         </VStack>
-        <View style={{ paddingHorizontal: 12 }}>
-          <Btn style={{ marginTop: 0 }} onPress={handleSubmit}>
-            Submit
-          </Btn>
-        </View>
       </ScrollView>
     </View>
   );

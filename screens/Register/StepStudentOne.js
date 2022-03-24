@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { VStack } from "native-base";
+import { HStack, VStack } from "native-base";
 import Input from "../../components/Input";
 import { Picker } from "@react-native-picker/picker";
 //* Customized tags components :
@@ -54,6 +54,41 @@ const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
         borderTopLeftRadius: 30,
       }}
     >
+      <HStack style={{ alignSelf: "center", marginBottom: 15 }}>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#b2b2b2",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+        <View
+          style={{
+            width: 14,
+            height: 7,
+            borderRadius: 7 / 2,
+            backgroundColor: "#57A0D7",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text> </Text>
+        </View>
+      </HStack>
       <Input
         placeholder="Age"
         keyboardType="number-pad"
