@@ -8,14 +8,14 @@ import axios from "axios";
 
 //? Alansari's at Coded
 // export const baseURL = "http://192.168.100.168:8000";
+export const baseURL = "http://192.168.1.21:8000";
 
 //? Alansari's at Home
 
 // export const baseURL = "http://192.168.1.148:8000";
 
 //? Alansari's Phone
- export const baseURL = "http://172.20.10.4:8000";
-
+//  export const baseURL = "http://172.20.10.4:8000";
 
 //?Khareji's at Coded
 // export const baseURL = "http://192.168.100.77:8000";
