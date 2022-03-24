@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 import StudentMtInfo from "./StudentMtInfo";
+import { baseURL } from "../../stores/instance";
 
 const StudentProfile = ({ profile, setProfile }) => {
   //* declare nav :
@@ -23,6 +24,7 @@ const StudentProfile = ({ profile, setProfile }) => {
   //* handlers (Buttons to change back and forth):
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
+  console.log(profile);
 
   return (
     <View style={styles.container}>
@@ -44,7 +46,7 @@ const StudentProfile = ({ profile, setProfile }) => {
         <Image
           source={{
             uri:
-              profile.image ||
+              baseURL + profile.image ||
               "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
