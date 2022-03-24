@@ -9,23 +9,62 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import { observer } from "mobx-react";
 //* Customized tags components:
 import Input from "../../components/Input";
 import Btn from "../../components/Btn";
 //* Stores:
 import mentorStore from "../../stores/mentorStore";
+
 import { Ionicons } from "@expo/vector-icons";
+
 import { baseURL } from "../../stores/instance";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //* State to take the profile already created from the params:
-  const [updatedMentor, setUpdatedMentor] = useState(route.params.profile);
   const { profile } = route.params;
+  const [updatedMentor, setUpdatedMentor] = useState({
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    major: profile.major,
+    employer: profile.employer,
+    bio: profile.bio,
+    phone: profile.phone,
+    _id: profile._id,
+  });
 
+  const [image, setImage] = useState();
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    // let uriParts = result.uri.split(".");
+    // let fileType = uriParts[uriParts.length - 1];
+    // let uri = result.uri;
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
   // * handler to call update method & navigate:
   const handleSubmit = async () => {
-    await mentorStore.updateMentor(updatedMentor, updatedMentor._id);
-    route.params.setProfile(updatedMentor);
+    await mentorStore.updateMentor(
+      updatedMentor,
+      image,
+      route.params.setProfile
+    );
+    // img changer:
+    const mentorsFind = mentorStore.mentors.find(
+      (mentor) => mentor._id === profile._id
+    );
+    route.params.setProfile(mentorsFind);
     navigation.navigate("Profile");
   };
   return (
@@ -60,14 +99,29 @@ const MentorProfileUpdate = ({ navigation, route }) => {
         </Pressable>
 
         {/* Show profile img + firstName  - lastName: */}
-        <Image
+        {/* <Image
           source={{
             uri:
               // baseURL + profile.image ||
               "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
-        />
+        /> */}
+        <Pressable onPress={pickImage}>
+          {!image ? (
+            <Image
+              source={{ uri: baseURL + profile.image }}
+              style={styles.headerProfileImg}
+              resizeMode="cover"
+            />
+          ) : (
+            <Image
+              source={{ uri: image.uri }}
+              style={styles.headerProfileImg}
+              resizeMode="cover"
+            />
+          )}
+        </Pressable>
         {/* <Text style={styles.headerName}>
           {profile.firstName} {profile.lastName}
         </Text> */}
@@ -75,7 +129,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"First Name"}
-            defaultValue={updatedMentor.firstName}
+            defaultValue={profile.firstName}
             onChangeText={(value) =>
               setUpdatedMentor({ ...updatedMentor, firstName: value })
             }
@@ -83,7 +137,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"Last Name"}
-            defaultValue={updatedMentor.lastName}
+            defaultValue={profile.lastName}
             onChangeText={(value) =>
               setUpdatedMentor({ ...updatedMentor, lastName: value })
             }
@@ -107,7 +161,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Major"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedMentor.major}
+                  defaultValue={profile.major}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, major: value })
                   }
@@ -126,7 +180,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Employer"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedMentor.employer}
+                  defaultValue={profile.employer}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, employer: value })
                   }
@@ -145,7 +199,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Bio"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedMentor.bio}
+                  defaultValue={profile.bio}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, bio: value })
                   }
@@ -164,7 +218,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedMentor.phone}
+                  defaultValue={profile.phone}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, phone: value })
                   }
@@ -178,7 +232,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   );
 };
 
-export default MentorProfileUpdate;
+export default observer(MentorProfileUpdate);
 
 const styles = StyleSheet.create({
   container: {
@@ -197,6 +251,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 150,
+    backgroundColor: "#ddd",
   },
   headerName: {
     fontSize: 20,
