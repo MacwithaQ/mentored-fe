@@ -9,22 +9,21 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
+import { observer } from "mobx-react";
+//* EXPO:
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { observer } from "mobx-react";
-//* Customized tags components:
+//*  CUSTOMIZED COMPONENT :
 import Input from "../../components/Input";
-import Btn from "../../components/Btn";
-//* Stores:
+//* STORES:
 import mentorStore from "../../stores/mentorStore";
-
-import { Ionicons } from "@expo/vector-icons";
-
 import { baseURL } from "../../stores/instance";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
-  //* State to take the profile already created from the params:
+  //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
+
+  //* TO CATCH & CHANGE THE MENTOR INFO || BODY:
   const [updatedMentor, setUpdatedMentor] = useState({
     firstName: profile.firstName,
     lastName: profile.lastName,
@@ -35,32 +34,38 @@ const MentorProfileUpdate = ({ navigation, route }) => {
     _id: profile._id,
   });
 
-  const [image, setImage] = useState();
+  //* TO CATCH & CHANGE THE IMAGE :
+  const [image, setImage] = useState(
+    <Image
+      source={{
+        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
+      }}
+    />
+  );
 
+  //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    // let uriParts = result.uri.split(".");
-    // let fileType = uriParts[uriParts.length - 1];
-    // let uri = result.uri;
+
     if (!result.cancelled) {
       setImage(result);
     }
   };
-  // * handler to call update method & navigate:
+
+  // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
     await mentorStore.updateMentor(
       updatedMentor,
       image,
       route.params.setProfile
     );
-    // img changer:
+
+    //* IMG CHANGER:
     const mentorsFind = mentorStore.mentors.find(
       (mentor) => mentor._id === profile._id
     );
@@ -81,6 +86,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             marginBottom: 12,
           }}
         >
+          {/* CANCEL PRESSABLE BUTTON: */}
           <HStack style={{ justifyContent: "space-between" }}>
             <Text
               style={{ fontWeight: "600", fontSize: 16 }}
@@ -89,6 +95,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
               Cancel
             </Text>
 
+            {/* DONE PRESSABLE BUTTON: */}
             <Text
               style={{ fontWeight: "bold", color: "#57A0D7", fontSize: 16 }}
               onPress={handleSubmit}
@@ -98,33 +105,32 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           </HStack>
         </Pressable>
 
-        {/* Show profile img + firstName  - lastName: */}
-        {/* <Image
-          source={{
-            uri:
-              // baseURL + profile.image ||
-              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-          }}
-          style={styles.headerProfileImg}
-        /> */}
+        {/* SHOW PROFILE IMG: */}
         <Pressable onPress={pickImage}>
           {!image ? (
             <Image
-              source={{ uri: baseURL + profile.image }}
+              source={{
+                uri:
+                  baseURL + profile.image ||
+                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              }}
               style={styles.headerProfileImg}
               resizeMode="cover"
             />
           ) : (
             <Image
-              source={{ uri: image.uri }}
+              source={{
+                uri:
+                  image.uri ||
+                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              }}
               style={styles.headerProfileImg}
               resizeMode="cover"
             />
           )}
         </Pressable>
-        {/* <Text style={styles.headerName}>
-          {profile.firstName} {profile.lastName}
-        </Text> */}
+
+        {/* FIRST NAME: */}
         <HStack style={{ padding: 7 }}>
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
@@ -134,6 +140,8 @@ const MentorProfileUpdate = ({ navigation, route }) => {
               setUpdatedMentor({ ...updatedMentor, firstName: value })
             }
           />
+
+          {/* LAST NAME: */}
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"Last Name"}
@@ -144,7 +152,9 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           />
         </HStack>
       </VStack>
+
       <ScrollView>
+        {/* MAJOR ICON + TEXT : */}
         <VStack style={{ padding: 12 }}>
           <VStack
             style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}
@@ -156,6 +166,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
+
               <VStack style={{ marginVertical: 10, flex: 1 }}>
                 <Text style={{ fontSize: 16, marginLeft: 5 }}>Major:</Text>
                 <Input
@@ -168,6 +179,8 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* EMPLOYER ICON + TEXT : */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="business-outline"
@@ -187,6 +200,8 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* BIO ICON + TEXT : */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="information-circle-outline"
@@ -206,6 +221,8 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* PHONE ICON + TEXT : */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="call-outline"

@@ -1,9 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { HStack, Toast, VStack } from "native-base";
-//* Customized tags components :
+//*  CUSTOMIZED COMPONENTS & SVG:
 import Input from "../../components/Input";
-
 import Btn from "../../components/Btn";
 
 const StepOne = ({ step, setStep, setUser, user, navigation }) => {
@@ -15,6 +14,7 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
       user.email === "" ||
       user.phone === ""
     ) {
+      //* TO SHOW THE REQUIREMENT & RULES:
       Toast.show({
         title: "One of the fields is empty",
         placement: "top",
@@ -75,34 +75,45 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
           <Text> </Text>
         </View>
       </HStack>
+
+      {/* FIRST NAME: */}
       <Input
         placeholder="First Name"
         defaultValue={user.firstName || ""}
         onChangeText={(firstName) => setUser({ ...user, firstName })}
       />
+
+      {/* LAST NAME: */}
       <Input
         placeholder="Last Name"
         defaultValue={user.lastName}
         onChangeText={(lastName) => setUser({ ...user, lastName })}
       />
+
+      {/* EMAIL: */}
       <Input
         placeholder="Email"
         defaultValue={user.email}
         keyboardType="email-address"
         onChangeText={(email) => setUser({ ...user, email })}
       />
+
+      {/* PHONE: */}
       <Input
         placeholder="Phone"
         defaultValue={user.phone}
         keyboardType="number-pad"
         onChangeText={(phone) => setUser({ ...user, phone })}
       />
+
+      {/* PASSWORD: */}
       <Input
         placeholder="Password"
         defaultValue={user.password}
         secureTextEntry
         onChangeText={(password) => setUser({ ...user, password })}
       />
+      {/* NEXT BUTTON: */}
       <Btn onPress={handleNext}>Next</Btn>
       <HStack
         style={{
@@ -113,6 +124,7 @@ const StepOne = ({ step, setStep, setUser, user, navigation }) => {
       >
         <Text>Already User ? </Text>
 
+        {/* SIGNIN BUTTON GO (LOGIN PAGE): */}
         <Pressable
           onPress={() => {
             navigation.navigate("Login");

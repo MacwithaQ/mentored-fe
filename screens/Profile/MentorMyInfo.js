@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 const MentorMyInfo = ({ profile }) => {
   return (
     <VStack style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}>
+      {/* MAJOR ICON & TEXT : */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="briefcase-outline"
@@ -18,6 +19,8 @@ const MentorMyInfo = ({ profile }) => {
           <Text style={{ color: "#828282" }}>{profile.major}</Text>
         </VStack>
       </HStack>
+
+      {/* EMPLOYER ICON & TEXT : */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="business-outline"
@@ -30,6 +33,8 @@ const MentorMyInfo = ({ profile }) => {
           <Text style={{ color: "#828282" }}>{profile.employer}</Text>
         </VStack>
       </HStack>
+
+      {/* BIO: */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="information-circle-outline"
@@ -49,6 +54,8 @@ const MentorMyInfo = ({ profile }) => {
           color="#57A0D7"
           style={{ marginRight: 12 }}
         />
+
+        {/* PHONE: */}
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Phone:</Text>
           <Text style={{ color: "#828282" }}>{profile.phone}</Text>

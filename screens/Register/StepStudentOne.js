@@ -3,7 +3,7 @@ import React from "react";
 import { HStack, VStack } from "native-base";
 import Input from "../../components/Input";
 import { Picker } from "@react-native-picker/picker";
-//* Customized tags components :
+//*  CUSTOMIZED COMPONENTS & SVG:
 import Btn from "../../components/Btn";
 
 const OPTIONS = [
@@ -89,11 +89,14 @@ const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
           <Text> </Text>
         </View>
       </HStack>
+      {/* AGE : */}
       <Input
         placeholder="Age"
         keyboardType="number-pad"
         onChangeText={(age) => setUser({ ...user, age })}
       />
+
+      {/* PICKER FOR EDUCATION LEVEL (DROP DOWN): */}
       <Picker
         style={{
           backgroundColor: "#F5F4F9",
@@ -119,14 +122,20 @@ const StepStudentOne = ({ step, setStep, setUser, user, handleRegister }) => {
           />
         ))}
       </Picker>
+
+      {/* GUARDIAN: */}
       <Input
         placeholder="Guardian"
         onChangeText={(guardian) => setUser({ ...user, guardian })}
       />
+
+      {/* PHONE: */}
       <Input
         placeholder="Phone Number"
         onChangeText={(gPhone) => setUser({ ...user, gPhone })}
       />
+
+      {/* REGISTER BUTTON: */}
       <VStack>
         <Btn onPress={handleRegister}>Register</Btn>
         <Btn outline onPress={() => setStep(step - 1)}>

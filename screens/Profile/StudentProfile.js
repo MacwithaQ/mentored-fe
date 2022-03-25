@@ -12,19 +12,28 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/native";
 import StudentMtInfo from "./StudentMtInfo";
+//* STORES:
 import { baseURL } from "../../stores/instance";
 
 const StudentProfile = ({ profile, setProfile }) => {
-  //* declare nav :
+  //* DECLARE NAV :
   const navigation = useNavigation();
 
-  //* to change the buttons and Background:
+  //* TO CHANGE THE BUTTON & BACKGROUND:
   const [info, setInfo] = useState(true);
 
-  //* handlers (Buttons to change back and forth):
+  //* HANDLERS:
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
-  console.log(profile);
+
+  //* TO MAKE THE USER DEFAULT IMAGE APPEAR :
+  const [image, setImage] = useState(
+    <Image
+      source={{
+        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
+      }}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -42,40 +51,57 @@ const StudentProfile = ({ profile, setProfile }) => {
           }
         />
 
-        {/* Show profile img + firstName  - lastName: */}
-        <Image
-          source={{
-            uri:
-              baseURL + profile.image ||
-              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-          }}
-          style={styles.headerProfileImg}
-        />
+        {/* STUDENT IMAGE: */}
+        {!image ? (
+          <Image
+            source={{
+              uri:
+                baseURL + profile.image ||
+                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            }}
+            style={styles.headerProfileImg}
+            resizeMode="cover"
+          />
+        ) : (
+          <Image
+            source={{
+              uri:
+                image.uri ||
+                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            }}
+            style={styles.headerProfileImg}
+            resizeMode="cover"
+          />
+        )}
+
+        {/* FIRST + LAST > NAME */}
         <Text style={styles.headerName}>
           {profile.firstName} {profile.lastName}
         </Text>
       </VStack>
 
-      {/* Show to Buttons(My info - My meeting) to move between them: */}
+      {/* SHOW THE BUTTONS(MY INFO - MY MEETING) TO MOVE BETWEEN THEM: */}
       <HStack>
+        {/*  MY INFO BUTTON OR TITLE */}
         <Pressable onPress={handleInfo} style={styles.switcherItem}>
           <Text style={{ color: info ? "#57A0D7" : "#4F4F4F" }}>My Info</Text>
         </Pressable>
 
+        {/*  MY MEETING BUTTON OR TITLE */}
         <Pressable onPress={handleMeetings} style={styles.switcherItem}>
           <Text style={{ color: !info ? "#57A0D7" : "#4F4F4F" }}>
             My Meetings
           </Text>
         </Pressable>
       </HStack>
+
+      {/*  MY INFO BODY */}
       <VStack style={{ padding: 12 }}>
         {info ? <StudentMtInfo profile={profile} /> : <Text>My Meetings</Text>}
       </VStack>
     </View>
   );
 };
-
-//* info in the box below the img:
 
 export default observer(StudentProfile);
 

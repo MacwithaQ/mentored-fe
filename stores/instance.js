@@ -4,11 +4,11 @@ import axios from "axios";
 
 //* ifconfig
 //? Alqalaf's at Coded
-export const baseURL = "http://192.168.150.103:8000";
+// export const baseURL = "http://192.168.150.103:8000";
 
 //? Alansari's at Coded
 // export const baseURL = "http://192.168.100.168:8000";
-export const baseURL = "http://192.168.1.21:8000";
+// export const baseURL = "http://192.168.1.21:8000";
 
 //? Alansari's at Home
 
@@ -27,7 +27,7 @@ export const baseURL = "http://192.168.1.21:8000";
 // export const baseURL = "http://192.168.1.54:8000";
 
 //?Alrashed's at Home
-// export const baseURL = "http://192.168.8.153:8000";
+export const baseURL = "http://192.168.8.153:8000";
 
 export const instance = axios.create({
   baseURL: `${baseURL}/api`,
