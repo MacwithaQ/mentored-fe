@@ -41,7 +41,7 @@ const Search = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView />
-      //* SEARCH BAR:
+      {/* SEARCH BAR: */}
       <View style={styles.header}>
         <Text
           style={{
@@ -71,7 +71,7 @@ const Search = () => {
           />
         </HStack>
       </View>
-      //* SHOW MAJOR LIST:
+      {/* SHOW MAJOR LIST: */}
       <ScrollView horizontal={true} style={{ backgroundColor: "#F5F4F9" }}>
         <HStack style={{ height: 50, margin: 10, justifyContent: "center" }}>
           {majorButtonsList}
