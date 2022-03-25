@@ -1,17 +1,24 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Input from "../components/Input";
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
 //* STORES:
 import mentorStore from "../stores/mentorStore";
+import { instance } from "../stores/instance";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("");
+  const [conversation, setConversations] = useState([]);
+  useEffect(() => {
+    const getConversations = async () => {
+      const res = await instance.get("/conversations/" + user._id);
+    };
+  });
 
-  const mentorList = mentorStore.mentors
+  const mentorList = mentorStore.mentorsaa
     .filter((mentor) =>
       [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
         name.toLowerCase().includes(query.toLowerCase())
