@@ -14,8 +14,12 @@ import MentorListCardSm from "../components/MentorListCardSm";
 import Logo from "../assets/Logo.svg";
 //* Stores:
 import authStore from "../stores/authStore";
+import mentorStore from "../stores/mentorStore";
 
 const Home = ({ navigation }) => {
+  const featuredList = mentorStore.mentors
+    .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
+    .sort((a, b) => b - a);
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
@@ -55,13 +59,23 @@ const Home = ({ navigation }) => {
       </VStack>
       {/* Show mentors list : */}
       <VStack style={styles.body}>
-        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-          Mentors For You
-        </Text>
+        <HStack
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 5,
+            marginBottom: 10,
+          }}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+            Featured Mentors
+          </Text>
+          <Pressable onPress={() => {}}>
+            <Text style={{ color: "#57A0D7", fontSize: 12 }}>Show All</Text>
+          </Pressable>
+        </HStack>
         <ScrollView horizontal={true}>
-          <HStack>
-            <MentorListCardLg />
-          </HStack>
+          <HStack>{featuredList}</HStack>
         </ScrollView>
         <Text style={{ fontWeight: "bold", fontSize: 20, margin: 5 }}>
           Major Name
