@@ -7,14 +7,16 @@ import {
 import { Toast, VStack } from "native-base";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-//* from register folder  :
+
+//* STEPS FROM REGISTER FOLDER  :
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepStudentOne from "./StepStudentOne";
 import StepMentor from "./StepMentor";
-//* Customized SVG :
+
+//*  CUSTOMIZED SVG:
 import RegisterSVG from "../../assets/register.svg";
-//* Stores:
+//* STORES:
 import authStore from "../../stores/authStore";
 
 const Register = ({ navigation }) => {
@@ -34,7 +36,7 @@ const Register = ({ navigation }) => {
     guardian: "",
     gPhone: "",
   });
-
+  //* REGISTER HANDLER:
   const handleRegister = () => {
     if (user.isMentor) {
       if (user.major === "" || user.employer === "") {
@@ -66,6 +68,7 @@ const Register = ({ navigation }) => {
         user.guardian === "" ||
         user.gPhone === ""
       ) {
+        //* TOAST TO SHOW THE REQUIREMENT & RULES:
         Toast.show({
           title: "One of the fields is empty",
           placement: "top",
@@ -91,6 +94,7 @@ const Register = ({ navigation }) => {
   };
 
   const steps = [
+    //* STEP ONE:
     <StepOne
       step={step}
       setStep={setStep}
@@ -98,6 +102,8 @@ const Register = ({ navigation }) => {
       user={user}
       navigation={navigation}
     />,
+
+    //* STEP TWO(MENTOR || STUDENT):
     <StepTwo step={step} setStep={setStep} setUser={setUser} user={user} />,
     user.isMentor ? (
       <StepMentor
@@ -132,7 +138,7 @@ const Register = ({ navigation }) => {
         />
       </View>
 
-      {/* For every step if it's true do the step: */}
+      {/*  IF TRUE DO THE STEPS: */}
       <VStack flex={1} alignItems="center" justifyContent="center">
         <RegisterSVG width={300} />
       </VStack>

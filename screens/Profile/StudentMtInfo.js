@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
-import authStore from "../../stores/authStore";
 import { Ionicons } from "@expo/vector-icons";
 
 const StudentMtInfo = ({ profile }) => {

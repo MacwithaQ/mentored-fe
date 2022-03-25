@@ -8,11 +8,11 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
-//* Customized tags components & SVG:
+//*  CUSTOMIZED COMPONENTS & SVG:
 import MentorListCardLg from "../components/MentorListCardLg";
 import MentorListCardSm from "../components/MentorListCardSm";
 import Logo from "../assets/Logo.svg";
-//* Stores:
+//* STORES:
 import authStore from "../stores/authStore";
 
 const Home = ({ navigation }) => {
@@ -21,14 +21,13 @@ const Home = ({ navigation }) => {
       <VStack style={styles.header}>
         <SafeAreaView />
         <HStack style={styles.headerWrapper}>
-          {/*  Navbar >>> */}
+          {/*  NAVBAR >>> */}
           <HStack style={styles.headerLogo}>
             <Logo style={styles.headerLogoImg} />
             <Text style={styles.headerLogoText}>Mentored</Text>
           </HStack>
-          {/*  <<< Navbar */}
 
-          {/*  show the button & img if their is user signin: */}
+          {/*  SHOW THE BTN & IMG IF THEIR USER: */}
           {authStore.user ? (
             // <Text>{authStore.user.firstName}</Text>
             <Pressable onPress={authStore.signout}>
@@ -41,10 +40,14 @@ const Home = ({ navigation }) => {
             </Pressable>
           ) : (
             <HStack>
-              {/* Else give me two text pressable: */}
+              {/* ELSE GIVE ME THE PRESSABLE TEXT: */}
+
+              {/* LOGIN: */}
               <Pressable onPress={() => navigation.navigate("Login")}>
                 <Text style={{ color: "#57A0D7" }}>Login</Text>
               </Pressable>
+
+              {/* REGISTER: */}
               <Text style={{ color: "#828282" }}> / </Text>
               <Pressable onPress={() => navigation.navigate("Register")}>
                 <Text style={{ color: "#57A0D7" }}>Register</Text>
@@ -53,7 +56,8 @@ const Home = ({ navigation }) => {
           )}
         </HStack>
       </VStack>
-      {/* Show mentors list : */}
+
+      {/* SHOW MENTORS LIST: */}
       <VStack style={styles.body}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>
           Mentors For You
@@ -63,6 +67,8 @@ const Home = ({ navigation }) => {
             <MentorListCardLg />
           </HStack>
         </ScrollView>
+
+        {/* MENTORS NAME: */}
         <Text style={{ fontWeight: "bold", fontSize: 20, margin: 5 }}>
           Major Name
         </Text>

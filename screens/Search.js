@@ -1,25 +1,20 @@
-import {
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
-import Input from "../components/Input";
-import { useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import React from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useState, React } from "react";
 import { HStack, ScrollView, VStack } from "native-base";
+import { Feather } from "@expo/vector-icons";
+import { observer } from "mobx-react";
+//* CUSTOMIZABLE COMPONENTS:
+import Input from "../components/Input";
 import MentorSearchCard from "../components/MentorSearchCard";
 import MentorSearchBtn from "../components/MentorSearchBtn";
-import { observer } from "mobx-react";
+//* STORES:
 import mentorStore from "../stores/mentorStore";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("");
 
+  //* SEARCH || FILTER THE MENTORS (MAKE THE SEARCH PASSABLE):
   const mentorList = mentorStore.mentors
     .filter((mentor) =>
       [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
@@ -28,8 +23,12 @@ const Search = () => {
     )
     .filter((mentor) => mentor.major.includes(active))
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
+
+  //* MAP MENTORS BY MAJOR:
   let majors = mentorStore.mentors.map((mentor) => mentor.major);
   let uniqueMajors = [...new Set(majors)];
+
+  //* MAJOR BUTTONS:
   const majorButtonsList = uniqueMajors.map((major) => (
     <MentorSearchBtn
       major={major}
@@ -42,6 +41,7 @@ const Search = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView />
+      //* SEARCH BAR:
       <View style={styles.header}>
         <Text
           style={{
@@ -53,6 +53,7 @@ const Search = () => {
         >
           Search
         </Text>
+
         <HStack>
           <View style={{ flex: 1, marginLeft: 5 }}>
             <Input
@@ -70,6 +71,7 @@ const Search = () => {
           />
         </HStack>
       </View>
+      //* SHOW MAJOR LIST:
       <ScrollView horizontal={true} style={{ backgroundColor: "#F5F4F9" }}>
         <HStack style={{ height: 50, margin: 10, justifyContent: "center" }}>
           {majorButtonsList}

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState, useCallback, useEffect } from "react";
-import { VStack, HStack } from "native-base";
+import { HStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
@@ -35,11 +35,14 @@ const MessagingPage = () => {
     ]);
   }, []);
 
+  //* ON SEND:
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
   }, []);
+
+  //* READER BUBBLE:
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -61,6 +64,8 @@ const MessagingPage = () => {
       />
     );
   };
+
+  //* RENDER SEND:
   const renderSend = (props) => {
     return (
       <Send {...props}>
@@ -85,10 +90,12 @@ const MessagingPage = () => {
           color="black"
           onPress={() => navigation.navigate("Messages")}
         />
+        {/* MENTOR NAME: */}
         <HStack>
           <Text style={styles.headerName}>Mentor Name</Text>
         </HStack>
       </HStack>
+      {/* GIFTED CHAT COMPONENT: */}
       <GiftedChat
         messages={messages}
         onSend={(messages) => onSend(messages)}

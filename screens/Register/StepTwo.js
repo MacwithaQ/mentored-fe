@@ -1,18 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
-//* Customized tags components :
+//*  CUSTOMIZED COMPONENTS & SVG:
 import Btn from "../../components/Btn";
 
 const StepTwo = ({ step, setStep, setUser, user }) => {
-  //* Handler for mentor:
+  //* MENTOR HANDLER:
   const handleMentor = () => {
     setUser({ ...user, isMentor: true });
     setStep(step + 1);
     // authStore.signup(user, navigation);
   };
 
-  //* Handler for Student:
+  //* STUDENT HANDLER:
   const handleStudent = () => {
     setUser({ ...user, isMentor: false });
     setStep(step + 1);
@@ -66,7 +66,7 @@ const StepTwo = ({ step, setStep, setUser, user }) => {
           <Text> </Text>
         </View>
       </HStack>
-      {/*  MAIN two buttons: */}
+      {/* MAIN TWO BUTTON GO TO (MENTOR || STUDENT): */}
       <VStack>
         <Btn onPress={handleMentor}>I am a Mentor</Btn>
         <Btn onPress={handleStudent}>I am a Student</Btn>

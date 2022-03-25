@@ -1,40 +1,45 @@
 import decode from "jwt-decode";
 import { makeAutoObservable } from "mobx";
-import { instance } from "./instance";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import mentorStore from "./mentorStore";
 import { Toast } from "native-base";
+//* STORES:
+import { instance } from "./instance";
+import mentorStore from "./mentorStore";
+import studentStore from "./studentStore";
+
 class AuthStore {
+  //* SINCE IT'S OBJ THE DEFAULT VALUE NULL:
   user = null;
+
+  //* TO MAKE IT GLOBAL STORE:
   constructor() {
     makeAutoObservable(this);
   }
-
+  //* SIGN-UP:
   signup = async (userData, navigation) => {
     try {
       const res = await instance.post("/users/signup", userData);
       const { token } = res.data;
       this.setUser(token);
-      await mentorStore.fetchMentors();
-      // mentorStore.mentors.push({
-      //   firstName: userData.firstName,
-      //   lastName: userData.lastName,
-      //   major: userData.major,
-      //   employer: userData.employer,
-      // });
+
+      //*FETCHING ALL USERS + NAVIGATE:
+      (await mentorStore.fetchMentors()) && studentStore.fetchStudents();
       navigation.navigate("App");
     } catch (error) {
       console.log(error);
     }
   };
 
-  //* To be implemented when sign-in page is complete - alqallaf
+  //* SIGN-IN:
   signin = async (userData, navigation) => {
     try {
       const res = await instance.post("/users/signin", userData);
       const { token } = res.data;
       this.setUser(token);
+
+      //*FETCHING ALL USERS + NAVIGATE:
       mentorStore.fetchMentors();
+      studentStore.fetchStudents();
       navigation.navigate("Home");
     } catch (error) {
       Toast.show({
@@ -45,9 +50,10 @@ class AuthStore {
     }
   };
 
-  //* To be implemented when sign-out button is complete - alqallaf
+  //* SIGN-OUT:
   signout = async () => {
     try {
+      //* MAKE USER NULL:
       await AsyncStorage.removeItem("token");
       this.user = null;
     } catch (error) {
@@ -55,15 +61,19 @@ class AuthStore {
     }
   };
 
+  //* SET-USER:
   setUser = async (token) => {
     try {
       const decodedToken = decode(token);
       this.user = decodedToken;
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+      //* SAVE TOKEN IN THE ASYNC-STORAGE:
       await AsyncStorage.setItem("token", token);
     } catch (error) {}
   };
 
+  //* CHECK FOR TOKEN:
   checkForToken = async () => {
     try {
       const token = await AsyncStorage.getItem("token");

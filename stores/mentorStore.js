@@ -2,12 +2,15 @@ import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 
 class MentorStore {
+  //* TO MAKE IT GLOBAL STORE:
   constructor() {
     makeAutoObservable(this);
   }
 
+  //* EMPTY ARRAY TO USE THE METHODS IN IT :
   mentors = [];
 
+  //* FETCH ALL MENTORS:
   fetchMentors = async () => {
     try {
       const response = await instance.get("/mentors");
@@ -17,8 +20,10 @@ class MentorStore {
     }
   };
 
+  //* UPDATE MENTOR:
   updateMentor = async (updatedMentor, image) => {
     try {
+      //* HELP ADD IMG:
       const formData = new FormData();
       if (updatedMentor !== undefined) {
         for (const key in updatedMentor) {
@@ -26,6 +31,7 @@ class MentorStore {
         }
       }
 
+      //* CHANGE IMG FORMATE:
       if (image) {
         formData.append("image", {
           type: image.type,
@@ -34,7 +40,7 @@ class MentorStore {
         });
       }
 
-      //? respond:
+      //* RESPOND:
       const response = await instance.put(
         `/mentors/${updatedMentor._id}`,
         formData,
@@ -48,6 +54,7 @@ class MentorStore {
         }
       );
 
+      //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
         this.mentors = this.mentors.map((mentor) => {
           return mentor._id === response.data.payload._id

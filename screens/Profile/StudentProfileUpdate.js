@@ -9,11 +9,13 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
-import { Picker } from "@react-native-picker/picker";
-//* Customized tags components:
+import { observer } from "mobx-react";
+//* EXPO:
+import { Picker } from "@react-native-picker/picker"; //! AL ANSARI MAY NEED THIS<<
+import * as ImagePicker from "expo-image-picker";
+//*  CUSTOMIZED COMPONENT :
 import Input from "../../components/Input";
-import Btn from "../../components/Btn";
-//* Stores:
+//* STORES:
 import studentStore from "../../stores/studentStore";
 import { Ionicons } from "@expo/vector-icons";
 import { baseURL } from "../../stores/instance";
@@ -54,15 +56,57 @@ const OPTIONS = [
 ];
 
 const StudentProfileUpdate = ({ navigation, route }) => {
-  //* State to take the profile already created from the params:
-  const [updatedStudent, setUpdatedStudent] = useState(route.params.profile);
-  console.log("first", updatedStudent);
+  //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
 
-  // * handler to call update method & navigate:
+  //* TO CATCH & CHANGE THE STUDENT INFO || BODY:
+  const [updatedStudent, setUpdatedStudent] = useState({
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    age: profile.age,
+    educationLevel: profile.educationLevel,
+    guardian: profile.guardian,
+    phone: profile.phone,
+    _id: profile._id,
+    gPhone: profile.gPhone,
+  });
+
+  //* TO CATCH & CHANGE THE IMAGE :
+  const [image, setImage] = useState(
+    <Image
+      source={{
+        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
+      }}
+    />
+  );
+
+  //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
+
+  // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
-    await studentStore.updateStudent(updatedStudent, updatedStudent._id);
-    route.params.setProfile(updatedStudent);
+    await studentStore.updateStudent(
+      updatedStudent,
+      image,
+      route.params.setProfile
+    );
+
+    //* IMG CHANGER:
+    const studentsFind = studentStore.students.find(
+      (student) => student._id === profile._id
+    );
+
+    route.params.setProfile(studentsFind);
     navigation.navigate("Profile");
   };
 
@@ -80,6 +124,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
             marginBottom: 12,
           }}
         >
+          {/* CANCEL PRESSABLE BUTTON: */}
           <HStack style={{ justifyContent: "space-between" }}>
             <Text
               style={{ fontWeight: "600", fontSize: 16 }}
@@ -88,6 +133,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
               Cancel
             </Text>
 
+            {/* DONE PRESSABLE BUTTON: */}
             <Text
               style={{ fontWeight: "bold", color: "#57A0D7", fontSize: 16 }}
               onPress={handleSubmit}
@@ -97,18 +143,32 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           </HStack>
         </Pressable>
 
-        {/* Show profile img + firstName  - lastName: */}
-        <Image
-          source={{
-            uri:
-              baseURL + profile.image ||
-              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-          }}
-          style={styles.headerProfileImg}
-        />
-        {/* <Text style={styles.headerName}>
-          {profile.firstName} {profile.lastName}
-        </Text> */}
+        {/* SHOW PROFILE IMG: */}
+        <Pressable onPress={pickImage}>
+          {!image ? (
+            <Image
+              source={{
+                uri:
+                  baseURL + profile.image ||
+                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              }}
+              style={styles.headerProfileImg}
+              resizeMode="cover"
+            />
+          ) : (
+            <Image
+              source={{
+                uri:
+                  image.uri ||
+                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              }}
+              style={styles.headerProfileImg}
+              resizeMode="cover"
+            />
+          )}
+        </Pressable>
+
+        {/* FIRST NAME: */}
         <HStack style={{ padding: 7 }}>
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
@@ -118,6 +178,8 @@ const StudentProfileUpdate = ({ navigation, route }) => {
               setUpdatedStudent({ ...updatedStudent, firstName: value })
             }
           />
+
+          {/* LAST NAME: */}
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"Last Name"}
@@ -133,6 +195,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           <VStack
             style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}
           >
+            {/* AGE: */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="calendar-outline"
@@ -152,6 +215,8 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* EMPLOYER: */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="school-outline"
@@ -171,6 +236,8 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* PHONE: */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="call-outline"
@@ -190,6 +257,8 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* GUARDIAN: */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="people-outline"
@@ -209,6 +278,8 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 />
               </VStack>
             </HStack>
+
+            {/* GUARDIAN PHONE: */}
             <HStack style={{ alignItems: "center" }}>
               <Ionicons
                 name="call-outline"
@@ -237,7 +308,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
   );
 };
 
-export default StudentProfileUpdate;
+export default observer(StudentProfileUpdate);
 
 const styles = StyleSheet.create({
   container: {

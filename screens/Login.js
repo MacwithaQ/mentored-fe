@@ -9,18 +9,18 @@ import {
 import { VStack, HStack } from "native-base";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-//* Customized tags components & SVG:
+//*  CUSTOMIZED COMPONENTS & SVG:
 import Input from "../components/Input";
 import LoginSVG from "../assets/login.svg";
-//* Stores:
+//* STORES:
 import authStore from "../stores/authStore";
 import Btn from "../components/Btn";
 
 const Login = ({ navigation }) => {
-  //* To store the user info in it:
+  //*  TO STORE THE USER INFO IN IT:
   const [user, setUser] = useState(null);
 
-  //* Handler:
+  //* HANDLERS:
   const handleSignin = () => {
     authStore.signin(user, navigation);
   };
@@ -65,6 +65,7 @@ const Login = ({ navigation }) => {
           secureTextEntry
           onChangeText={(password) => setUser({ ...user, password })}
         />
+
         {/* LOGIN BUTTON: */}
         <Btn onPress={handleSignin}>Login</Btn>
 
@@ -76,6 +77,7 @@ const Login = ({ navigation }) => {
           }}
         >
           <Text>Dont Have an Account? </Text>
+
           {/* REGISTER TEXT */}
           <Pressable
             onPress={() => {

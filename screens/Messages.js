@@ -1,17 +1,10 @@
-import {
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Input from "../components/Input";
-import { useState } from "react";
-import React from "react";
+import { useState, React } from "react";
 import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
+//* STORES:
 import mentorStore from "../stores/mentorStore";
 
 const Search = () => {
