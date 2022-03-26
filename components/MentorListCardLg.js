@@ -60,7 +60,7 @@ const MentorListCardLg = ({ mentor }) => {
               textTransform: "capitalize",
             }}
           >
-            Employer
+            {mentor.employer}
           </Text>
         </VStack>
       </View>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "white",
     borderRadius: 20,
-    paddingVertical: 5,
+    paddingVertical: 12,
     marginHorizontal: 5,
     shadowColor: "#000",
     shadowOffset: {
@@ -86,12 +86,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 2.62,
-
     elevation: 4,
   },
   cardImg: {
-    width: 125,
-    height: 125,
+    width: 110,
+    height: 110,
     borderRadius: 15,
     marginBottom: 10,
   },
