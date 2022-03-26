@@ -37,9 +37,6 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   //* TO CATCH & CHANGE THE IMAGE :
   const [image, setImage] = useState(null);
 
-  console.log(baseURL + profile.image);
-  console.log(image);
-
   //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

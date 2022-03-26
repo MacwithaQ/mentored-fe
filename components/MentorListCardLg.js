@@ -5,7 +5,6 @@ import { baseURL } from "../stores/instance";
 
 const MentorListCardLg = ({ mentor }) => {
   const navigation = useNavigation();
-  console.log("mentor", mentor);
   return (
     <Pressable
       onPress={() =>
