@@ -19,11 +19,12 @@ import mentorStore from "../stores/mentorStore";
 const Home = ({ navigation }) => {
   const featuredList = mentorStore.mentors
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
-    .sort((a, b) => b - a);
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 5);
+
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
-        <SafeAreaView />
         <HStack style={styles.headerWrapper}>
           {/*  NAVBAR >>> */}
           <HStack style={styles.headerLogo}>
@@ -74,7 +75,11 @@ const Home = ({ navigation }) => {
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>
             Featured Mentors
           </Text>
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("SearchNavigator");
+            }}
+          >
             <Text style={{ color: "#57A0D7", fontSize: 12 }}>Show All</Text>
           </Pressable>
         </HStack>

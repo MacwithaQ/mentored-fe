@@ -11,7 +11,9 @@ const MentorSearchCard = ({ mentor }) => {
         <VStack>
           <Image
             source={{
-              uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              uri:
+                mentor.image ||
+                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
             }}
             style={styles.cardImg}
           />
