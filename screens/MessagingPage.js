@@ -5,10 +5,35 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import mentorStore from "../stores/mentorStore";
+import studentStore from "../stores/studentStore";
 
-const MessagingPage = () => {
+const MessagingPage = ({ route }) => {
+  const { conversation } = route.params;
+  const { currentProfile } = route.params;
   const navigation = useNavigation();
+
   const [messages, setMessages] = useState([]);
+
+  //initialize found user
+  let foundUser = {};
+
+  useEffect(() => {
+    const user = conversation.members.find(
+      (member) => member !== currentProfile._id
+    );
+    const findUser = () => {
+      if (mentorStore.mentors.some((mentor) => mentor._id === user)) {
+        foundUser = mentorStore.mentors.find((mentor) => mentor._id === user);
+      } else {
+        foundUser = studentStore.students.find(
+          (student) => student._id === user
+        );
+      }
+    };
+    findUser();
+    console.log(foundUser);
+  }, [currentProfile, conversation]);
 
   useEffect(() => {
     setMessages([

@@ -6,26 +6,50 @@ import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
 //* STORES:
 import mentorStore from "../stores/mentorStore";
+import studentStore from "../stores/studentStore";
 import { instance } from "../stores/instance";
+import authStore from "../stores/authStore";
+
+let profile = {};
+const findUserProfile = () => {
+  if (authStore.user === null) {
+    return null;
+  } else if (
+    studentStore.students.some(
+      (student) => student.user._id === authStore.user._id
+    )
+  ) {
+    return (profile = studentStore.students.find(
+      (student) => student.user._id === authStore.user._id
+    ));
+  } else {
+    return (profile = mentorStore.mentors.find(
+      (mentor) => mentor.user._id === authStore.user._id
+    ));
+  }
+};
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("");
-  const [conversation, setConversations] = useState([]);
+  const [conversations, setConversations] = useState([]);
+
   useEffect(() => {
     const getConversations = async () => {
-      const res = await instance.get("/conversations/" + user._id);
+      try {
+        findUserProfile();
+        const res = await instance.get("/conversations/" + profile._id);
+        setConversations(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-  });
+    getConversations();
+  }, [profile._id]);
 
-  const mentorList = mentorStore.mentorsaa
-    .filter((mentor) =>
-      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
-      )
-    )
-    .filter((mentor) => mentor.major.includes(active))
-    .map((mentor) => <MentorMessageCard mentor={mentor} />);
+  const conversationList = conversations.map((conversation) => (
+    <MentorMessageCard conversation={conversation} currentProfile={profile} />
+  ));
 
   return (
     <View style={styles.container}>
@@ -57,7 +81,7 @@ const Search = () => {
         style={{ backgroundColor: "#F5F4F9" }}
       ></ScrollView>
       <VStack style={{ flex: 110 }}>
-        <ScrollView>{mentorList}</ScrollView>
+        <ScrollView>{conversationList}</ScrollView>
       </VStack>
     </View>
   );

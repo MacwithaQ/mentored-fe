@@ -1,12 +1,41 @@
 import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { instance } from "../stores/instance";
+import mentorStore from "../stores/mentorStore";
+import studentStore from "../stores/studentStore";
 
-const MentorMessageCard = ({ mentor }) => {
+const MentorMessageCard = ({ conversation, currentProfile }) => {
   const navigation = useNavigation();
+  // const [user, setUser] = useState(null);
+  const [foundUser, setFoundUser] = useState();
 
+  const user = conversation.members.find(
+    (member) => member !== currentProfile._id
+  );
+
+  const findUser = () => {
+    if (mentorStore.mentors.some((mentor) => mentor._id === user)) {
+      setFoundUser(mentorStore.mentors.find((mentor) => mentor._id === user));
+    } else {
+      setFoundUser(
+        studentStore.students.find((student) => student._id == user)
+      );
+    }
+  };
+
+  useEffect(() => {
+    findUser();
+  }, [currentProfile, conversation]);
+
+  console.log(foundUser);
   return (
-    <Pressable onPress={() => navigation.navigate("MessagingPage")}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("MessagingPage", { conversation, currentProfile })
+      }
+    >
       <HStack style={styles.mentorCard}>
         <VStack>
           <Image
@@ -18,11 +47,9 @@ const MentorMessageCard = ({ mentor }) => {
         </VStack>
         <HStack style={{ alignSelf: "center" }}>
           <VStack>
-            <Text style={{ fontWeight: "bold" }}>
-              {`${mentor.firstName} ${mentor.lastName}`}
-            </Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
+            <Text style={{ fontWeight: "bold" }}>{`name`}</Text>
+            <Text style={{ color: "#BDBDBD" }}>{"major"}</Text>
+            <Text style={{ color: "#BDBDBD" }}>{"employer"}</Text>
           </VStack>
         </HStack>
       </HStack>
