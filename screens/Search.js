@@ -31,8 +31,9 @@ const Search = () => {
   let uniqueMajors = [...new Set(majors)];
 
   //* MAJOR BUTTONS:
-  const majorButtonsList = uniqueMajors.map((major) => (
+  const majorButtonsList = uniqueMajors.map((major, index) => (
     <MentorSearchBtn
+      key={index}
       major={major}
       isActive={active === major}
       active={active}
