@@ -2,6 +2,7 @@ import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import { observer } from "mobx-react";
 
 const MentorMyInfo = ({ profile }) => {
   return (
@@ -65,6 +66,6 @@ const MentorMyInfo = ({ profile }) => {
   );
 };
 
-export default MentorMyInfo;
+export default observer(MentorMyInfo);
 
 const styles = StyleSheet.create({});
