@@ -1,6 +1,7 @@
 import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { baseURL } from "../stores/instance";
 
 const MentorSearchCard = ({ mentor }) => {
   const navigation = useNavigation();
@@ -11,9 +12,9 @@ const MentorSearchCard = ({ mentor }) => {
         <VStack>
           <Image
             source={{
-              uri:
-                mentor.image ||
-                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              uri: mentor.image
+                ? baseURL + mentor.image
+                : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
             }}
             style={styles.cardImg}
           />

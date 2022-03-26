@@ -107,7 +107,9 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           {!image ? (
             <Image
               source={{
-                uri: baseURL + profile.image,
+                uri: profile.image
+                  ? baseURL + profile.image
+                  : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
