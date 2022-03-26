@@ -21,11 +21,13 @@ const Search = () => {
         name.toLowerCase().includes(query.toLowerCase())
       )
     )
-    .filter((mentor) => mentor.major.includes(active))
+    .filter((mentor) =>
+      mentor.major.toLowerCase().includes(active.toLowerCase())
+    )
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
 
   //* MAP MENTORS BY MAJOR:
-  let majors = mentorStore.mentors.map((mentor) => mentor.major);
+  let majors = mentorStore.mentors.map((mentor) => mentor.major.toLowerCase());
   let uniqueMajors = [...new Set(majors)];
 
   //* MAJOR BUTTONS:
@@ -40,7 +42,6 @@ const Search = () => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView />
       {/* SEARCH BAR: */}
       <View style={styles.header}>
         <Text
@@ -55,7 +56,7 @@ const Search = () => {
         </Text>
 
         <HStack>
-          <View style={{ flex: 1, marginLeft: 5 }}>
+          <View style={{ flex: 1, paddingHorizontal: 12, paddingVertical: 7 }}>
             <Input
               placeholder="Search"
               onChangeText={(q) => {
@@ -63,17 +64,11 @@ const Search = () => {
               }}
             />
           </View>
-          <Feather
-            name="filter"
-            size={22}
-            color="black"
-            style={{ marginTop: 8, marginRight: 10 }}
-          />
         </HStack>
       </View>
       {/* SHOW MAJOR LIST: */}
-      <ScrollView horizontal={true} style={{ backgroundColor: "#F5F4F9" }}>
-        <HStack style={{ height: 50, margin: 10, justifyContent: "center" }}>
+      <ScrollView horizontal={true}>
+        <HStack style={{ padding: 7, alignItems: "center" }}>
           {majorButtonsList}
         </HStack>
       </ScrollView>
@@ -88,64 +83,25 @@ export default observer(Search);
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
+    marginTop: 50,
+    marginHorizontal: 12,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2.62,
+    elevation: 4,
+    marginBottom: 10,
   },
+
   container: {
     width: "100%",
     flex: 1,
     margin: 0,
     backgroundColor: "#F5F4F9",
-    // padding: 12,
-  },
-  majorButtonsInactive: {
-    backgroundColor: "white",
-    justifyContent: "center",
-    textAlign: "center",
-    margin: 5,
-    borderRadius: 30,
-
-    padding: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
-  },
-  majorButtonsActive: {
-    backgroundColor: "#95C8EC",
-    justifyContent: "center",
-    textAlign: "center",
-    margin: 5,
-    borderRadius: 30,
-    padding: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
-  },
-  mentorCard: {
-    alignItems: "flex-start",
-    margin: 5,
-    marginHorizontal: 12,
-    overflow: "hidden",
-    backgroundColor: "white",
-    height: 95,
-    borderRadius: 20,
-    padding: 5,
-  },
-  cardImg: {
-    width: 75,
-    height: 75,
-    margin: 5,
-    borderRadius: 15,
   },
 });
