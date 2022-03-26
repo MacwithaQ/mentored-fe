@@ -17,30 +17,12 @@ import Logo from "../assets/Logo.svg";
 //* STORES:
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
-import studentStore from "../stores/studentStore";
 
 const Home = ({ navigation }) => {
   const featuredList = mentorStore.mentors
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
     .sort(() => 0.5 - Math.random())
     .slice(0, 5);
-
-  //* make state to use and pass it to the screens:
-  const [profile, setProfile] = useState("");
-
-  //* if the user > isMentor = true he is mentor else Student:
-  useEffect(() => {
-    if (authStore.user != null) {
-      const people = authStore.user.isMentor
-        ? mentorStore.mentors
-        : studentStore.students;
-      setProfile(
-        people.find((person) => person.user._id === authStore.user._id)
-      );
-    }
-  }, [authStore.user, mentorStore.mentors, studentStore.students]);
-
-  // console.log(profile);
 
   return (
     <View style={styles.container}>
@@ -58,9 +40,7 @@ const Home = ({ navigation }) => {
             <Pressable onPress={authStore.signout}>
               <Image
                 source={{
-                  uri: profile.image
-                    ? baseURL + profile.image
-                    : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                  uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
                 }}
                 style={styles.headerProfileImg}
               />
