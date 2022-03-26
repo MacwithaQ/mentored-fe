@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 
 const MentorListCardLg = ({ mentor }) => {
   const navigation = useNavigation();
-  console.log("mentor", mentor);
   return (
     <Pressable
       onPress={() =>
