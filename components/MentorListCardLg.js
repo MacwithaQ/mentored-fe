@@ -1,52 +1,70 @@
+import { useNavigation } from "@react-navigation/native";
 import { VStack } from "native-base";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 
 const MentorListCardLg = ({ mentor }) => {
+  const navigation = useNavigation();
+  console.log("mentor", mentor);
   return (
-    <View style={styles.mentorCard}>
-      <Image
-        source={{
-          uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-        }}
-        style={styles.cardImg}
-      />
-      <VStack
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text
-          numberOfLines={1}
-          style={{ fontSize: 14, marginBottom: 5, textTransform: "capitalize" }}
-        >
-          {mentor.firstName} {mentor.lastName}
-        </Text>
-        <Text
-          numberOfLines={1}
+    <Pressable
+      onPress={() =>
+        navigation.navigate("SearchNavigator", {
+          screen: "MentorDetails",
+          params: { mentor },
+        })
+      }
+    >
+      <View style={styles.mentorCard}>
+        <Image
+          source={{
+            uri:
+              mentor.image ||
+              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+          }}
+          style={styles.cardImg}
+        />
+        <VStack
           style={{
-            color: "#828282",
-            fontSize: 12,
-            marginBottom: 2,
-            textTransform: "capitalize",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: 10,
           }}
         >
-          {mentor.major}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={{
-            color: "#b2b2b2",
-            fontSize: 10,
-            marginBottom: 5,
-            textTransform: "capitalize",
-          }}
-        >
-          Employer
-        </Text>
-      </VStack>
-    </View>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: 14,
+              marginBottom: 5,
+              textTransform: "capitalize",
+            }}
+          >
+            {mentor.firstName} {mentor.lastName}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{
+              color: "#828282",
+              fontSize: 12,
+              marginBottom: 2,
+              textTransform: "capitalize",
+            }}
+          >
+            {mentor.major}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{
+              color: "#b2b2b2",
+              fontSize: 10,
+              marginBottom: 5,
+              textTransform: "capitalize",
+            }}
+          >
+            Employer
+          </Text>
+        </VStack>
+      </View>
+    </Pressable>
   );
 };
 
