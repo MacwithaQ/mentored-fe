@@ -26,15 +26,6 @@ const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
 
-  //* TO MAKE THE USER DEFAULT IMAGE APPEAR :
-  const [image, setImage] = useState(
-    <Image
-      source={{
-        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
-      }}
-    />
-  );
-
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
@@ -52,25 +43,15 @@ const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
         />
 
         {/* MENTOR IMAGE: */}
-        {image ? (
-          <Image
-            source={{
-              uri: image.uri,
-            }}
-            style={styles.headerProfileImg}
-            resizeMode="cover"
-          />
-        ) : (
-          <Image
-            source={{
-              uri:
-                baseURL + profile.image ||
-                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
-            }}
-            style={styles.headerProfileImg}
-            resizeMode="cover"
-          />
-        )}
+        <Image
+          source={{
+            uri:
+              baseURL + profile.image ||
+              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+          }}
+          style={styles.headerProfileImg}
+          resizeMode="cover"
+        />
 
         {/* FIRST + LAST > NAME */}
         <Text style={styles.headerName}>

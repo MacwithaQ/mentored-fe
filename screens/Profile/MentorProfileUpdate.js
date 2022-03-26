@@ -35,13 +35,10 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   });
 
   //* TO CATCH & CHANGE THE IMAGE :
-  const [image, setImage] = useState(
-    <Image
-      source={{
-        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
-      }}
-    />
-  );
+  const [image, setImage] = useState(null);
+
+  console.log(baseURL + profile.image);
+  console.log(image);
 
   //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
   const pickImage = async () => {
@@ -110,9 +107,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           {!image ? (
             <Image
               source={{
-                uri:
-                  baseURL + profile.image ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: baseURL + profile.image,
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
@@ -120,9 +115,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           ) : (
             <Image
               source={{
-                uri:
-                  image.uri ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: image.uri,
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
