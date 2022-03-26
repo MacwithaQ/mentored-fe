@@ -8,6 +8,8 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
+import { baseURL } from "../stores/instance";
+import { useEffect, useState } from "react";
 //*  CUSTOMIZED COMPONENTS & SVG:
 import MentorListCardLg from "../components/MentorListCardLg";
 import MentorListCardSm from "../components/MentorListCardSm";
@@ -108,10 +110,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F4F9",
   },
+
   header: {
     backgroundColor: "#fff",
-    // borderBottomWidth: 0.3,
-    // borderBottomColor: "#aaa",
     marginTop: 50,
     marginHorizontal: 12,
     borderRadius: 20,
@@ -122,27 +123,34 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 2.62,
-
     elevation: 4,
   },
+
   headerWrapper: {
     padding: 12,
     justifyContent: "space-between",
     alignItems: "center",
   },
+
   headerLogo: { alignItems: "center" },
+
   headerLogoImg: { width: 40, height: 40 },
+
   headerLogoText: { marginLeft: 5, fontWeight: "bold", fontSize: 20 },
+
   headerProfileImg: { width: 50, height: 50, borderRadius: 50 },
+
   cardImg: {
     width: 75,
     height: 75,
     margin: 5,
     borderRadius: 15,
   },
+
   body: {
     padding: 12,
   },
+
   mentorCard: {
     alignItems: "flex-start",
     margin: 5,

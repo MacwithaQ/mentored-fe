@@ -1,6 +1,7 @@
 import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { baseURL } from "../stores/instance";
 
 const MentorSearchCard = ({ mentor }) => {
   const navigation = useNavigation();
@@ -11,20 +12,47 @@ const MentorSearchCard = ({ mentor }) => {
         <VStack>
           <Image
             source={{
-              uri:
-                mentor.image ||
-                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              uri: mentor.image
+                ? baseURL + mentor.image
+                : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
             }}
             style={styles.cardImg}
           />
         </VStack>
         <HStack style={{ alignSelf: "center" }}>
           <VStack>
-            <Text style={{ fontWeight: "bold" }}>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 14,
+                marginBottom: 5,
+                textTransform: "capitalize",
+              }}
+            >
               {`${mentor.firstName} ${mentor.lastName}`}
             </Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                color: "#828282",
+                fontSize: 12,
+                marginBottom: 2,
+                textTransform: "capitalize",
+              }}
+            >
+              {mentor.major}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                color: "#b2b2b2",
+                fontSize: 10,
+                marginBottom: 5,
+                textTransform: "capitalize",
+              }}
+            >
+              {mentor.employer}
+            </Text>
           </VStack>
         </HStack>
       </HStack>
@@ -41,14 +69,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     overflow: "hidden",
     backgroundColor: "white",
-    height: 95,
     borderRadius: 20,
     padding: 5,
   },
   cardImg: {
     width: 75,
     height: 75,
-    margin: 5,
+    margin: 3,
+    marginRight: 10,
     borderRadius: 15,
   },
 });
