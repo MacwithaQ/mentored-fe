@@ -52,12 +52,10 @@ const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
         />
 
         {/* MENTOR IMAGE: */}
-        {!image ? (
+        {image ? (
           <Image
             source={{
-              uri:
-                baseURL + profile.image ||
-                "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              uri: image.uri,
             }}
             style={styles.headerProfileImg}
             resizeMode="cover"
@@ -66,7 +64,7 @@ const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
           <Image
             source={{
               uri:
-                image.uri ||
+                baseURL + profile.image ||
                 "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
             }}
             style={styles.headerProfileImg}
