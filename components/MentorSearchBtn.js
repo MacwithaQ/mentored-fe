@@ -13,7 +13,14 @@ const MentorSearchBtn = ({ major, isActive, setActive, active }) => {
       <View>
         <HStack style={{ alignItems: "center" }}>
           <Ionicons name="close" size={15} color="black" />
-          <Text style={{ fontSize: 12, marginHorizontal: 5, color: "white" }}>
+          <Text
+            style={{
+              fontSize: 12,
+              marginHorizontal: 5,
+              color: "white",
+              textTransform: "capitalize",
+            }}
+          >
             {major}
           </Text>
         </HStack>
@@ -22,7 +29,15 @@ const MentorSearchBtn = ({ major, isActive, setActive, active }) => {
   ) : (
     <Pressable style={styles.majorButtonsInactive} onPress={toggleButton}>
       <View>
-        <Text style={{ fontSize: 12, marginHorizontal: 5 }}>{major}</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            marginHorizontal: 5,
+            textTransform: "capitalize",
+          }}
+        >
+          {major}
+        </Text>
       </View>
     </Pressable>
   );
@@ -32,12 +47,11 @@ export default observer(MentorSearchBtn);
 
 const styles = StyleSheet.create({
   majorButtonsInactive: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     justifyContent: "center",
     textAlign: "center",
-    margin: 5,
+    marginHorizontal: 5,
     borderRadius: 30,
-
     padding: 5,
     shadowColor: "#000",
     shadowOffset: {
@@ -53,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#95C8EC",
     justifyContent: "center",
     textAlign: "center",
-    margin: 5,
+    marginHorizontal: 5,
     borderRadius: 30,
     padding: 5,
     shadowColor: "#000",
@@ -63,7 +77,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
-
     elevation: 4,
   },
 });
