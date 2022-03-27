@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
+import authStore from "./authStore";
 import { instance } from "./instance";
 
 class MentorStore {
   //* EMPTY ARRAY TO USE THE METHODS IN IT :
   mentors = [];
-  isLoading = true;
 
   //* TO MAKE IT GLOBAL STORE:
   constructor() {
@@ -23,38 +23,27 @@ class MentorStore {
   };
 
   //* UPDATE MENTOR:
-  updateMentor = async (updatedMentor, image) => {
+  updateMentor = async (updatedMentor, id) => {
     try {
       //* HELP ADD IMG:
-      const formData = new FormData();
-      if (updatedMentor !== undefined) {
-        for (const key in updatedMentor) {
-          formData.append(key, updatedMentor[key]);
-        }
-      }
+      // const formData = new FormData();
+      // if (updatedMentor !== undefined) {
+      //   for (const key in updatedMentor) {
+      //     formData.append(key, updatedMentor[key]);
+      //   }
+      // }
 
       //* CHANGE IMG FORMATE:
-      if (image) {
-        formData.append("image", {
-          type: image.type,
-          uri: image.uri,
-          name: image.uri.split("/").pop(),
-        });
-      }
+      // if (image) {
+      //   formData.append("image", {
+      //     type: image.type,
+      //     uri: image.uri,
+      //     name: image.uri.split("/").pop(),
+      //   });
+      // }
 
       //* RESPOND:
-      const response = await instance.put(
-        `/mentors/${updatedMentor._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          transformRequest: (data, headers) => {
-            return formData; // this is doing the trick
-          },
-        }
-      );
+      const response = await instance.put(`/mentors/${id}`, updatedMentor);
 
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
@@ -63,6 +52,7 @@ class MentorStore {
             ? response.data.payload
             : mentor;
         });
+        authStore.user.mentorProfile = response.data.payload;
       }
     } catch (error) {
       console.log(

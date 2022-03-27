@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
+import authStore from "./authStore";
 
 class StudentStore {
   //* TO MAKE IT GLOBAL STORE:
@@ -20,37 +21,26 @@ class StudentStore {
   };
 
   //* UPDATE STUDENT:
-  updateStudent = async (updatedStudent, image) => {
+  updateStudent = async (updatedStudent, id) => {
     try {
-      //* HELP ADD IMG:
-      const formData = new FormData();
-      if (updatedStudent !== undefined) {
-        for (const key in updatedStudent) {
-          formData.append(key, updatedStudent[key]);
-        }
-      }
-      //* CHANGE IMG FORMATE:
-      if (image) {
-        formData.append("image", {
-          type: image.type,
-          uri: image.uri,
-          name: image.uri.split("/").pop(),
-        });
-      }
+      // //* HELP ADD IMG:
+      // const formData = new FormData();
+      // if (updatedStudent !== undefined) {
+      //   for (const key in updatedStudent) {
+      //     formData.append(key, updatedStudent[key]);
+      //   }
+      // }
+      // //* CHANGE IMG FORMATE:
+      // if (image) {
+      //   formData.append("image", {
+      //     type: image.type,
+      //     uri: image.uri,
+      //     name: image.uri.split("/").pop(),
+      //   });
+      // }
 
       //* RESPOND:
-      const response = await instance.put(
-        `/students/${updatedStudent._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          transformRequest: (data, headers) => {
-            return formData; // this is doing the trick
-          },
-        }
-      );
+      const response = await instance.put(`/students/${id}`, updatedStudent); // this is doing the trick
 
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
@@ -59,10 +49,11 @@ class StudentStore {
             ? response.data.payload
             : student;
         });
+        authStore.user.studentProfile = response.data.payload;
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: StudentStore.js ~ line 60 ~ StudentStore ~ updateStudent= ~ error",
+        "🚀 ~ file: StudentStore.js ~ line 55 ~ StudentStore ~ updateStudent= ~ error",
         error
       );
     }

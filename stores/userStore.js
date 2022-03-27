@@ -21,7 +21,7 @@ class UserStore {
   };
 
   //* UPDATE MENTOR:
-  updateUser = async (updatedUser, image) => {
+  updateUser = async (updatedUser, image, id) => {
     try {
       //* HELP ADD IMG:
       const formData = new FormData();
@@ -30,6 +30,7 @@ class UserStore {
           formData.append(key, updatedUser[key]);
         }
       }
+      console.log(formData);
 
       //* CHANGE IMG FORMAT:
       if (image) {
@@ -41,18 +42,14 @@ class UserStore {
       }
 
       //* RESPOND:
-      const response = await instance.put(
-        `/mentors/${updatedUser._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          transformRequest: (data, headers) => {
-            return formData; // this is doing the trick
-          },
-        }
-      );
+      const response = await instance.put(`/mentors/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        transformRequest: (data, headers) => {
+          return formData; // this is doing the trick
+        },
+      });
 
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
@@ -64,7 +61,7 @@ class UserStore {
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: MentorStore.js ~ line 60 ~ MentorStore ~ updateMentor= ~ error",
+        "🚀 ~ file: userStore.js ~ line 60 ~ MentorStore ~ updateMentor= ~ error",
         error
       );
     }
