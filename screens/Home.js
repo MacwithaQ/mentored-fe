@@ -26,6 +26,10 @@ const Home = ({ navigation }) => {
     .sort(() => 0.5 - Math.random())
     .slice(0, 5);
 
+  useEffect(() => {
+    userStore.fetchUsers();
+  }, [authStore.user]);
+
   return (
     <View style={styles.container}>
       <VStack style={styles.header}>
