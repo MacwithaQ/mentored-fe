@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import { observer } from "mobx-react";
 
 const MeetingCard = ({ meeting, profile }) => {
   return (
@@ -47,9 +48,9 @@ const MeetingCard = ({ meeting, profile }) => {
                     textTransform: "capitalize",
                   }}
                 >
-                  {meeting.date.toString().slice(0, 10)}
+                  {meeting.date.slice(0, 10)}
                   {" - "}
-                  {meeting.date.toString().slice(11, 16)}
+                  {meeting.date.slice(11, 16)}
                 </Text>
               </HStack>
             </VStack>
@@ -61,7 +62,7 @@ const MeetingCard = ({ meeting, profile }) => {
   );
 };
 
-export default MeetingCard;
+export default observer(MeetingCard);
 
 const styles = StyleSheet.create({
   mentorCard: {
