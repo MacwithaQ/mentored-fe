@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import meetingStore from "../../stores/meetingStore";
 import { VStack } from "native-base";
 import MeetingCard from "../../components/MeetingCard";
+import { observer } from "mobx-react";
 
 const MyMeetings = ({ profile }) => {
   const navigation = useNavigation();
@@ -34,6 +35,6 @@ const MyMeetings = ({ profile }) => {
   );
 };
 
-export default MyMeetings;
+export default observer(MyMeetings);
 
 const styles = StyleSheet.create({});
