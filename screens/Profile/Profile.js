@@ -22,25 +22,26 @@ const Profile = () => {
   //* if the user > isMentor = true he is mentor else Student:
   useEffect(() => {
     if (user != null) {
-      const people = user.isMentor
-        ? mentorStore.mentors
-        : studentStore.students;
-      setProfile(people.find((person) => person.user._id === user._id));
+      if (user.isMentor) {
+        user.mentorProfile;
+      } else {
+        user.studentProfile;
+      }
     }
-  }, [user, mentorStore.mentors, studentStore.students]);
+  }, [user]);
 
   //* If their is no [user] go> to NotUserPage & if the [profile] null go> the loader page:
   if (user == null) {
     return <NotUserPage />;
   }
-  if (profile == null) {
-    return <Loader />;
-  }
+  // if (profile == null) {
+  //   return <Loader />;
+  // }
   //* If the isMentor true go> MentorProfile else StudentProfile:
   return user.isMentor ? (
-    <MentorProfile setProfile={setProfile} profile={profile} />
+    <MentorProfile setProfile={setProfile} profile={user} />
   ) : (
-    <StudentProfile setProfile={setProfile} profile={profile} />
+    <StudentProfile setProfile={setProfile} profile={user} />
   );
 };
 

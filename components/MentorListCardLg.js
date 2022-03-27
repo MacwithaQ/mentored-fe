@@ -5,6 +5,8 @@ import { baseURL } from "../stores/instance";
 
 const MentorListCardLg = ({ mentor }) => {
   const navigation = useNavigation();
+
+  console.log(mentor);
   return (
     <Pressable
       onPress={() =>
@@ -49,7 +51,7 @@ const MentorListCardLg = ({ mentor }) => {
               textTransform: "capitalize",
             }}
           >
-            {mentor.major}
+            {mentor.mentorProfile.major}
           </Text>
           <Text
             numberOfLines={1}
@@ -60,7 +62,7 @@ const MentorListCardLg = ({ mentor }) => {
               textTransform: "capitalize",
             }}
           >
-            {mentor.employer}
+            {mentor.mentorProfile.employer}
           </Text>
         </VStack>
       </View>

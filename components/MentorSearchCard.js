@@ -40,7 +40,7 @@ const MentorSearchCard = ({ mentor }) => {
                 textTransform: "capitalize",
               }}
             >
-              {mentor.major}
+              {mentor.mentorProfile.major}
             </Text>
             <Text
               numberOfLines={1}
@@ -51,7 +51,7 @@ const MentorSearchCard = ({ mentor }) => {
                 textTransform: "capitalize",
               }}
             >
-              {mentor.employer}
+              {mentor.mentorProfile.employer}
             </Text>
           </VStack>
         </HStack>
