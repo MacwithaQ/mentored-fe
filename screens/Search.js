@@ -9,25 +9,29 @@ import MentorSearchCard from "../components/MentorSearchCard";
 import MentorSearchBtn from "../components/MentorSearchBtn";
 //* STORES:
 import mentorStore from "../stores/mentorStore";
+import userStore from "../stores/userStore";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("");
 
   //* SEARCH || FILTER THE MENTORS (MAKE THE SEARCH PASSABLE):
-  const mentorList = mentorStore.mentors
+  const mentorList = userStore.users
+    .filter((user) => user.isMentor === true)
     .filter((mentor) =>
-      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
+      [mentor.firstName, mentor.lastName, mentor.mentorProfile.employer].some(
+        (name) => name.toLowerCase().includes(query.toLowerCase())
       )
     )
     .filter((mentor) =>
-      mentor.major.toLowerCase().includes(active.toLowerCase())
+      mentor.mentorProfile.major.toLowerCase().includes(active.toLowerCase())
     )
     .map((mentor) => <MentorSearchCard mentor={mentor} />);
 
   //* MAP MENTORS BY MAJOR:
-  let majors = mentorStore.mentors.map((mentor) => mentor.major.toLowerCase());
+  let majors = userStore.users
+    .filter((user) => user.isMentor === true)
+    .map((mentor) => mentor.mentorProfile.major.toLowerCase());
   let uniqueMajors = [...new Set(majors)];
 
   //* MAJOR BUTTONS:

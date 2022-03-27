@@ -17,9 +17,11 @@ import Logo from "../assets/Logo.svg";
 //* STORES:
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
+import userStore from "../stores/userStore";
 
 const Home = ({ navigation }) => {
-  const featuredList = mentorStore.mentors
+  const featuredList = userStore.users
+    .filter((user) => user.isMentor === true)
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
     .sort(() => 0.5 - Math.random())
     .slice(0, 5);

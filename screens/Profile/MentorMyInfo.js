@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 
 const MentorMyInfo = ({ profile }) => {
+  console.log(profile);
   return (
     <VStack style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}>
       {/* MAJOR ICON & TEXT : */}
@@ -17,7 +18,9 @@ const MentorMyInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Major:</Text>
-          <Text style={{ color: "#828282" }}>{profile.major}</Text>
+          <Text style={{ color: "#828282" }}>
+            {profile.mentorProfile.major}
+          </Text>
         </VStack>
       </HStack>
 
@@ -31,7 +34,9 @@ const MentorMyInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Employer:</Text>
-          <Text style={{ color: "#828282" }}>{profile.employer}</Text>
+          <Text style={{ color: "#828282" }}>
+            {profile.mentorProfile.employer}
+          </Text>
         </VStack>
       </HStack>
 
@@ -45,7 +50,7 @@ const MentorMyInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Bio:</Text>
-          <Text style={{ color: "#828282" }}>{profile.bio}</Text>
+          <Text style={{ color: "#828282" }}>{profile.mentorProfile.bio}</Text>
         </VStack>
       </HStack>
       <HStack style={{ alignItems: "center" }}>

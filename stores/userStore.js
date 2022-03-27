@@ -1,10 +1,9 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 
-class MentorStore {
+class UserStore {
   //* EMPTY ARRAY TO USE THE METHODS IN IT :
-  mentors = [];
-  isLoading = true;
+  users = [];
 
   //* TO MAKE IT GLOBAL STORE:
   constructor() {
@@ -12,28 +11,27 @@ class MentorStore {
   }
 
   //* FETCH ALL MENTORS:
-  fetchMentors = async () => {
+  fetchUsers = async () => {
     try {
-      const response = await instance.get("/mentors");
-      this.mentors = response.data;
-      this.isLoading = false;
+      const response = await instance.get("/users");
+      this.users = response.data;
     } catch (error) {
       console.log(error);
     }
   };
 
   //* UPDATE MENTOR:
-  updateMentor = async (updatedMentor, image) => {
+  updateUser = async (updatedUser, image) => {
     try {
       //* HELP ADD IMG:
       const formData = new FormData();
-      if (updatedMentor !== undefined) {
-        for (const key in updatedMentor) {
-          formData.append(key, updatedMentor[key]);
+      if (updatedUser !== undefined) {
+        for (const key in updatedUser) {
+          formData.append(key, updatedUser[key]);
         }
       }
 
-      //* CHANGE IMG FORMATE:
+      //* CHANGE IMG FORMAT:
       if (image) {
         formData.append("image", {
           type: image.type,
@@ -44,7 +42,7 @@ class MentorStore {
 
       //* RESPOND:
       const response = await instance.put(
-        `/mentors/${updatedMentor._id}`,
+        `/mentors/${updatedUser._id}`,
         formData,
         {
           headers: {
@@ -58,10 +56,10 @@ class MentorStore {
 
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
-        this.mentors = this.mentors.map((mentor) => {
-          return mentor._id === response.data.payload._id
-            ? response.data.payload
-            : mentor;
+        this.users = this.users.map((user) => {
+          return user._id === response.data.payload._id
+            ? user.data.payload
+            : user;
         });
       }
     } catch (error) {
@@ -73,6 +71,6 @@ class MentorStore {
   };
 }
 
-const mentorStore = new MentorStore();
-mentorStore.fetchMentors();
-export default mentorStore;
+const userStore = new UserStore();
+userStore.fetchUsers();
+export default userStore;
