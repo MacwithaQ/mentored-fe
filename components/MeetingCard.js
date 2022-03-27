@@ -41,16 +41,14 @@ const MeetingCard = ({ meeting, profile }) => {
                 <Text
                   numberOfLines={1}
                   style={{
-                    color: "#b2b2b2",
+                    color: "#000",
                     fontSize: 10,
                     marginBottom: 5,
                     marginRight: 5,
                     textTransform: "capitalize",
                   }}
                 >
-                  {meeting.date.slice(0, 10)}
-                  {" - "}
-                  {meeting.date.slice(11, 16)}
+                  {new Date(meeting.date).toLocaleString()}
                 </Text>
               </HStack>
             </VStack>
