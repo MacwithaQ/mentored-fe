@@ -17,22 +17,17 @@ import * as ImagePicker from "expo-image-picker";
 import Input from "../../components/Input";
 //* STORES:
 import mentorStore from "../../stores/mentorStore";
+import authStore from "../../stores/authStore";
 import { baseURL } from "../../stores/instance";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
 
+  const user = authStore.user;
+
   //* TO CATCH & CHANGE THE MENTOR INFO || BODY:
-  const [updatedMentor, setUpdatedMentor] = useState({
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    major: profile.major,
-    employer: profile.employer,
-    bio: profile.bio,
-    phone: profile.phone,
-    _id: profile._id,
-  });
+  const [updatedMentor, setUpdatedMentor] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
   const [image, setImage] = useState(null);
@@ -55,7 +50,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   const handleSubmit = async () => {
     await mentorStore.updateMentor(
       updatedMentor,
-      image,
+      profile.mentorProfile._id,
       route.params.setProfile
     );
 
@@ -164,7 +159,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Major"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.major}
+                  defaultValue={user.mentorProfile.major}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, major: value })
                   }
@@ -185,7 +180,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Employer"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.employer}
+                  defaultValue={user.mentorProfile.employer}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, employer: value })
                   }
@@ -206,7 +201,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Bio"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.bio}
+                  defaultValue={user.mentorProfile.bio}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, bio: value })
                   }

@@ -19,6 +19,8 @@ import Input from "../../components/Input";
 import studentStore from "../../stores/studentStore";
 import { Ionicons } from "@expo/vector-icons";
 import { baseURL } from "../../stores/instance";
+import authStore from "../../stores/authStore";
+import userStore from "../../stores/userStore";
 
 const OPTIONS = [
   {
@@ -58,27 +60,14 @@ const OPTIONS = [
 const StudentProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
+  const user = authStore.user;
 
   //* TO CATCH & CHANGE THE STUDENT INFO || BODY:
-  const [updatedStudent, setUpdatedStudent] = useState({
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    age: profile.age,
-    educationLevel: profile.educationLevel,
-    guardian: profile.guardian,
-    phone: profile.phone,
-    _id: profile._id,
-    gPhone: profile.gPhone,
-  });
+  const [updatedStudent, setUpdatedStudent] = useState(null);
+  const [updatedUser, setUpdatedUser] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
-  const [image, setImage] = useState(
-    <Image
-      source={{
-        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
-      }}
-    />
-  );
+  const [image, setImage] = useState(null);
 
   //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
   const pickImage = async () => {
@@ -97,16 +86,15 @@ const StudentProfileUpdate = ({ navigation, route }) => {
   const handleSubmit = async () => {
     await studentStore.updateStudent(
       updatedStudent,
-      image,
-      route.params.setProfile
+      profile.studentProfile._id
     );
+    console.log(updatedUser);
+    await userStore.updateUser(updatedUser, image, profile._id);
 
     //* IMG CHANGER:
-    const studentsFind = studentStore.students.find(
-      (student) => student._id === profile._id
-    );
+    const usersFind = userStore.users.find((user) => user._id === profile._id);
 
-    route.params.setProfile(studentsFind);
+    route.params.setProfile(usersFind);
     navigation.navigate("Profile");
   };
 
@@ -148,9 +136,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           {!image ? (
             <Image
               source={{
-                uri:
-                  baseURL + profile.image ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: profile.image
+                  ? baseURL + profile.image
+                  : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
@@ -158,9 +146,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           ) : (
             <Image
               source={{
-                uri:
-                  image.uri ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: image.uri,
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
@@ -173,9 +159,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"First Name"}
-            defaultValue={updatedStudent.firstName}
+            defaultValue={profile.firstName}
             onChangeText={(value) =>
-              setUpdatedStudent({ ...updatedStudent, firstName: value })
+              setUpdatedUser({ ...updatedUser, firstName: value })
             }
           />
 
@@ -183,9 +169,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"Last Name"}
-            defaultValue={updatedStudent.lastName}
+            defaultValue={profile.lastName}
             onChangeText={(value) =>
-              setUpdatedStudent({ ...updatedStudent, lastName: value })
+              setUpdatedUser({ ...updatedUser, lastName: value })
             }
           />
         </HStack>
@@ -208,7 +194,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Age"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.age.toString()}
+                  defaultValue={user.studentProfile.age.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, age: value })
                   }
@@ -216,25 +202,43 @@ const StudentProfileUpdate = ({ navigation, route }) => {
               </VStack>
             </HStack>
 
-            {/* EMPLOYER: */}
-            <HStack style={{ alignItems: "center" }}>
+            {/* PICKER FOR EDUCATION LEVEL (DROP DOWN) + ICON: */}
+
+            <HStack style={{ alignItems: "center", width: "100%" }}>
               <Ionicons
                 name="school-outline"
                 size={30}
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Employer:</Text>
-                <Input
-                  placeholder={"Employer"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.employer}
-                  onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, employer: value })
-                  }
-                />
-              </VStack>
+              <Picker
+                style={{
+                  backgroundColor: "#F5F4F9",
+                  height: 70,
+                  justifyContent: "center",
+                  borderRadius: 20,
+                  marginVertical: 5,
+                  textAlign: "left",
+                  flex: 1,
+                }}
+                itemStyle={{ fontSize: 14, textAlign: "left" }}
+                selectedValue={user.educationLevel}
+                onValueChange={(itemValue) => {
+                  setUpdatedStudent({
+                    ...updatedStudent,
+                    educationLevel: itemValue,
+                  });
+                }}
+              >
+                <Picker.Item label="Select level" />
+                {OPTIONS.map((option) => (
+                  <Picker.Item
+                    key={option.id}
+                    value={option.educationLevel}
+                    label={option.educationLevel}
+                  />
+                ))}
+              </Picker>
             </HStack>
 
             {/* PHONE: */}
@@ -250,9 +254,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.phone}
+                  defaultValue={user.phone}
                   onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, phone: value })
+                    setUpdatedUser({ ...updatedUser, phone: value })
                   }
                 />
               </VStack>
@@ -271,7 +275,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.guardian}
+                  defaultValue={user.studentProfile.guardian}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, guardian: value })
                   }
@@ -294,7 +298,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.gPhone.toString()}
+                  defaultValue={user.studentProfile.gPhone.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, gPhone: value })
                   }

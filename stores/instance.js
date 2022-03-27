@@ -5,10 +5,10 @@ import axios from "axios";
 //* ifconfig
 //? Alqalaf's at Coded
 // export const baseURL = "http://192.168.150.103:8000";
-export const baseURL = "http://localhost:8000";
+// export const baseURL = "http://localhost:8000";
 
 //? Alansari's at Coded
-// export const baseURL = "http://192.168.100.168:8000";
+export const baseURL = "http://192.168.100.168:8000";
 // export const baseURL = "http://192.168.1.21:8000";
 
 //? Alansari's at Home
