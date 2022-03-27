@@ -19,7 +19,6 @@ import MyMeetings from "./MyMeetings";
 const MentorProfile = ({ profile, setProfile, stars = "5.0" }) => {
   //* DECLARE NAV :
   const navigation = useNavigation();
-  console.log(profile);
   //* TO CHANGE THE BUTTON & BACKGROUND:
   const [info, setInfo] = useState(true);
 
