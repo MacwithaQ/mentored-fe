@@ -9,17 +9,10 @@ import { observer } from "mobx-react";
 
 const AddMeeting = ({ handleOpen }) => {
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
-
-  console.log(date);
 
   const handleDate = (e, theDate) => {
     const currDate = theDate || date;
     setDate(currDate);
-  };
-  const handleTime = (e, theTime) => {
-    const currTime = theTime;
-    setTime(currTime);
   };
 
   const handleAdd = () => {
