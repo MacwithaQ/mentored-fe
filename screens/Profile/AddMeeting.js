@@ -4,20 +4,28 @@ import { HStack, VStack } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Btn from "../../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
+import meetingStore from "../../stores/meetingStore";
+import { observer } from "mobx-react";
 
 const AddMeeting = ({ handleOpen }) => {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [time, setTime] = useState(new Date().toISOString().slice(11, 16));
-  const setT = (e, theDate) => {
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+
+  console.log(date);
+
+  const handleDate = (e, theDate) => {
     const currDate = theDate || date;
     setDate(currDate);
   };
-
-  const handleDate = (e, theDate) => {
-    const currDate = theDate.toISOString().slice(0, 10) || date;
-    setDate(currDate);
+  const handleTime = (e, theTime) => {
+    const currTime = theTime;
+    setTime(currTime);
   };
-  console.log(date);
+
+  const handleAdd = () => {
+    meetingStore.addMeeting(date);
+    handleOpen();
+  };
   return (
     // <View style={styles.container}>
     <>
@@ -37,9 +45,10 @@ const AddMeeting = ({ handleOpen }) => {
           <Text>Schedule</Text>
           <DateTimePicker
             mode="time"
-            display="default"
+            display="compact"
             style={{ flex: 1, backgroundColor: "#fff" }}
-            value={new Date()}
+            value={date}
+            onChange={handleDate}
           />
         </HStack>
         <HStack style={{ alignItems: "center", marginBottom: 15 }}>
@@ -48,12 +57,12 @@ const AddMeeting = ({ handleOpen }) => {
             mode="date"
             display="default"
             style={{ flex: 1, backgroundColor: "#fff" }}
-            value={new Date()}
+            value={date}
             onChange={handleDate}
             minimumDate={Date.now()}
           />
         </HStack>
-        <Btn>Save</Btn>
+        <Btn onPress={handleAdd}>Save</Btn>
         <Btn onPress={handleOpen} outline>
           Cancel
         </Btn>
@@ -63,7 +72,7 @@ const AddMeeting = ({ handleOpen }) => {
   );
 };
 
-export default AddMeeting;
+export default observer(AddMeeting);
 
 const styles = StyleSheet.create({
   container: {
