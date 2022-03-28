@@ -21,6 +21,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { baseURL } from "../../stores/instance";
 import authStore from "../../stores/authStore";
 import userStore from "../../stores/userStore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 const OPTIONS = [
   {
@@ -60,10 +65,14 @@ const OPTIONS = [
 const StudentProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
-  // const user = authStore.user;
 
   //* TO CATCH & CHANGE THE STUDENT INFO || BODY:
-  const [updatedStudent, setUpdatedStudent] = useState(null);
+  const [updatedStudent, setUpdatedStudent] = useState({
+    age: profile.studentProfile.age,
+    educationLevel: profile.studentProfile.educationLevel,
+    guardian: profile.studentProfile.guardian,
+    gPhone: profile.studentProfile.gPhone,
+  });
   const [updatedUser, setUpdatedUser] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
@@ -79,19 +88,31 @@ const StudentProfileUpdate = ({ navigation, route }) => {
     });
     if (!result.cancelled) {
       setImage(result);
+      setUpdatedUser(result);
     }
   };
 
   // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
-    await studentStore.updateStudent(
-      updatedStudent,
-      profile.studentProfile._id
-    );
+    if (updatedUser) {
+      await userStore.updateUser(
+        updatedUser,
+        image,
+        profile._id,
+        updatedStudent,
+        profile.studentProfile._id
+      );
+      setUpdatedUser(null);
+    } else if (updatedStudent) {
+      await studentStore.updateStudent(
+        updatedStudent,
+        profile.studentProfile._id
+      );
+    }
 
     // await userStore.updateUser(updatedUser, image, profile._id);
 
-    // //* IMG CHANGER:
+    //* IMG CHANGER:
     // const usersFind = userStore.users.find((user) => user._id === profile._id);
 
     // route.params.setProfile(usersFind);

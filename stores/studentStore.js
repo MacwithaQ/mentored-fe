@@ -57,7 +57,9 @@ class StudentStore {
           .find(
             (user) => user.studentProfile._id === response.data.payload._id
           );
-        foundStudent.studentProfile = response.data.payload;
+        if (foundStudent) {
+          foundStudent.studentProfile = response.data.payload;
+        }
       }
     } catch (error) {
       console.log(

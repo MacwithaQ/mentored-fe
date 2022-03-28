@@ -6,6 +6,11 @@ import { Toast } from "native-base";
 import { instance } from "./instance";
 import mentorStore from "./mentorStore";
 import studentStore from "./studentStore";
+import { configure } from "mobx";
+
+configure({
+  enforceActions: "never",
+});
 
 class AuthStore {
   //* SINCE IT'S OBJ THE DEFAULT VALUE NULL:
