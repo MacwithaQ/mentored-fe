@@ -3,6 +3,8 @@ import React from "react";
 import { HStack, VStack } from "native-base";
 import Btn from "../components/Btn";
 import authStore from "../stores/authStore";
+import meetingStore from "../stores/meetingStore";
+import { observer } from "mobx-react";
 
 const MeetingDetail = ({ navigation, route }) => {
   const { profile, meeting } = route.params;
@@ -102,7 +104,11 @@ const MeetingDetail = ({ navigation, route }) => {
               >
                 <Text>available</Text>
               </View>
-              {!authStore.user.isMentor && <Btn>Book</Btn>}
+              {!authStore.user.isMentor && (
+                <Btn onPress={() => meetingStore.bookMeeting(meeting._id)}>
+                  Book
+                </Btn>
+              )}
             </VStack>
           ) : (
             <View
@@ -126,6 +132,6 @@ const MeetingDetail = ({ navigation, route }) => {
   );
 };
 
-export default MeetingDetail;
+export default observer(MeetingDetail);
 
 const styles = StyleSheet.create({});
