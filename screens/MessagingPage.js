@@ -12,7 +12,6 @@ const MessagingPage = ({ route }) => {
   const { conversation } = route.params;
   const { currentProfile } = route.params;
   const navigation = useNavigation();
-
   const [messages, setMessages] = useState([]);
 
   //initialize found user

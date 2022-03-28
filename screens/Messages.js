@@ -5,50 +5,19 @@ import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
 //* STORES:
-import mentorStore from "../stores/mentorStore";
-import studentStore from "../stores/studentStore";
-import { instance } from "../stores/instance";
+import conversationStore from "../stores/conversationStore";
 import authStore from "../stores/authStore";
-
-let profile = {};
-const findUserProfile = () => {
-  if (authStore.user === null) {
-    return null;
-  } else if (
-    studentStore.students.some(
-      (student) => student.user._id === authStore.user._id
-    )
-  ) {
-    return (profile = studentStore.students.find(
-      (student) => student.user._id === authStore.user._id
-    ));
-  } else {
-    return (profile = mentorStore.mentors.find(
-      (mentor) => mentor.user._id === authStore.user._id
-    ));
-  }
-};
 
 const Search = () => {
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState("");
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
-    const getConversations = async () => {
-      try {
-        findUserProfile();
-        const res = await instance.get("/conversations/" + profile._id);
-        setConversations(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getConversations();
-  }, [profile._id]);
+    conversationStore.fetchConversations(authStore.user._id);
+  }, []);
 
   const conversationList = conversations.map((conversation) => (
-    <MentorMessageCard conversation={conversation} currentProfile={profile} />
+    <MentorMessageCard conversation={conversation} />
   ));
 
   return (
