@@ -5,9 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 
 const MeetingCard = ({ meeting, profile, navigation }) => {
+  console.log(meeting);
   return (
     <Pressable
-      disabled={meeting.isAvaiable ? false : true}
+      // disabled={meeting.isAvailable ? false : true}
       onPress={() => navigation.navigate("MeetingDetail", { profile, meeting })}
     >
       <HStack style={styles.mentorCard}>
@@ -34,7 +35,7 @@ const MeetingCard = ({ meeting, profile, navigation }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {meeting.isAvaiable ? (
+                {meeting.isAvailable ? (
                   <Text>Available</Text>
                 ) : (
                   <Text>Booked</Text>
