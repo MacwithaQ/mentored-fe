@@ -89,7 +89,6 @@ const StudentProfileUpdate = ({ navigation, route }) => {
       profile.studentProfile._id
     );
 
-
     // await userStore.updateUser(updatedUser, image, profile._id);
 
     // //* IMG CHANGER:

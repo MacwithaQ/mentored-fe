@@ -19,13 +19,19 @@ import Input from "../../components/Input";
 import mentorStore from "../../stores/mentorStore";
 import authStore from "../../stores/authStore";
 import { baseURL } from "../../stores/instance";
+import userStore from "../../stores/userStore";
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
 
   //* TO CATCH & CHANGE THE MENTOR INFO || BODY:
-  const [updatedMentor, setUpdatedMentor] = useState(null);
+  const [updatedMentor, setUpdatedMentor] = useState({
+    major: profile.mentorProfile.major,
+    employer: profile.mentorProfile.employer,
+    bio: profile.mentorProfile.bio,
+  });
+  const [updatedUser, setUpdatedUser] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
   const [image, setImage] = useState(null);
@@ -46,12 +52,24 @@ const MentorProfileUpdate = ({ navigation, route }) => {
 
   // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
-    await mentorStore.updateMentor(
-      updatedMentor,
-      profile.mentorProfile._id,
-      route.params.setProfile
-    );
-
+    if (updatedUser) {
+      console.log({ updatedMentor, updatedUser });
+      await userStore.updateUser(
+        updatedUser,
+        image,
+        profile._id,
+        updatedMentor,
+        profile.mentorProfile._id
+      );
+      setUpdatedUser(null);
+    } else if (updatedMentor) {
+      console.log({ updatedMentor, profile });
+      await mentorStore.updateMentor(
+        updatedMentor,
+        profile.mentorProfile._id,
+        route.params.setProfile
+      );
+    }
     //* IMG CHANGER:
     const mentorsFind = mentorStore.mentors.find(
       (mentor) => mentor._id === profile._id
@@ -122,7 +140,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             placeholder={"First Name"}
             defaultValue={profile.firstName}
             onChangeText={(value) =>
-              setUpdatedMentor({ ...updatedMentor, firstName: value })
+              setUpdatedUser({ ...updatedUser, firstName: value })
             }
           />
 
@@ -132,7 +150,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             placeholder={"Last Name"}
             defaultValue={profile.lastName}
             onChangeText={(value) =>
-              setUpdatedMentor({ ...updatedMentor, lastName: value })
+              setUpdatedUser({ ...updatedUser, lastName: value })
             }
           />
         </HStack>

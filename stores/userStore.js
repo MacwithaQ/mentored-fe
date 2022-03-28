@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
+import mentorStore from "./mentorStore";
 
 class UserStore {
   //* EMPTY ARRAY TO USE THE METHODS IN IT :
@@ -21,7 +22,7 @@ class UserStore {
   };
 
   //* UPDATE MENTOR:
-  updateUser = async (updatedUser, image, id) => {
+  updateUser = async (updatedUser, image, id, updatedMentor, profileId) => {
     try {
       //* HELP ADD IMG:
       const formData = new FormData();
@@ -45,22 +46,33 @@ class UserStore {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        transformRequest: (data, headers) => {
-          return formData; // this is doing the trick
-        },
+        transformRequest: (data, headers) => formData, // this is doing the trick
       });
 
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
-        this.users = this.users.map((user) => {
-          return user._id === response.data.payload._id
-            ? user.data.payload
-            : user;
-        });
+        this.users = this.users.map((user) =>
+          user._id === response.data.payload._id ? response.data.payload : user
+        );
+      }
+
+      await mentorStore.updateMentor(updatedMentor, profileId);
+
+      // console.log("hhh", response.data.payload);
+      const foundMentor = this.users
+        .filter((user) => user.isMentor)
+        .find((user) => user.mentorProfile._id === updatedMentor._id);
+
+      if (foundMentor) {
+        foundMentor.mentorProfile = {
+          _id: foundMentor.mentorProfile,
+          ...updatedMentor,
+        };
+        console.log({ foundMentor, updatedMentor });
       }
     } catch (error) {
       console.log(
-        "🚀 ~ file: userStore.js ~ line 60 ~ MentorStore ~ updateMentor= ~ error",
+        "🚀 ~ file: userStore.js ~ line 60 ~ UserStore ~ userMentor= ~ error",
         error
       );
     }

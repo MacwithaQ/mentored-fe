@@ -45,7 +45,7 @@ class MentorStore {
 
       //* RESPOND:
       const response = await instance.put(`/mentors/${id}`, updatedMentor);
-
+      // console.log("mentor", response.data.payload);
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
         this.mentors = this.mentors.map((mentor) => {
@@ -55,10 +55,12 @@ class MentorStore {
         });
         authStore.user.mentorProfile = response.data.payload;
         const foundMentor = userStore.users
-          .filter((user) => user.isMentor === true)
+          .filter((user) => user.isMentor)
           .find((user) => user.mentorProfile._id === response.data.payload._id);
-        console.log("found", foundMentor);
-        foundMentor.mentorProfile = response.data.payload;
+
+        if (foundMentor) {
+          foundMentor.mentorProfile = response.data.payload;
+        }
       }
     } catch (error) {
       console.log(
