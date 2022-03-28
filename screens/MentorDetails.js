@@ -6,13 +6,14 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import MentorMyInfo from "./Profile/MentorMyInfo";
 import Btn from "../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
 import Schedule from "../components/Schedule";
+import RegisterForPushNotifications from "../components/RegisterForPushNotifications";
 
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
@@ -62,6 +63,10 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
               Set Meeting
             </Btn>
           )}
+        </HStack>
+        {/* ADDED: */}
+        <HStack>
+          <RegisterForPushNotifications />
         </HStack>
       </VStack>
 
