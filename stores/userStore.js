@@ -30,7 +30,6 @@ class UserStore {
           formData.append(key, updatedUser[key]);
         }
       }
-      console.log(formData);
 
       //* CHANGE IMG FORMAT:
       if (image) {
