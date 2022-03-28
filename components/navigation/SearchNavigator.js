@@ -5,6 +5,7 @@ import Search from "../../screens/Search";
 //* native stack:
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MentorDetails from "../../screens/MentorDetails";
+import MentorsMeetings from "../../screens/MentorsMeetings";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const SearchNavigator = () => {
@@ -15,6 +16,7 @@ const SearchNavigator = () => {
     >
       <Screen component={Search} name="Search" />
       <Screen component={MentorDetails} name="MentorDetails" />
+      <Screen component={MentorsMeetings} name="MentorsMeetings" />
     </Navigator>
   );
 };
