@@ -19,7 +19,7 @@ const StudentMtInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Age:</Text>
-          <Text style={{ color: "#828282" }}>{user.studentProfile.age}</Text>
+          <Text style={{ color: "#828282" }}>{profile.studentProfile.age}</Text>
         </VStack>
       </HStack>
       <HStack style={{ alignItems: "center" }}>

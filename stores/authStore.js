@@ -66,6 +66,7 @@ class AuthStore {
     try {
       const decodedToken = decode(token);
       this.user = decodedToken;
+
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       //* SAVE TOKEN IN THE ASYNC-STORAGE:
