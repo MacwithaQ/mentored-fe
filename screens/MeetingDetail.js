@@ -1,0 +1,131 @@
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { HStack, VStack } from "native-base";
+import Btn from "../components/Btn";
+import authStore from "../stores/authStore";
+
+const MeetingDetail = ({ navigation, route }) => {
+  const { profile, meeting } = route.params;
+  console.log("profile", profile);
+  console.log("meeting", meeting);
+  return (
+    <View style={{ flex: 1 }}>
+      <SafeAreaView />
+      <Pressable
+        style={{
+          width: "100%",
+          padding: 12,
+          borderBottomWidth: 0.3,
+          borderBottomColor: "#aaa",
+          marginBottom: 12,
+        }}
+      >
+        {/* CANCEL PRESSABLE BUTTON: */}
+        <HStack style={{ justifyContent: "space-between" }}>
+          <Text style={{ fontSize: 16 }} onPress={() => navigation.goBack()}>
+            Back
+          </Text>
+        </HStack>
+      </Pressable>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          //   justifyContent: "center",
+          padding: 12,
+        }}
+      >
+        <VStack
+          style={{
+            backgroundColor: "#fff",
+            width: "100%",
+            padding: 12,
+            borderRadius: 20,
+          }}
+        >
+          <VStack style={{ marginBottom: 12 }}>
+            <Text
+              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 18 }}
+            >
+              {profile.firstName} {profile.lastName}
+            </Text>
+            <Text
+              style={{ alignSelf: "center", color: "#828282", fontSize: 14 }}
+            >
+              {profile.mentorProfile.major}
+            </Text>
+          </VStack>
+          <HStack>
+            <VStack
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "500", fontSize: 16 }}>Date</Text>
+              <Text style={{ color: "#828282" }}>
+                {new Date(meeting.date).getDate().toString()}/
+                {new Date(meeting.date).getMonth().toString()}/
+                {new Date(meeting.date).getFullYear().toString()}
+              </Text>
+            </VStack>
+            <VStack
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "500", fontSize: 16 }}>Time</Text>
+              <Text style={{ color: "#828282" }}>
+                {new Date(meeting.date).getHours().toString()}:
+                {new Date(meeting.date).getMinutes().toString()}
+              </Text>
+            </VStack>
+          </HStack>
+          {meeting.isAvailable ? (
+            <VStack>
+              <View
+                style={{
+                  backgroundColor: "#27AE6050",
+                  height: 40,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 10,
+                  margin: 12,
+                  marginBottom: 7,
+                  marginHorizontal: 5,
+                  borderColor: "#27AE6060",
+                  borderWidth: 1,
+                }}
+              >
+                <Text>available</Text>
+              </View>
+              {!authStore.user.isMentor && <Btn>Book</Btn>}
+            </VStack>
+          ) : (
+            <View
+              style={{
+                backgroundColor: "#EB575750",
+                height: 40,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+                marginTop: 12,
+                borderColor: "#EB575760",
+                borderWidth: 1,
+              }}
+            >
+              <Text> Booked</Text>
+            </View>
+          )}
+        </VStack>
+      </View>
+    </View>
+  );
+};
+
+export default MeetingDetail;
+
+const styles = StyleSheet.create({});
