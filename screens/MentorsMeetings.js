@@ -1,14 +1,22 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
 import { HStack, VStack } from "native-base";
 import MeetingCard from "../components/MeetingCard";
 import { Ionicons } from "@expo/vector-icons";
 import meetingStore from "../stores/meetingStore";
+import { observer } from "mobx-react";
 
 const MentorsMeetings = ({ route, navigation }) => {
   const { mentor } = route.params;
 
-  const meetings = meetingStore.meetings
+  let meetings = meetingStore.meetings
     .filter((meeting) => meeting.mentor === mentor._id)
     .map((meeting) => (
       <MeetingCard
@@ -19,10 +27,23 @@ const MentorsMeetings = ({ route, navigation }) => {
       />
     ));
 
+  useEffect(() => {
+    meetings = meetingStore.meetings
+      .filter((meeting) => meeting.mentor === mentor._id)
+      .map((meeting) => (
+        <MeetingCard
+          key={meeting._id}
+          meeting={meeting}
+          profile={mentor}
+          navigation={navigation}
+        />
+      ));
+  }, [meetingStore.meetings]);
+
   const handleSubmit = () => {};
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <SafeAreaView />
       <Pressable
         style={{
@@ -40,12 +61,14 @@ const MentorsMeetings = ({ route, navigation }) => {
           </Text>
         </HStack>
       </Pressable>
-      <VStack>{meetings}</VStack>
+      <ScrollView>
+        <VStack style={{ flex: 1, height: "100%" }}>{meetings}</VStack>
+      </ScrollView>
     </View>
   );
 };
 
-export default MentorsMeetings;
+export default observer(MentorsMeetings);
 
 const styles = StyleSheet.create({
   mentorCard: {
