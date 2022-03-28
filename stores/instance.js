@@ -13,7 +13,7 @@ import axios from "axios";
 
 //? Alansari's at Home
 
-// export const baseURL = "http://192.168.1.148:8000";
+export const baseURL = "http://192.168.1.148:8000";
 
 //? Alansari's Phone
 //  export const baseURL = "http://172.20.10.4:8000";
@@ -25,7 +25,7 @@ import axios from "axios";
 // export const baseURL = "http://192.168.8.163:8000";
 
 //?Alrashed's at Coded
-export const baseURL = "http://192.168.1.54:8000";
+// export const baseURL = "http://192.168.1.54:8000";
 
 //?Alrashed's at Home
 // export const baseURL = "http://192.168.8.153:8000";

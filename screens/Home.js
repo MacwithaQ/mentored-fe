@@ -18,6 +18,9 @@ import Logo from "../assets/Logo.svg";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import userStore from "../stores/userStore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Require cycle"]);
 
 const Home = ({ navigation }) => {
   const featuredList = userStore.users

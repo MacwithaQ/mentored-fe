@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 import mentorStore from "./mentorStore";
+import studentStore from "./studentStore";
 
 class UserStore {
   //* EMPTY ARRAY TO USE THE METHODS IN IT :
@@ -22,7 +23,7 @@ class UserStore {
   };
 
   //* UPDATE MENTOR:
-  updateUser = async (updatedUser, image, id, updatedMentor, profileId) => {
+  updateUser = async (updatedUser, image, id, updatedProfile, profileId) => {
     try {
       //* HELP ADD IMG:
       const formData = new FormData();
@@ -55,20 +56,33 @@ class UserStore {
           user._id === response.data.payload._id ? response.data.payload : user
         );
       }
+      console.log("inside userStore", response.data.payload);
+      if (response.data.payload.isMentor) {
+        await mentorStore.updateMentor(updatedProfile, profileId);
 
-      await mentorStore.updateMentor(updatedMentor, profileId);
+        const foundMentor = this.users
+          .filter((user) => user.isMentor)
+          .find((user) => user.mentorProfile._id === updatedProfile._id);
 
-      // console.log("hhh", response.data.payload);
-      const foundMentor = this.users
-        .filter((user) => user.isMentor)
-        .find((user) => user.mentorProfile._id === updatedMentor._id);
+        if (foundMentor) {
+          foundMentor.mentorProfile = {
+            _id: foundMentor.mentorProfile,
+            ...updatedProfile,
+          };
+        }
+      } else {
+        await studentStore.updateStudent(updatedProfile, profileId);
 
-      if (foundMentor) {
-        foundMentor.mentorProfile = {
-          _id: foundMentor.mentorProfile,
-          ...updatedMentor,
-        };
-        console.log({ foundMentor, updatedMentor });
+        const foundStudent = this.users
+          .filter((user) => !user.isMentor)
+          .find((user) => user.studentProfile._id === updatedProfile._id);
+
+        if (foundStudent) {
+          foundStudent.studentProfile = {
+            _id: foundStudent.studentProfile,
+            ...updatedProfile,
+          };
+        }
       }
     } catch (error) {
       console.log(

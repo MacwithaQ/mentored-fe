@@ -20,6 +20,11 @@ import mentorStore from "../../stores/mentorStore";
 import authStore from "../../stores/authStore";
 import { baseURL } from "../../stores/instance";
 import userStore from "../../stores/userStore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
@@ -47,13 +52,13 @@ const MentorProfileUpdate = ({ navigation, route }) => {
 
     if (!result.cancelled) {
       setImage(result);
+      setUpdatedUser(result);
     }
   };
 
   // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
     if (updatedUser) {
-      console.log({ updatedMentor, updatedUser });
       await userStore.updateUser(
         updatedUser,
         image,
@@ -63,12 +68,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
       );
       setUpdatedUser(null);
     } else if (updatedMentor) {
-      console.log({ updatedMentor, profile });
-      await mentorStore.updateMentor(
-        updatedMentor,
-        profile.mentorProfile._id,
-        route.params.setProfile
-      );
+      await mentorStore.updateMentor(updatedMentor, profile.mentorProfile._id);
     }
     //* IMG CHANGER:
     const mentorsFind = mentorStore.mentors.find(
