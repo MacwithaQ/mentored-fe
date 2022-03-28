@@ -24,8 +24,6 @@ const MentorProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
 
-  const user = authStore.user;
-
   //* TO CATCH & CHANGE THE MENTOR INFO || BODY:
   const [updatedMentor, setUpdatedMentor] = useState(null);
 
@@ -159,7 +157,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Major"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.mentorProfile.major}
+                  defaultValue={profile.mentorProfile.major}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, major: value })
                   }
@@ -180,7 +178,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Employer"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.mentorProfile.employer}
+                  defaultValue={profile.mentorProfile.employer}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, employer: value })
                   }
@@ -201,7 +199,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Bio"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.mentorProfile.bio}
+                  defaultValue={profile.mentorProfile.bio}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, bio: value })
                   }

@@ -60,7 +60,7 @@ const OPTIONS = [
 const StudentProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
   const { profile } = route.params;
-  const user = authStore.user;
+  // const user = authStore.user;
 
   //* TO CATCH & CHANGE THE STUDENT INFO || BODY:
   const [updatedStudent, setUpdatedStudent] = useState(null);
@@ -88,12 +88,14 @@ const StudentProfileUpdate = ({ navigation, route }) => {
       updatedStudent,
       profile.studentProfile._id
     );
-    await userStore.updateUser(updatedUser, image, profile._id);
 
-    //* IMG CHANGER:
-    const usersFind = userStore.users.find((user) => user._id === profile._id);
 
-    route.params.setProfile(usersFind);
+    // await userStore.updateUser(updatedUser, image, profile._id);
+
+    // //* IMG CHANGER:
+    // const usersFind = userStore.users.find((user) => user._id === profile._id);
+
+    // route.params.setProfile(usersFind);
     navigation.navigate("Profile");
   };
 
@@ -193,7 +195,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Age"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.studentProfile.age.toString()}
+                  defaultValue={profile.studentProfile.age.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, age: value })
                   }
@@ -221,7 +223,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                   flex: 1,
                 }}
                 itemStyle={{ fontSize: 14, textAlign: "left" }}
-                selectedValue={user.educationLevel}
+                selectedValue={profile.educationLevel}
                 onValueChange={(itemValue) => {
                   setUpdatedStudent({
                     ...updatedStudent,
@@ -253,7 +255,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.phone}
+                  defaultValue={profile.phone}
                   onChangeText={(value) =>
                     setUpdatedUser({ ...updatedUser, phone: value })
                   }
@@ -274,7 +276,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.studentProfile.guardian}
+                  defaultValue={profile.studentProfile.guardian}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, guardian: value })
                   }
@@ -297,7 +299,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={user.studentProfile.gPhone.toString()}
+                  defaultValue={profile.studentProfile.gPhone.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, gPhone: value })
                   }

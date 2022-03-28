@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { instance } from "./instance";
 import authStore from "./authStore";
+import userStore from "./userStore";
 
 class StudentStore {
   //* TO MAKE IT GLOBAL STORE:
@@ -49,7 +50,14 @@ class StudentStore {
             ? response.data.payload
             : student;
         });
+
         authStore.user.studentProfile = response.data.payload;
+        const foundStudent = userStore.users
+          .filter((user) => user.isMentor === false)
+          .find(
+            (user) => user.studentProfile._id === response.data.payload._id
+          );
+        foundStudent.studentProfile = response.data.payload;
       }
     } catch (error) {
       console.log(

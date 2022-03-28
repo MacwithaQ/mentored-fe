@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
 import { instance } from "./instance";
+import userStore from "./userStore";
 
 class MentorStore {
   //* EMPTY ARRAY TO USE THE METHODS IN IT :
@@ -53,6 +54,11 @@ class MentorStore {
             : mentor;
         });
         authStore.user.mentorProfile = response.data.payload;
+        const foundMentor = userStore.users
+          .filter((user) => user.isMentor === true)
+          .find((user) => user.mentorProfile._id === response.data.payload._id);
+        console.log("found", foundMentor);
+        foundMentor.mentorProfile = response.data.payload;
       }
     } catch (error) {
       console.log(
