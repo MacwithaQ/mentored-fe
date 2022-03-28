@@ -53,10 +53,17 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           {mentor.firstName} {mentor.lastName}
         </Text>
         <HStack style={{ marginTop: 20 }}>
-          <Btn>Message</Btn>
-          {meeting ? (
+          <Btn style={{ flex: 1 }}>Message</Btn>
+          <Btn
+            onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
+            style={{ flex: 1 }}
+          >
+            Set Meeting
+          </Btn>
+          {/* {meeting ? (
             <Btn
               outline
+              style={{ flex: 1 }}
               onPress={() => {
                 setMeeting(!meeting);
               }}
@@ -67,6 +74,7 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           ) : (
             <Btn
               outline
+              style={{ flex: 1 }}
               onPress={() => {
                 setMeeting(!meeting);
               }}
@@ -74,7 +82,7 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
               {" "}
               Mentor Info
             </Btn>
-          )}
+          )} */}
         </HStack>
       </VStack>
 
