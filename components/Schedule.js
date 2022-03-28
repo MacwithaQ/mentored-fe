@@ -10,7 +10,6 @@ const Schedule = () => {
     const currDate = theDate || date;
     setDate(currDate);
   };
-  console.log(new Date());
 
   const handleDate = (e, theDate) => {
     const currDate = theDate.toISOString().slice(0, 10) || date;

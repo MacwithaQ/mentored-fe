@@ -7,7 +7,6 @@ import authStore from "../../stores/authStore";
 
 const StudentMtInfo = ({ profile }) => {
   const user = authStore.user;
-  console.log(user);
   return (
     <VStack style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}>
       <HStack style={{ alignItems: "center" }}>
