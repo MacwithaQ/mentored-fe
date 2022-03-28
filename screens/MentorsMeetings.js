@@ -11,7 +11,12 @@ const MentorsMeetings = ({ route, navigation }) => {
   const meetings = meetingStore.meetings
     .filter((meeting) => meeting.mentor === mentor._id)
     .map((meeting) => (
-      <MeetingCard key={meeting._id} meeting={meeting} profile={mentor} />
+      <MeetingCard
+        key={meeting._id}
+        meeting={meeting}
+        profile={mentor}
+        navigation={navigation}
+      />
     ));
 
   const handleSubmit = () => {};
