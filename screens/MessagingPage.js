@@ -5,65 +5,62 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import mentorStore from "../stores/mentorStore";
-import studentStore from "../stores/studentStore";
+import authStore from "../stores/authStore";
+import { instance } from "../stores/instance";
+import messageStore from "../stores/messageStore";
+import { observer } from "mobx-react";
 
 const MessagingPage = ({ route }) => {
   const { conversation } = route.params;
-  const { currentProfile } = route.params;
+  const { otherMember } = route.params;
   const navigation = useNavigation();
+  const userId = authStore.user._id;
   const [messages, setMessages] = useState([]);
 
-  //initialize found user
-  let foundUser = {};
-
   useEffect(() => {
-    const user = conversation.members.find(
-      (member) => member !== currentProfile._id
-    );
-    const findUser = () => {
-      if (mentorStore.mentors.some((mentor) => mentor._id === user)) {
-        foundUser = mentorStore.mentors.find((mentor) => mentor._id === user);
-      } else {
-        foundUser = studentStore.students.find(
-          (student) => student._id === user
-        );
+    const fetchMessages = async () => {
+      try {
+        const res = await instance.get("/messages/" + conversation._id);
+        console.log(res.data);
+        setMessages(res.data.sort((a, b) => b.createdAt - a.createdAt));
+      } catch (error) {
+        console.log(error);
       }
     };
-    findUser();
-    console.log(foundUser);
-  }, [currentProfile, conversation]);
+    fetchMessages();
+  }, []);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-      {
-        _id: 2,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+    // setMessages([
+    //   {
+    //     _id: 1,
+    //     text: "Hello World",
+    //     createdAt: new Date(),
+    //     user: {
+    //       _id: 2,
+    //       name: "React Native",
+    //       avatar: "https://placeimg.com/140/140/any",
+    //     },
+    //   },
+    //   {
+    //     _id: 1,
+    //     text: "Hello developer",
+    //     createdAt: new Date(),
+    //     user: {
+    //       _id: 2,
+    //       name: "React Native",
+    //       avatar: "https://placeimg.com/140/140/any",
+    //     },
+    //   },
+    // ]);
   }, []);
 
   //* ON SEND:
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+      GiftedChat.append(messages, previousMessages)
     );
+    messageStore.sendMessage(conversation._id, userId, messages[0].text);
   }, []);
 
   //* READER BUBBLE:
@@ -123,18 +120,20 @@ const MessagingPage = ({ route }) => {
       <GiftedChat
         messages={messages}
         onSend={(messages) => onSend(messages)}
+        showUserAvatar={false}
         user={{
-          _id: 1,
+          _id: userId,
         }}
         renderBubble={renderBubble}
         alwaysShowSend
         renderSend={renderSend}
+        inverted={false}
       />
     </View>
   );
 };
 
-export default MessagingPage;
+export default observer(MessagingPage);
 
 const styles = StyleSheet.create({
   container: {

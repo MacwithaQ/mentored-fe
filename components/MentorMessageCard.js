@@ -5,35 +5,37 @@ import { useEffect, useState } from "react";
 import { instance } from "../stores/instance";
 import mentorStore from "../stores/mentorStore";
 import studentStore from "../stores/studentStore";
+import authStore from "../stores/authStore";
+import userStore from "../stores/userStore";
 
-const MentorMessageCard = ({ conversation, currentProfile }) => {
+const MentorMessageCard = ({ conversation }) => {
   const navigation = useNavigation();
-  // const [user, setUser] = useState(null);
-  const [foundUser, setFoundUser] = useState();
-
-  const user = conversation.members.find(
-    (member) => member !== currentProfile._id
+  const [messages, setMessages] = useState([]);
+  const userId = authStore.user._id;
+  const otherMember = userStore.users.find(
+    (user) =>
+      user._id ===
+      conversation.members
+        .filter((member) => member !== authStore.user._id)
+        .toString()
   );
 
-  const findUser = () => {
-    if (mentorStore.mentors.some((mentor) => mentor._id === user)) {
-      setFoundUser(mentorStore.mentors.find((mentor) => mentor._id === user));
-    } else {
-      setFoundUser(
-        studentStore.students.find((student) => student._id == user)
-      );
-    }
-  };
+  // useEffect(() => {
+  //   const fetchMessages = async () => {
+  //     try {
+  //       const res = await instance.get("/messages/" + conversation._id);
+  //       setMessages(res.data.sort((a, b) => b.createdAt - a.createdAt));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchMessages();
+  // }, [userId]);
 
-  useEffect(() => {
-    findUser();
-  }, [currentProfile, conversation]);
-
-  console.log(foundUser);
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate("MessagingPage", { conversation, currentProfile })
+        navigation.navigate("MessagingPage", { conversation, otherMember })
       }
     >
       <HStack style={styles.mentorCard}>
@@ -47,9 +49,12 @@ const MentorMessageCard = ({ conversation, currentProfile }) => {
         </VStack>
         <HStack style={{ alignSelf: "center" }}>
           <VStack>
-            <Text style={{ fontWeight: "bold" }}>{`name`}</Text>
-            <Text style={{ color: "#BDBDBD" }}>{"major"}</Text>
-            <Text style={{ color: "#BDBDBD" }}>{"employer"}</Text>
+            <Text style={{ fontWeight: "bold" }}>
+              {otherMember.firstName} {otherMember.lastName}
+            </Text>
+            <Text style={{ color: "#BDBDBD", marginTop: 5 }}>
+              {messages.length > 0 ? messages[messages.length - 1].text : null}
+            </Text>
           </VStack>
         </HStack>
       </HStack>

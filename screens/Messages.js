@@ -5,17 +5,27 @@ import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
 //* STORES:
-import conversationStore from "../stores/conversationStore";
 import authStore from "../stores/authStore";
+import { instance } from "../stores/instance";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [conversations, setConversations] = useState([]);
+  const userId = authStore.user._id;
 
   useEffect(() => {
-    conversationStore.fetchConversations(authStore.user._id);
-  }, []);
+    const fetchConversations = async () => {
+      try {
+        const res = await instance.get("/conversations/" + userId);
+        setConversations(res.data.sort((a, b) => b.createdAt - a.createdAt));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchConversations();
+  }, [userId]);
 
+  console.log(conversations);
   const conversationList = conversations.map((conversation) => (
     <MentorMessageCard conversation={conversation} />
   ));

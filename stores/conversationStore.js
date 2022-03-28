@@ -11,6 +11,7 @@ class ConversationStore {
   fetchConversations = async (userId) => {
     try {
       const res = await instance.get("/conversations/" + userId);
+      this.conversations = res.data;
     } catch (error) {
       console.log(error);
     }
@@ -18,4 +19,5 @@ class ConversationStore {
 }
 
 const conversationStore = new ConversationStore();
+conversationStore.fetchConversations(authStore.userId);
 export default conversationStore;
