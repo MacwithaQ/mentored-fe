@@ -52,37 +52,16 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         <Text style={styles.headerName}>
           {mentor.firstName} {mentor.lastName}
         </Text>
-        <HStack style={{ marginTop: 20 }}>
+        <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
           <Btn style={{ flex: 1 }}>Message</Btn>
-          <Btn
-            onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
-            style={{ flex: 1 }}
-          >
-            Set Meeting
-          </Btn>
-          {/* {meeting ? (
+          {!authStore.user.isMentor && (
             <Btn
-              outline
+              onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
               style={{ flex: 1 }}
-              onPress={() => {
-                setMeeting(!meeting);
-              }}
             >
-              {" "}
-              Schedule Meeting
+              Set Meeting
             </Btn>
-          ) : (
-            <Btn
-              outline
-              style={{ flex: 1 }}
-              onPress={() => {
-                setMeeting(!meeting);
-              }}
-            >
-              {" "}
-              Mentor Info
-            </Btn>
-          )} */}
+          )}
         </HStack>
       </VStack>
 
