@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
 import { observer } from "mobx-react";
 //* EXPO:
-import { Picker } from "@react-native-picker/picker"; //! AL ANSARI MAY NEED THIS<<
+import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 //*  CUSTOMIZED COMPONENT :
 import Input from "../../components/Input";
@@ -112,10 +112,11 @@ const StudentProfileUpdate = ({ navigation, route }) => {
 
     // await userStore.updateUser(updatedUser, image, profile._id);
 
-    //* IMG CHANGER:
-    // const usersFind = userStore.users.find((user) => user._id === profile._id);
-
-    // route.params.setProfile(usersFind);
+    // * IMG CHANGER :
+    // const studentsFind = studentStore.students.find(   //check if the image update working delete this. ALRASHED
+    //   (student) => student._id === profile._id
+    // );
+    // route.params.setProfile(mentorsFind);
     navigation.navigate("Profile");
   };
 

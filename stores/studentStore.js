@@ -24,22 +24,6 @@ class StudentStore {
   //* UPDATE STUDENT:
   updateStudent = async (updatedStudent, id) => {
     try {
-      // //* HELP ADD IMG:
-      // const formData = new FormData();
-      // if (updatedStudent !== undefined) {
-      //   for (const key in updatedStudent) {
-      //     formData.append(key, updatedStudent[key]);
-      //   }
-      // }
-      // //* CHANGE IMG FORMATE:
-      // if (image) {
-      //   formData.append("image", {
-      //     type: image.type,
-      //     uri: image.uri,
-      //     name: image.uri.split("/").pop(),
-      //   });
-      // }
-
       //* RESPOND:
       const response = await instance.put(`/students/${id}`, updatedStudent); // this is doing the trick
 

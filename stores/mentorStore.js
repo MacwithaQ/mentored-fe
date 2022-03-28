@@ -26,23 +26,6 @@ class MentorStore {
   //* UPDATE MENTOR:
   updateMentor = async (updatedMentor, id) => {
     try {
-      //* HELP ADD IMG:
-      // const formData = new FormData();
-      // if (updatedMentor !== undefined) {
-      //   for (const key in updatedMentor) {
-      //     formData.append(key, updatedMentor[key]);
-      //   }
-      // }
-
-      //* CHANGE IMG FORMATE:
-      // if (image) {
-      //   formData.append("image", {
-      //     type: image.type,
-      //     uri: image.uri,
-      //     name: image.uri.split("/").pop(),
-      //   });
-      // }
-
       //* RESPOND:
       const response = await instance.put(`/mentors/${id}`, updatedMentor);
       // console.log("mentor", response.data.payload);
