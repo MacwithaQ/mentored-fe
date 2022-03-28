@@ -9,7 +9,6 @@ import MeetingCard from "../../components/MeetingCard";
 import { observer } from "mobx-react";
 
 const MyMeetings = ({ profile }) => {
-  const navigation = useNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
