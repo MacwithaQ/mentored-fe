@@ -30,7 +30,6 @@ class UserStore {
           formData.append(key, updatedUser[key]);
         }
       }
-      console.log(formData);
 
       //* CHANGE IMG FORMAT:
       if (image) {
@@ -42,7 +41,7 @@ class UserStore {
       }
 
       //* RESPOND:
-      const response = await instance.put(`/mentors/${id}`, formData, {
+      const response = await instance.put(`/users/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
