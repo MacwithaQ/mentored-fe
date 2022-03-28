@@ -71,10 +71,10 @@ const MentorProfileUpdate = ({ navigation, route }) => {
       await mentorStore.updateMentor(updatedMentor, profile.mentorProfile._id);
     }
     //* IMG CHANGER:
-    const mentorsFind = mentorStore.mentors.find(
-      (mentor) => mentor._id === profile._id
-    );
-    route.params.setProfile(mentorsFind);
+    // const mentorsFind = mentorStore.mentors.find(   //check if the image update working delete this. ALRASHED
+    //   (mentor) => mentor._id === profile._id
+    // );
+    // route.params.setProfile(mentorsFind);
     navigation.navigate("Profile");
   };
   return (
