@@ -18,9 +18,10 @@ import Logo from "../assets/Logo.svg";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import userStore from "../stores/userStore";
+import conversationStore from "../stores/conversationStore";
 import { LogBox } from "react-native";
-
 LogBox.ignoreLogs(["Require cycle"]);
+
 
 const Home = ({ navigation }) => {
   const featuredList = userStore.users
@@ -30,6 +31,9 @@ const Home = ({ navigation }) => {
     .slice(0, 5);
 
   useEffect(() => {
+    if (authStore.user !== null) {
+      conversationStore.fetchUserConversations(authStore.user._id);
+    }
     userStore.fetchUsers();
   }, [authStore.user]);
 
