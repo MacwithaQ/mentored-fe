@@ -17,7 +17,7 @@ const Search = () => {
     const fetchConversations = async () => {
       try {
         const res = await instance.get("/conversations/" + userId);
-        setConversations(res.data.sort((a, b) => b.createdAt - a.createdAt));
+        setConversations(res.data);
       } catch (error) {
         console.log(error);
       }

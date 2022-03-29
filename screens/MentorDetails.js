@@ -13,6 +13,7 @@ import MentorMyInfo from "./Profile/MentorMyInfo";
 import Btn from "../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
 import Schedule from "../components/Schedule";
+import conversationStore from "../stores/conversationStore";
 
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
@@ -28,6 +29,23 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   //* handlers (Buttons to change back and forth):
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
+  const handleMessage = () => {
+    if (
+      conversationStore.conversations
+        .map((conversation) => conversation.members)
+        .flat()
+        .some((id) => id === mentor._id)
+    ) {
+      console.log("conversation with this mentor exists");
+      return null;
+    } else {
+      conversationStore.createConversation(
+        authStore.user._id,
+        mentor,
+        navigation
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -53,7 +71,7 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           {mentor.firstName} {mentor.lastName}
         </Text>
         <HStack style={{ marginTop: 20 }}>
-          <Btn>Message</Btn>
+          <Btn onPress={handleMessage}>Message</Btn>
           {meeting ? (
             <Btn
               outline

@@ -21,38 +21,12 @@ const MessagingPage = ({ route }) => {
     const fetchMessages = async () => {
       try {
         const res = await instance.get("/messages/" + conversation._id);
-        console.log(res.data);
         setMessages(res.data.sort((a, b) => b.createdAt - a.createdAt));
       } catch (error) {
         console.log(error);
       }
     };
     fetchMessages();
-  }, []);
-
-  useEffect(() => {
-    // setMessages([
-    //   {
-    //     _id: 1,
-    //     text: "Hello World",
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: "React Native",
-    //       avatar: "https://placeimg.com/140/140/any",
-    //     },
-    //   },
-    //   {
-    //     _id: 1,
-    //     text: "Hello developer",
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: "React Native",
-    //       avatar: "https://placeimg.com/140/140/any",
-    //     },
-    //   },
-    // ]);
   }, []);
 
   //* ON SEND:
@@ -113,7 +87,9 @@ const MessagingPage = ({ route }) => {
         />
         {/* MENTOR NAME: */}
         <HStack>
-          <Text style={styles.headerName}>Mentor Name</Text>
+          <Text style={styles.headerName}>
+            {otherMember.firstName} {otherMember.lastName}
+          </Text>
         </HStack>
       </HStack>
       {/* GIFTED CHAT COMPONENT: */}

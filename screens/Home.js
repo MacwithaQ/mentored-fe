@@ -18,6 +18,7 @@ import Logo from "../assets/Logo.svg";
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import userStore from "../stores/userStore";
+import conversationStore from "../stores/conversationStore";
 
 const Home = ({ navigation }) => {
   const featuredList = userStore.users
@@ -25,6 +26,12 @@ const Home = ({ navigation }) => {
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
     .sort(() => 0.5 - Math.random())
     .slice(0, 5);
+
+  useEffect(() => {
+    if (authStore.user !== null) {
+      conversationStore.fetchUserConversations(authStore.user._id);
+    }
+  }, [authStore.user]);
 
   return (
     <View style={styles.container}>

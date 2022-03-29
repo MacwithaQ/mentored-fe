@@ -6,7 +6,9 @@ class MessageStore {
   constructor() {
     makeAutoObservable(this);
   }
-  messages = [];
+    messages = [];
+
+    
   sendMessage = async (conversationId, userId, theMessage) => {
     const newMessage = {
       conversation: conversationId,
