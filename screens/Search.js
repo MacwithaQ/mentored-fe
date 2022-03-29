@@ -26,7 +26,7 @@ const Search = () => {
     .filter((mentor) =>
       mentor.mentorProfile.major.toLowerCase().includes(active.toLowerCase())
     )
-    .map((mentor) => <MentorSearchCard mentor={mentor} />);
+    .map((mentor) => <MentorSearchCard key={mentor._id} mentor={mentor} />);
 
   //* MAP MENTORS BY MAJOR:
   let majors = userStore.users

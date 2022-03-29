@@ -1,15 +1,24 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { HStack, VStack } from "native-base";
+import { HStack, Toast, VStack } from "native-base";
 import Btn from "../components/Btn";
 import authStore from "../stores/authStore";
 import meetingStore from "../stores/meetingStore";
 import { observer } from "mobx-react";
+import mentorStore from "../stores/mentorStore";
+import userStore from "../stores/userStore";
 
 const MeetingDetail = ({ navigation, route }) => {
   const { profile, meeting } = route.params;
-  console.log("profile", profile);
-  console.log("meeting", meeting);
+  const mentor = userStore.users.find((user) => user._id === meeting.mentor);
+  const handleBook = () => {
+    meetingStore.bookMeeting(meeting._id);
+    navigation.goBack();
+    Toast.show({
+      title: "Meeting Booked Success",
+      placement: "top",
+    });
+  };
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView />
@@ -33,7 +42,6 @@ const MeetingDetail = ({ navigation, route }) => {
         style={{
           flex: 1,
           alignItems: "center",
-          //   justifyContent: "center",
           padding: 12,
         }}
       >
@@ -49,12 +57,12 @@ const MeetingDetail = ({ navigation, route }) => {
             <Text
               style={{ alignSelf: "center", fontWeight: "bold", fontSize: 18 }}
             >
-              {profile.firstName} {profile.lastName}
+              {mentor.firstName} {mentor.lastName}
             </Text>
             <Text
               style={{ alignSelf: "center", color: "#828282", fontSize: 14 }}
             >
-              {profile.mentorProfile.major}
+              {mentor.major}
             </Text>
           </VStack>
           <HStack>
@@ -104,11 +112,7 @@ const MeetingDetail = ({ navigation, route }) => {
               >
                 <Text>available</Text>
               </View>
-              {!authStore.user.isMentor && (
-                <Btn onPress={() => meetingStore.bookMeeting(meeting._id)}>
-                  Book
-                </Btn>
-              )}
+              {!authStore.user.isMentor && <Btn onPress={handleBook}>Book</Btn>}
             </VStack>
           ) : (
             <View

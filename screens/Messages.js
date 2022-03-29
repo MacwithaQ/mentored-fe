@@ -13,6 +13,15 @@ const Search = () => {
   const [conversations, setConversations] = useState([]);
   const userId = authStore.user._id;
 
+  const mentorList = mentorStore.mentors
+    .filter((mentor) =>
+      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
+        name.toLowerCase().includes(query.toLowerCase())
+      )
+    )
+    .filter((mentor) => mentor.major.includes(active))
+    .map((mentor) => <MentorMessageCard key={mentor._id} mentor={mentor} />);
+
   useEffect(() => {
     const fetchConversations = async () => {
       try {

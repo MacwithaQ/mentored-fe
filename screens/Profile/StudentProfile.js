@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import StudentMtInfo from "./StudentMtInfo";
 //* STORES:
 import { baseURL } from "../../stores/instance";
+import MyMeetings from "./MyMeetings";
 
 const StudentProfile = ({ profile, setProfile }) => {
   //* DECLARE NAV :
@@ -84,8 +85,12 @@ const StudentProfile = ({ profile, setProfile }) => {
       </HStack>
 
       {/*  MY INFO BODY */}
-      <VStack style={{ padding: 12 }}>
-        {info ? <StudentMtInfo profile={profile} /> : <Text>My Meetings</Text>}
+      <VStack style={{ padding: 12, flex: 1 }}>
+        {info ? (
+          <StudentMtInfo profile={profile} />
+        ) : (
+          <MyMeetings profile={profile} />
+        )}
       </VStack>
     </View>
   );
