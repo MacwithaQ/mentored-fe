@@ -19,10 +19,7 @@ import conversationStore from "../stores/conversationStore";
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
 
-  let isMentor = true;
-  if (authStore.user) {
-    isMentor = authStore.user.isMentor;
-  }
+  const user = authStore.user || null;
 
   //* to change the buttons and Background:
   const [meeting, setMeeting] = useState(true);
@@ -37,14 +34,10 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         .flat()
         .some((id) => id === mentor._id)
     ) {
-      console.log("conversation with this mentor exists");
+      user && user._id, console.log("conversation with this mentor exists");
       return null;
     } else {
-      conversationStore.createConversation(
-        authStore.user._id,
-        mentor,
-        navigation
-      );
+      conversationStore.createConversation(mentor, navigation);
     }
   };
 
@@ -72,21 +65,21 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           {mentor.firstName} {mentor.lastName}
         </Text>
 
-        <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
-          
-          <Btn onPress={handleMessage} style={{ flex: 1 }}>Message</Btn>
-          {!authStore.user.isMentor && (
+        {user && !user.isMentor && (
+          <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
+            <Btn onPress={handleMessage} style={{ flex: 1 }}>
+              Message
+            </Btn>
             <Btn
               onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
               style={{ flex: 1 }}
             >
               Set Meeting
             </Btn>
-          )}
-        </HStack>
+          </HStack>
+        )}
         {/* ADDED: */}
         <HStack>{/* <RegisterForPushNotifications /> */}</HStack>
-
       </VStack>
 
       <VStack style={{ padding: 12 }}>
