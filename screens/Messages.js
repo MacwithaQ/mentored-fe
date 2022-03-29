@@ -18,7 +18,7 @@ const Search = () => {
       )
     )
     .filter((mentor) => mentor.major.includes(active))
-    .map((mentor) => <MentorMessageCard mentor={mentor} />);
+    .map((mentor) => <MentorMessageCard key={mentor._id} mentor={mentor} />);
 
   return (
     <View style={styles.container}>

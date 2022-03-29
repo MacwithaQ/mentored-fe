@@ -14,9 +14,17 @@ const MyMeetings = ({ profile }) => {
     setIsOpen(!isOpen);
   };
 
-  const myMeetings = meetingStore.meetings
-    .filter((meeting) => meeting.mentor === profile._id)
-    .map((meeting) => <MeetingCard meeting={meeting} profile={profile} />);
+  const myMeetings = profile.isMentor
+    ? meetingStore.meetings
+        .filter((meeting) => meeting.mentor === profile._id)
+        .map((meeting) => (
+          <MeetingCard key={meeting._id} meeting={meeting} profile={profile} />
+        ))
+    : meetingStore.meetings
+        .filter((meeting) => meeting.student === profile._id)
+        .map((meeting) => (
+          <MeetingCard key={meeting._id} meeting={meeting} profile={profile} />
+        ));
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -24,9 +32,11 @@ const MyMeetings = ({ profile }) => {
         {isOpen ? (
           <AddMeeting handleOpen={handleOpen} />
         ) : (
-          <Btn onPress={handleOpen} style={{ marginBottom: 5 }}>
-            Add New Meeting
-          </Btn>
+          profile.isMentor && (
+            <Btn onPress={handleOpen} style={{ marginBottom: 5 }}>
+              Add New Meeting
+            </Btn>
+          )
         )}
       </View>
       <VStack>{myMeetings}</VStack>
