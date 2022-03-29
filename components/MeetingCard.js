@@ -3,9 +3,10 @@ import React from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
+import { useNavigation } from "@react-navigation/native";
 
-const MeetingCard = ({ meeting, profile, navigation }) => {
-  console.log(meeting);
+const MeetingCard = ({ meeting, profile }) => {
+  const navigation = useNavigation();
   return (
     <Pressable
       // disabled={meeting.isAvailable ? false : true}
