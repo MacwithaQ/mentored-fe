@@ -1,5 +1,6 @@
 import {
   Image,
+  KeyboardAvoidingView,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -78,7 +79,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
     navigation.navigate("Profile");
   };
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
 
@@ -155,100 +156,124 @@ const MentorProfileUpdate = ({ navigation, route }) => {
           />
         </HStack>
       </VStack>
-
       <ScrollView>
         {/* MAJOR ICON + TEXT : */}
         <VStack style={{ padding: 12 }}>
           <VStack
-            style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}
+            style={{
+              backgroundColor: "#fff",
+              padding: 12,
+              borderRadius: 20,
+              width: "100%",
+            }}
           >
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="briefcase-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-
-              <VStack style={{ marginVertical: 10, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Major:</Text>
-                <Input
-                  placeholder={"Major"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.mentorProfile.major}
-                  onChangeText={(value) =>
-                    setUpdatedMentor({ ...updatedMentor, major: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="briefcase-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Major:</Text>
+              </HStack>
+
+              <Input
+                placeholder={"Major"}
+                style={{ width: "100%" }}
+                defaultValue={profile.mentorProfile.major}
+                onChangeText={(value) =>
+                  setUpdatedMentor({ ...updatedMentor, major: value })
+                }
+              />
+            </VStack>
 
             {/* EMPLOYER ICON + TEXT : */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="business-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 10, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Employer:</Text>
-                <Input
-                  placeholder={"Employer"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.mentorProfile.employer}
-                  onChangeText={(value) =>
-                    setUpdatedMentor({ ...updatedMentor, employer: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="business-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Employer:</Text>
+              </HStack>
+              <Input
+                placeholder={"Employer"}
+                style={{ width: "100%" }}
+                defaultValue={profile.mentorProfile.employer}
+                onChangeText={(value) =>
+                  setUpdatedMentor({ ...updatedMentor, employer: value })
+                }
+              />
+            </VStack>
 
             {/* BIO ICON + TEXT : */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="information-circle-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 10, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Bio:</Text>
-                <Input
-                  placeholder={"Bio"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.mentorProfile.bio}
-                  onChangeText={(value) =>
-                    setUpdatedMentor({ ...updatedMentor, bio: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="information-circle-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Bio:</Text>
+              </HStack>
+              <Input
+                placeholder={"Bio"}
+                style={{ width: "100%" }}
+                defaultValue={profile.mentorProfile.bio}
+                onChangeText={(value) =>
+                  setUpdatedMentor({ ...updatedMentor, bio: value })
+                }
+              />
+            </VStack>
 
             {/* PHONE ICON + TEXT : */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="call-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 10, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Phone:</Text>
-                <Input
-                  placeholder={"Phone"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.phone}
-                  onChangeText={(value) =>
-                    setUpdatedMentor({ ...updatedMentor, phone: value })
-                  }
+            <VStack style={{ alignItems: "center" }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="call-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Phone:</Text>
+              </HStack>
+              <Input
+                placeholder={"Phone"}
+                style={{ width: "100%" }}
+                defaultValue={profile.phone}
+                onChangeText={(value) =>
+                  setUpdatedMentor({ ...updatedMentor, phone: value })
+                }
+              />
+            </VStack>
           </VStack>
         </VStack>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
