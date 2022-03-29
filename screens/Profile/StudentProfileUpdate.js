@@ -1,5 +1,6 @@
 import {
   Image,
+  KeyboardAvoidingView,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -121,7 +122,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <VStack style={styles.header}>
         <SafeAreaView />
 
@@ -201,50 +202,72 @@ const StudentProfileUpdate = ({ navigation, route }) => {
       <ScrollView>
         <VStack style={{ padding: 12 }}>
           <VStack
-            style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}
+            style={{
+              backgroundColor: "#fff",
+              padding: 12,
+              borderRadius: 20,
+              width: "100%",
+            }}
           >
             {/* AGE: */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="calendar-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Age:</Text>
-                <Input
-                  placeholder={"Age"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.studentProfile.age.toString()}
-                  onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, age: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="calendar-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Age:</Text>
+              </HStack>
+              <Input
+                placeholder={"Age"}
+                style={{ width: "100%" }}
+                defaultValue={profile.studentProfile.age.toString()}
+                onChangeText={(value) =>
+                  setUpdatedStudent({ ...updatedStudent, age: value })
+                }
+              />
+            </VStack>
 
             {/* PICKER FOR EDUCATION LEVEL (DROP DOWN) + ICON: */}
 
-            <HStack style={{ alignItems: "center", width: "100%" }}>
-              <Ionicons
-                name="school-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="school-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
+                />
+                <Text style={{ fontSize: 16 }}>Education Level:</Text>
+              </HStack>
               <Picker
                 style={{
                   backgroundColor: "#F5F4F9",
                   height: 70,
+                  width: "100%",
                   justifyContent: "center",
                   borderRadius: 20,
                   marginVertical: 5,
                   textAlign: "left",
                   flex: 1,
+                  overflow: "hidden",
                 }}
                 itemStyle={{ fontSize: 14, textAlign: "left" }}
-                selectedValue={profile.educationLevel}
+                selectedValue={
+                  updatedStudent.educationLevel || profile.educationLevel
+                }
                 onValueChange={(itemValue) => {
                   setUpdatedStudent({
                     ...updatedStudent,
@@ -252,7 +275,6 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                   });
                 }}
               >
-                <Picker.Item label="Select level" />
                 {OPTIONS.map((option) => (
                   <Picker.Item
                     key={option.id}
@@ -261,76 +283,89 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                   />
                 ))}
               </Picker>
-            </HStack>
+            </VStack>
 
             {/* PHONE: */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="call-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Phone:</Text>
-                <Input
-                  placeholder={"Phone"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.phone}
-                  onChangeText={(value) =>
-                    setUpdatedUser({ ...updatedUser, phone: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="call-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Phone:</Text>
+              </HStack>
+              <Input
+                placeholder={"Phone"}
+                style={{ width: "100%" }}
+                defaultValue={profile.phone}
+                onChangeText={(value) =>
+                  setUpdatedUser({ ...updatedUser, phone: value })
+                }
+              />
+            </VStack>
 
             {/* GUARDIAN: */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="people-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Guardian:</Text>
-                <Input
-                  placeholder={"Guardian"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.studentProfile.guardian}
-                  onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, guardian: value })
-                  }
+            <VStack style={{ alignItems: "center", marginBottom: 12 }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="people-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Guardian:</Text>
+              </HStack>
+              <Input
+                placeholder={"Guardian"}
+                style={{ width: "100%" }}
+                defaultValue={profile.studentProfile.guardian}
+                onChangeText={(value) =>
+                  setUpdatedStudent({ ...updatedStudent, guardian: value })
+                }
+              />
+            </VStack>
 
             {/* GUARDIAN PHONE: */}
-            <HStack style={{ alignItems: "center" }}>
-              <Ionicons
-                name="call-outline"
-                size={30}
-                color="#57A0D7"
-                style={{ marginRight: 12 }}
-              />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>
-                  Guardian Phone:
-                </Text>
-                <Input
-                  placeholder={"Guardian Phone"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={profile.studentProfile.gPhone.toString()}
-                  onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, gPhone: value })
-                  }
+            <VStack style={{ alignItems: "center" }}>
+              <HStack
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="call-outline"
+                  size={30}
+                  color="#57A0D7"
+                  style={{ marginRight: 12 }}
                 />
-              </VStack>
-            </HStack>
+                <Text style={{ fontSize: 16 }}>Guardian Phone:</Text>
+              </HStack>
+              <Input
+                placeholder={"Guardian Phone"}
+                style={{ width: "100%" }}
+                defaultValue={profile.studentProfile.gPhone.toString()}
+                onChangeText={(value) =>
+                  setUpdatedStudent({ ...updatedStudent, gPhone: value })
+                }
+              />
+            </VStack>
           </VStack>
         </VStack>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
