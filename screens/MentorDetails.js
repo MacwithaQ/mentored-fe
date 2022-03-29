@@ -13,7 +13,8 @@ import MentorMyInfo from "./Profile/MentorMyInfo";
 import Btn from "../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
 import Schedule from "../components/Schedule";
-import RegisterForPushNotifications from "../components/RegisterForPushNotifications";
+import conversationStore from "../stores/conversationStore";
+//import RegisterForPushNotifications from "../components/RegisterForPushNotifications";
 
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
@@ -29,6 +30,23 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   //* handlers (Buttons to change back and forth):
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
+  const handleMessage = () => {
+    if (
+      conversationStore.conversations
+        .map((conversation) => conversation.members)
+        .flat()
+        .some((id) => id === mentor._id)
+    ) {
+      console.log("conversation with this mentor exists");
+      return null;
+    } else {
+      conversationStore.createConversation(
+        authStore.user._id,
+        mentor,
+        navigation
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -53,8 +71,9 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         <Text style={styles.headerName}>
           {mentor.firstName} {mentor.lastName}
         </Text>
+
         <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
-          <Btn style={{ flex: 1 }}>Message</Btn>
+          <Btn onPress={handleMessage} style={{ flex: 1 }}>Message</Btn>
           {!authStore.user.isMentor && (
             <Btn
               onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
@@ -65,9 +84,9 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           )}
         </HStack>
         {/* ADDED: */}
-        <HStack>
-          <RegisterForPushNotifications />
-        </HStack>
+       <HStack>
+        {/* <RegisterForPushNotifications />*/}
+      </HStack>
       </VStack>
 
       {meeting ? (

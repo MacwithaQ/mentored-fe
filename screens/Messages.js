@@ -1,24 +1,34 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Input from "../components/Input";
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
 //* STORES:
-import mentorStore from "../stores/mentorStore";
+import authStore from "../stores/authStore";
+import { instance } from "../stores/instance";
 
 const Search = () => {
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState("");
+  const [conversations, setConversations] = useState([]);
+  const userId = authStore.user._id;
 
-  const mentorList = mentorStore.mentors
-    .filter((mentor) =>
-      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
-      )
-    )
-    .filter((mentor) => mentor.major.includes(active))
-    .map((mentor) => <MentorMessageCard mentor={mentor} />);
+  useEffect(() => {
+    const fetchConversations = async () => {
+      try {
+        const res = await instance.get("/conversations/" + userId);
+        setConversations(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchConversations();
+  }, [userId]);
+
+  console.log(conversations);
+  const conversationList = conversations.map((conversation) => (
+    <MentorMessageCard conversation={conversation} />
+  ));
 
   return (
     <View style={styles.container}>
@@ -50,7 +60,7 @@ const Search = () => {
         style={{ backgroundColor: "#F5F4F9" }}
       ></ScrollView>
       <VStack style={{ flex: 110 }}>
-        <ScrollView>{mentorList}</ScrollView>
+        <ScrollView>{conversationList}</ScrollView>
       </VStack>
     </View>
   );

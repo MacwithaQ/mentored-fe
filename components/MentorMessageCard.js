@@ -1,12 +1,44 @@
 import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { instance } from "../stores/instance";
+import mentorStore from "../stores/mentorStore";
+import studentStore from "../stores/studentStore";
+import authStore from "../stores/authStore";
+import userStore from "../stores/userStore";
+import observer from "react-native";
 
-const MentorMessageCard = ({ mentor }) => {
+const MentorMessageCard = ({ conversation }) => {
   const navigation = useNavigation();
+  const [messages, setMessages] = useState([]);
+  const userId = authStore.user._id;
+  const otherMember = userStore.users.find(
+    (user) =>
+      user._id ===
+      conversation.members
+        .filter((member) => member !== authStore.user._id)
+        .toString()
+  );
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await instance.get("/messages/" + conversation._id);
+        setMessages(res.data.sort((a, b) => b.createdAt - a.createdAt));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMessages();
+  }, [conversation.messages]);
 
   return (
-    <Pressable onPress={() => navigation.navigate("MessagingPage")}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("MessagingPage", { conversation, otherMember })
+      }
+    >
       <HStack style={styles.mentorCard}>
         <VStack>
           <Image
@@ -19,10 +51,11 @@ const MentorMessageCard = ({ mentor }) => {
         <HStack style={{ alignSelf: "center" }}>
           <VStack>
             <Text style={{ fontWeight: "bold" }}>
-              {`${mentor.firstName} ${mentor.lastName}`}
+              {otherMember.firstName} {otherMember.lastName}
             </Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.major}</Text>
-            <Text style={{ color: "#BDBDBD" }}>{mentor.employer}</Text>
+            <Text style={{ color: "#BDBDBD", marginTop: 5 }}>
+              {messages.length > 0 ? messages[messages.length - 1].text : null}
+            </Text>
           </VStack>
         </HStack>
       </HStack>
