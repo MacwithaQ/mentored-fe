@@ -55,7 +55,7 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         </Text>
         <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
           <Btn style={{ flex: 1 }}>Message</Btn>
-          {!authStore.user.isMentor && (
+          {isMentor && (
             <Btn
               onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
               style={{ flex: 1 }}
@@ -65,23 +65,12 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
           )}
         </HStack>
         {/* ADDED: */}
-        <HStack>
-          <RegisterForPushNotifications />
-        </HStack>
+        <HStack>{/* <RegisterForPushNotifications /> */}</HStack>
       </VStack>
 
-      {meeting ? (
-        <VStack style={{ padding: 12 }}>
-          <MentorMyInfo profile={mentor} />
-          <Text
-            style={{ marginVertical: 10, fontSize: 18, fontWeight: "bold" }}
-          >
-            Reviews ({stars})
-          </Text>
-        </VStack>
-      ) : (
-        <Schedule />
-      )}
+      <VStack style={{ padding: 12 }}>
+        <MentorMyInfo profile={mentor} />
+      </VStack>
     </View>
   );
 };
