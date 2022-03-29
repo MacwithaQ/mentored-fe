@@ -19,12 +19,28 @@ class MeetingStore {
   addMeeting = async (date) => {
     try {
       const newMeeting = { date: date.toString() };
-      console.log("date ;(", newMeeting);
       const response = await instance.post("/appointments", newMeeting);
       this.meetings.push(response.data);
-      console.log("res", response.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+  bookMeeting = async (meetingId) => {
+    try {
+      console.log("meetingId", meetingId);
+      const response = await instance.put("/appointments", { id: meetingId });
+      if (response) {
+        this.meetings = this.meetings.map((meeting) => {
+          return meeting._id === meetingId ? response.data : meeting;
+        });
+      }
+      console.log("the meeting", response.data);
+      console.log(
+        "this meetings",
+        this.meetings.find((meeting) => meeting._id === meetingId)
+      );
+    } catch (error) {
+      console.log("err", error);
     }
   };
 }

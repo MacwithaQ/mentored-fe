@@ -5,7 +5,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 
 const MentorMyInfo = ({ profile }) => {
-  console.log(profile);
   return (
     <VStack style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}>
       {/* MAJOR ICON & TEXT : */}

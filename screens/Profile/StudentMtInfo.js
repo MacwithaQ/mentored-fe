@@ -2,8 +2,11 @@ import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import { observer } from "mobx-react";
+import authStore from "../../stores/authStore";
 
 const StudentMtInfo = ({ profile }) => {
+  const user = authStore.user;
   return (
     <VStack style={{ backgroundColor: "#fff", padding: 12, borderRadius: 20 }}>
       <HStack style={{ alignItems: "center" }}>
@@ -15,7 +18,7 @@ const StudentMtInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Age:</Text>
-          <Text style={{ color: "#828282" }}>{profile.age}</Text>
+          <Text style={{ color: "#828282" }}>{profile.studentProfile.age}</Text>
         </VStack>
       </HStack>
       <HStack style={{ alignItems: "center" }}>
@@ -27,7 +30,9 @@ const StudentMtInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>EducationLevel:</Text>
-          <Text style={{ color: "#828282" }}>{profile.educationLevel}</Text>
+          <Text style={{ color: "#828282" }}>
+            {profile.studentProfile.educationLevel}
+          </Text>
         </VStack>
       </HStack>
       {/* <VStack style={{ marginVertical: 10 }}>
@@ -67,7 +72,9 @@ const StudentMtInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Guardian:</Text>
-          <Text style={{ color: "#828282" }}>{profile.guardian}</Text>
+          <Text style={{ color: "#828282" }}>
+            {profile.studentProfile.guardian}
+          </Text>
         </VStack>
       </HStack>
       <HStack style={{ alignItems: "center" }}>
@@ -79,13 +86,15 @@ const StudentMtInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Guardian Phone:</Text>
-          <Text style={{ color: "#828282" }}>{profile.gPhone}</Text>
+          <Text style={{ color: "#828282" }}>
+            {profile.studentProfile.gPhone}
+          </Text>
         </VStack>
       </HStack>
     </VStack>
   );
 };
 
-export default StudentMtInfo;
+export default observer(StudentMtInfo);
 
 const styles = StyleSheet.create({});

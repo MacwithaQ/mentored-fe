@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { HStack, VStack } from "native-base";
 import { observer } from "mobx-react";
 //* EXPO:
-import { Picker } from "@react-native-picker/picker"; //! AL ANSARI MAY NEED THIS<<
+import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 //*  CUSTOMIZED COMPONENT :
 import Input from "../../components/Input";
@@ -19,6 +19,13 @@ import Input from "../../components/Input";
 import studentStore from "../../stores/studentStore";
 import { Ionicons } from "@expo/vector-icons";
 import { baseURL } from "../../stores/instance";
+import authStore from "../../stores/authStore";
+import userStore from "../../stores/userStore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 const OPTIONS = [
   {
@@ -61,24 +68,15 @@ const StudentProfileUpdate = ({ navigation, route }) => {
 
   //* TO CATCH & CHANGE THE STUDENT INFO || BODY:
   const [updatedStudent, setUpdatedStudent] = useState({
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    age: profile.age,
-    educationLevel: profile.educationLevel,
-    guardian: profile.guardian,
-    phone: profile.phone,
-    _id: profile._id,
-    gPhone: profile.gPhone,
+    age: profile.studentProfile.age,
+    educationLevel: profile.studentProfile.educationLevel,
+    guardian: profile.studentProfile.guardian,
+    gPhone: profile.studentProfile.gPhone,
   });
+  const [updatedUser, setUpdatedUser] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
-  const [image, setImage] = useState(
-    <Image
-      source={{
-        uri: "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png",
-      }}
-    />
-  );
+  const [image, setImage] = useState(null);
 
   //* USE PICK IMG TO TAKE IMG FROM THE PHONE LIBRARY:
   const pickImage = async () => {
@@ -90,23 +88,35 @@ const StudentProfileUpdate = ({ navigation, route }) => {
     });
     if (!result.cancelled) {
       setImage(result);
+      setUpdatedUser(result);
     }
   };
 
   // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
-    await studentStore.updateStudent(
-      updatedStudent,
-      image,
-      route.params.setProfile
-    );
+    if (updatedUser) {
+      await userStore.updateUser(
+        updatedUser,
+        image,
+        profile._id,
+        updatedStudent,
+        profile.studentProfile._id
+      );
+      setUpdatedUser(null);
+    } else if (updatedStudent) {
+      await studentStore.updateStudent(
+        updatedStudent,
+        profile.studentProfile._id
+      );
+    }
 
-    //* IMG CHANGER:
-    const studentsFind = studentStore.students.find(
-      (student) => student._id === profile._id
-    );
+    // await userStore.updateUser(updatedUser, image, profile._id);
 
-    route.params.setProfile(studentsFind);
+    // * IMG CHANGER :
+    // const studentsFind = studentStore.students.find(   //check if the image update working delete this. ALRASHED
+    //   (student) => student._id === profile._id
+    // );
+    // route.params.setProfile(mentorsFind);
     navigation.navigate("Profile");
   };
 
@@ -148,9 +158,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           {!image ? (
             <Image
               source={{
-                uri:
-                  baseURL + profile.image ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: profile.image
+                  ? baseURL + profile.image
+                  : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
@@ -158,9 +168,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           ) : (
             <Image
               source={{
-                uri:
-                  image.uri ||
-                  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                uri: image.uri,
               }}
               style={styles.headerProfileImg}
               resizeMode="cover"
@@ -173,9 +181,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"First Name"}
-            defaultValue={updatedStudent.firstName}
+            defaultValue={profile.firstName}
             onChangeText={(value) =>
-              setUpdatedStudent({ ...updatedStudent, firstName: value })
+              setUpdatedUser({ ...updatedUser, firstName: value })
             }
           />
 
@@ -183,9 +191,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
           <Input
             style={{ flex: 1, marginHorizontal: 5 }}
             placeholder={"Last Name"}
-            defaultValue={updatedStudent.lastName}
+            defaultValue={profile.lastName}
             onChangeText={(value) =>
-              setUpdatedStudent({ ...updatedStudent, lastName: value })
+              setUpdatedUser({ ...updatedUser, lastName: value })
             }
           />
         </HStack>
@@ -208,7 +216,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Age"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.age.toString()}
+                  defaultValue={profile.studentProfile.age.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, age: value })
                   }
@@ -216,25 +224,43 @@ const StudentProfileUpdate = ({ navigation, route }) => {
               </VStack>
             </HStack>
 
-            {/* EMPLOYER: */}
-            <HStack style={{ alignItems: "center" }}>
+            {/* PICKER FOR EDUCATION LEVEL (DROP DOWN) + ICON: */}
+
+            <HStack style={{ alignItems: "center", width: "100%" }}>
               <Ionicons
                 name="school-outline"
                 size={30}
                 color="#57A0D7"
                 style={{ marginRight: 12 }}
               />
-              <VStack style={{ marginVertical: 5, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginLeft: 5 }}>Employer:</Text>
-                <Input
-                  placeholder={"Employer"}
-                  style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.employer}
-                  onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, employer: value })
-                  }
-                />
-              </VStack>
+              <Picker
+                style={{
+                  backgroundColor: "#F5F4F9",
+                  height: 70,
+                  justifyContent: "center",
+                  borderRadius: 20,
+                  marginVertical: 5,
+                  textAlign: "left",
+                  flex: 1,
+                }}
+                itemStyle={{ fontSize: 14, textAlign: "left" }}
+                selectedValue={profile.educationLevel}
+                onValueChange={(itemValue) => {
+                  setUpdatedStudent({
+                    ...updatedStudent,
+                    educationLevel: itemValue,
+                  });
+                }}
+              >
+                <Picker.Item label="Select level" />
+                {OPTIONS.map((option) => (
+                  <Picker.Item
+                    key={option.id}
+                    value={option.educationLevel}
+                    label={option.educationLevel}
+                  />
+                ))}
+              </Picker>
             </HStack>
 
             {/* PHONE: */}
@@ -250,9 +276,9 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.phone}
+                  defaultValue={profile.phone}
                   onChangeText={(value) =>
-                    setUpdatedStudent({ ...updatedStudent, phone: value })
+                    setUpdatedUser({ ...updatedUser, phone: value })
                   }
                 />
               </VStack>
@@ -271,7 +297,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.guardian}
+                  defaultValue={profile.studentProfile.guardian}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, guardian: value })
                   }
@@ -294,7 +320,7 @@ const StudentProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Guardian Phone"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={updatedStudent.gPhone.toString()}
+                  defaultValue={profile.studentProfile.gPhone.toString()}
                   onChangeText={(value) =>
                     setUpdatedStudent({ ...updatedStudent, gPhone: value })
                   }

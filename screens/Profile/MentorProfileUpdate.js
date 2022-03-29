@@ -17,7 +17,14 @@ import * as ImagePicker from "expo-image-picker";
 import Input from "../../components/Input";
 //* STORES:
 import mentorStore from "../../stores/mentorStore";
+import authStore from "../../stores/authStore";
 import { baseURL } from "../../stores/instance";
+import userStore from "../../stores/userStore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 const MentorProfileUpdate = ({ navigation, route }) => {
   //*  TAKE PROFILE FROM PARAMS:
@@ -25,14 +32,11 @@ const MentorProfileUpdate = ({ navigation, route }) => {
 
   //* TO CATCH & CHANGE THE MENTOR INFO || BODY:
   const [updatedMentor, setUpdatedMentor] = useState({
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    major: profile.major,
-    employer: profile.employer,
-    bio: profile.bio,
-    phone: profile.phone,
-    _id: profile._id,
+    major: profile.mentorProfile.major,
+    employer: profile.mentorProfile.employer,
+    bio: profile.mentorProfile.bio,
   });
+  const [updatedUser, setUpdatedUser] = useState(null);
 
   //* TO CATCH & CHANGE THE IMAGE :
   const [image, setImage] = useState(null);
@@ -48,22 +52,29 @@ const MentorProfileUpdate = ({ navigation, route }) => {
 
     if (!result.cancelled) {
       setImage(result);
+      setUpdatedUser(result);
     }
   };
 
   // *  HANDLER TO UPDATE & NAVIGATE:
   const handleSubmit = async () => {
-    await mentorStore.updateMentor(
-      updatedMentor,
-      image,
-      route.params.setProfile
-    );
-
+    if (updatedUser) {
+      await userStore.updateUser(
+        updatedUser,
+        image,
+        profile._id,
+        updatedMentor,
+        profile.mentorProfile._id
+      );
+      setUpdatedUser(null);
+    } else if (updatedMentor) {
+      await mentorStore.updateMentor(updatedMentor, profile.mentorProfile._id);
+    }
     //* IMG CHANGER:
-    const mentorsFind = mentorStore.mentors.find(
-      (mentor) => mentor._id === profile._id
-    );
-    route.params.setProfile(mentorsFind);
+    // const mentorsFind = mentorStore.mentors.find(   //check if the image update working delete this. ALRASHED
+    //   (mentor) => mentor._id === profile._id
+    // );
+    // route.params.setProfile(mentorsFind);
     navigation.navigate("Profile");
   };
   return (
@@ -129,7 +140,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             placeholder={"First Name"}
             defaultValue={profile.firstName}
             onChangeText={(value) =>
-              setUpdatedMentor({ ...updatedMentor, firstName: value })
+              setUpdatedUser({ ...updatedUser, firstName: value })
             }
           />
 
@@ -139,7 +150,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
             placeholder={"Last Name"}
             defaultValue={profile.lastName}
             onChangeText={(value) =>
-              setUpdatedMentor({ ...updatedMentor, lastName: value })
+              setUpdatedUser({ ...updatedUser, lastName: value })
             }
           />
         </HStack>
@@ -164,7 +175,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Major"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.major}
+                  defaultValue={profile.mentorProfile.major}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, major: value })
                   }
@@ -185,7 +196,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Employer"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.employer}
+                  defaultValue={profile.mentorProfile.employer}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, employer: value })
                   }
@@ -206,7 +217,7 @@ const MentorProfileUpdate = ({ navigation, route }) => {
                 <Input
                   placeholder={"Bio"}
                   style={{ paddingVertical: 2 }}
-                  defaultValue={profile.bio}
+                  defaultValue={profile.mentorProfile.bio}
                   onChangeText={(value) =>
                     setUpdatedMentor({ ...updatedMentor, bio: value })
                   }

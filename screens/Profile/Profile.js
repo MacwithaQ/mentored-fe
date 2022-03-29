@@ -11,10 +11,14 @@ import studentStore from "../../stores/studentStore";
 //* Pages:
 import MentorProfile from "./MentorProfile";
 import StudentProfile from "./StudentProfile";
+import userStore from "../../stores/userStore";
 
 const Profile = () => {
   //* Even take the user from the store or null:
-  let user = authStore.user;
+
+  let user = authStore.user
+    ? userStore.users.find((user) => user._id === authStore.user._id)
+    : null;
 
   //* make state to use and pass it to the screens:
   const [profile, setProfile] = useState(null);
@@ -22,13 +26,9 @@ const Profile = () => {
   //* if the user > isMentor = true he is mentor else Student:
   useEffect(() => {
     if (user != null) {
-      if (user.isMentor) {
-        user.mentorProfile;
-      } else {
-        user.studentProfile;
-      }
+      user = userStore.users.find((user) => user._id === authStore.user._id);
     }
-  }, [user]);
+  }, [authStore.user, userStore.users]);
 
   //* If their is no [user] go> to NotUserPage & if the [profile] null go> the loader page:
   if (user == null) {

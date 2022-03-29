@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HStack, VStack } from "native-base";
 import authStore from "../stores/authStore";
 import MentorMyInfo from "./Profile/MentorMyInfo";
@@ -14,6 +14,7 @@ import Btn from "../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
 import Schedule from "../components/Schedule";
 import conversationStore from "../stores/conversationStore";
+//import RegisterForPushNotifications from "../components/RegisterForPushNotifications";
 
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
@@ -70,30 +71,22 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         <Text style={styles.headerName}>
           {mentor.firstName} {mentor.lastName}
         </Text>
-        <HStack style={{ marginTop: 20 }}>
-          <Btn onPress={handleMessage}>Message</Btn>
-          {meeting ? (
+
+        <HStack style={{ marginTop: 20, paddingHorizontal: 10 }}>
+          <Btn onPress={handleMessage} style={{ flex: 1 }}>Message</Btn>
+          {!authStore.user.isMentor && (
             <Btn
-              outline
-              onPress={() => {
-                setMeeting(!meeting);
-              }}
+              onPress={() => navigation.navigate("MentorsMeetings", { mentor })}
+              style={{ flex: 1 }}
             >
-              {" "}
-              Schedule Meeting
-            </Btn>
-          ) : (
-            <Btn
-              outline
-              onPress={() => {
-                setMeeting(!meeting);
-              }}
-            >
-              {" "}
-              Mentor Info
+              Set Meeting
             </Btn>
           )}
         </HStack>
+        {/* ADDED: */}
+       <HStack>
+        {/* <RegisterForPushNotifications />*/}
+      </HStack>
       </VStack>
 
       {meeting ? (

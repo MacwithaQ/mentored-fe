@@ -9,14 +9,13 @@ import MeetingCard from "../../components/MeetingCard";
 import { observer } from "mobx-react";
 
 const MyMeetings = ({ profile }) => {
-  const navigation = useNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
 
   const myMeetings = meetingStore.meetings
-    .filter((meeting) => meeting.mentor === profile.user._id)
+    .filter((meeting) => meeting.mentor === profile._id)
     .map((meeting) => <MeetingCard meeting={meeting} profile={profile} />);
 
   return (

@@ -4,9 +4,13 @@ import { HStack, VStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react";
 
-const MeetingCard = ({ meeting, profile }) => {
+const MeetingCard = ({ meeting, profile, navigation }) => {
+  console.log(meeting);
   return (
-    <Pressable onPress={() => navigation.navigate("MentorDetails", { mentor })}>
+    <Pressable
+      // disabled={meeting.isAvailable ? false : true}
+      onPress={() => navigation.navigate("MeetingDetail", { profile, meeting })}
+    >
       <HStack style={styles.mentorCard}>
         <HStack
           style={{
@@ -31,26 +35,24 @@ const MeetingCard = ({ meeting, profile }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {meeting.student ? (
-                  `${profile.firstName} ${profile.lastName}`
-                ) : (
+                {meeting.isAvailable ? (
                   <Text>Available</Text>
+                ) : (
+                  <Text>Booked</Text>
                 )}
               </Text>
               <HStack>
                 <Text
                   numberOfLines={1}
                   style={{
-                    color: "#b2b2b2",
+                    color: "#000",
                     fontSize: 10,
                     marginBottom: 5,
                     marginRight: 5,
                     textTransform: "capitalize",
                   }}
                 >
-                  {meeting.date.slice(0, 10)}
-                  {" - "}
-                  {meeting.date.slice(11, 16)}
+                  {new Date(meeting.date).toLocaleString()}
                 </Text>
               </HStack>
             </VStack>

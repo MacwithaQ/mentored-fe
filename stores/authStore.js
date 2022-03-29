@@ -6,6 +6,11 @@ import { Toast } from "native-base";
 import { instance } from "./instance";
 import mentorStore from "./mentorStore";
 import studentStore from "./studentStore";
+import { configure } from "mobx";
+
+configure({
+  enforceActions: "never",
+});
 
 class AuthStore {
   //* SINCE IT'S OBJ THE DEFAULT VALUE NULL:
@@ -66,6 +71,7 @@ class AuthStore {
     try {
       const decodedToken = decode(token);
       this.user = decodedToken;
+
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       //* SAVE TOKEN IN THE ASYNC-STORAGE:
