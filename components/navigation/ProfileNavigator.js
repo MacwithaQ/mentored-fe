@@ -5,6 +5,7 @@ import Profile from "../../screens/Profile/Profile";
 //* Screens:
 import MentorProfileUpdate from "../../screens/Profile/MentorProfileUpdate";
 import StudentProfileUpdate from "../../screens/Profile/StudentProfileUpdate";
+import MeetingDetail from "../../screens/MeetingDetail";
 
 //? import from native stack^^
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -16,16 +17,9 @@ const ProfileNavigator = () => {
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
     >
       <Screen component={Profile} name="Profile" />
-      <Screen
-        name="MentorProfileUpdate"
-        component={MentorProfileUpdate}
-        options={{ headerShown: false }}
-      />
-      <Screen
-        name="StudentProfileUpdate"
-        component={StudentProfileUpdate}
-        options={{ headerShown: false }}
-      />
+      <Screen component={MentorProfileUpdate} name="MentorProfileUpdate" />
+      <Screen component={StudentProfileUpdate} name="StudentProfileUpdate" />
+      <Screen component={MeetingDetail} name="MeetingDetail" />
     </Navigator>
   );
 };
