@@ -62,7 +62,15 @@ const MentorsMeetings = ({ route, navigation }) => {
         </HStack>
       </Pressable>
       <ScrollView>
-        <VStack style={{ flex: 1, height: "100%" }}>{meetings}</VStack>
+        {meetings.length <= 0 ? (
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
+          >
+            No Meetings Available
+          </Text>
+        ) : (
+          <VStack style={{ flex: 1, height: "100%" }}>{meetings}</VStack>
+        )}
       </ScrollView>
     </View>
   );
