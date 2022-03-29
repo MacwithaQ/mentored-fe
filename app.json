@@ -4,11 +4,12 @@
     "slug": "mentored-fe",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/png100SI.png",
+    "icon": "./assets/logo.png",
     "splash": {
-      "image": "./assets/png100SI.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "width": "50"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,16 +17,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "icon": "./assets/9696icon.png"
+      "icon": "./assets/logo.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/png100SI.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/png100SI.png"
+      "favicon": "./assets/logo.png"
     }
   }
 }
