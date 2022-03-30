@@ -14,20 +14,6 @@ const BalanceModal = ({ isOpenModal, setIsOpenModal, balance, id }) => {
 
   return (
     <View>
-      {/* <Stack
-        direction={{
-          base: "column",
-          md: "row",
-        }}
-        space={2}
-      > */}
-      {/* <Button onPress={() => openModal("top")}>Top</Button> */}
-      {/* <Button onPress={() => openModal("bottom")}>Add Balance</Button> */}
-      {/* <Btn onPress={() => openModal("bottom")}>Add Balance</Btn> */}
-      {/* <Button onPress={() => openModal("center")}>Center</Button>
-        <Button onPress={() => openModal("left")}>Left</Button>
-        <Button onPress={() => openModal("right")}>Right</Button> */}
-      {/* </Stack> */}
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} mt={12}>
         <Modal.Content>
           <Modal.CloseButton />
@@ -38,7 +24,7 @@ const BalanceModal = ({ isOpenModal, setIsOpenModal, balance, id }) => {
                 <Input
                   placeholder={"Enter the amount in KD"}
                   style={{ width: "100%" }}
-                  defaultValue={balance || 0}
+                  defaultValue={0}
                   onChangeText={(value) => setNewBalance(value)}
                 />
               </HStack>
