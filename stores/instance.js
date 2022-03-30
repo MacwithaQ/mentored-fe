@@ -4,7 +4,7 @@ import io from "socket.io/client-dist/socket.io";
 
 //* ifconfig
 
-export const baseURL = "http://192.168.100.168:8000";
+export const baseURL = "http://192.168.100.77:8000";
 export const socket = io(baseURL);
 socket.on("chat message", function (msg) {});
 
