@@ -22,13 +22,12 @@ import conversationStore from "../stores/conversationStore";
 import { LogBox } from "react-native";
 LogBox.ignoreLogs(["Require cycle"]);
 
-
 const Home = ({ navigation }) => {
   const featuredList = userStore.users
     .filter((user) => user.isMentor === true)
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 5);
+    .sort(() => 0.5 - Math.random());
+  // .slice(0, 5);
 
   useEffect(() => {
     if (authStore.user !== null) {
@@ -53,7 +52,9 @@ const Home = ({ navigation }) => {
             <Pressable onPress={authStore.signout}>
               <Image
                 source={{
-                  uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                  uri: authStore.user.image
+                    ? baseURL + authStore.user.image
+                    : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
                 }}
                 style={styles.headerProfileImg}
               />
@@ -98,8 +99,8 @@ const Home = ({ navigation }) => {
             <Text style={{ color: "#57A0D7", fontSize: 12 }}>Show All</Text>
           </Pressable>
         </HStack>
-        <ScrollView horizontal={true}>
-          <HStack>{featuredList}</HStack>
+        <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+          <HStack style={{ flexWrap: "wrap" }}>{featuredList}</HStack>
         </ScrollView>
 
         {/* MENTORS NAME: */}

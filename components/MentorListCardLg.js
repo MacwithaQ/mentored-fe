@@ -14,6 +14,7 @@ const MentorListCardLg = ({ mentor }) => {
           params: { mentor },
         })
       }
+      style={{ width: "45%", margin: 5 }}
     >
       <View style={styles.mentorCard}>
         <Image
@@ -73,12 +74,12 @@ export default MentorListCardLg;
 
 const styles = StyleSheet.create({
   mentorCard: {
-    width: 135,
+    width: "100%",
     alignItems: "center",
     overflow: "hidden",
     backgroundColor: "white",
     borderRadius: 20,
-    paddingVertical: 12,
+    paddingVertical: 9,
     marginHorizontal: 5,
     shadowColor: "#000",
     shadowOffset: {
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   cardImg: {
-    width: 110,
-    height: 110,
+    width: "90%",
+    height: 150,
     borderRadius: 15,
     marginBottom: 10,
   },
