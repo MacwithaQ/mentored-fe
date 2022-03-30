@@ -52,6 +52,26 @@ class StudentStore {
       );
     }
   };
+
+  addStudentBalance = async (newBalance, balance, id) => {
+    try {
+      // const cc = [newBalance];
+      // const dd = JSON.stringify(cc[0].newBalance);
+      // const ff = JSON.parse(dd);
+      const totalBalance = +newBalance + +balance;
+      console.log(totalBalance);
+      const response = await instance.put(
+        `/students/balance/${id}`,
+        totalBalance
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: StudentStore.js ~ line 55 ~ StudentStore ~ updateStudent= ~ error",
+        error
+      );
+    }
+  };
 }
 
 const studentStore = new StudentStore();

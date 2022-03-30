@@ -15,6 +15,7 @@ import StudentMtInfo from "./StudentMtInfo";
 //* STORES:
 import { baseURL } from "../../stores/instance";
 import MyMeetings from "./MyMeetings";
+import BalanceModal from "./BalanceModal";
 
 const StudentProfile = ({ profile, setProfile }) => {
   //* DECLARE NAV :
@@ -26,6 +27,12 @@ const StudentProfile = ({ profile, setProfile }) => {
   //* HANDLERS:
   const handleInfo = () => setInfo(true);
   const handleMeetings = () => setInfo(false);
+
+  //* MODAL:
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const handleModal = () => {
+    setIsOpenModal(true);
+  };
 
   // //* TO MAKE THE USER DEFAULT IMAGE APPEAR :
   // const [image, setImage] = useState(
@@ -92,6 +99,19 @@ const StudentProfile = ({ profile, setProfile }) => {
           <MyMeetings profile={profile} />
         )}
       </VStack>
+      <HStack style={styles.balance}>
+        <Pressable>
+          <Text onPress={handleModal}>
+            MY Balance: {profile.studentProfile.balance}KD
+          </Text>
+        </Pressable>
+        <BalanceModal
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          balance={profile.studentProfile.balance}
+          id={profile.studentProfile._id}
+        />
+      </HStack>
     </View>
   );
 };
@@ -131,5 +151,16 @@ const styles = StyleSheet.create({
     borderColor: "#f5f4f9",
     borderWidth: 1,
     borderBottomColor: "#ddd",
+  },
+  balance: {
+    backgroundColor: "#fff",
+    borderBottomWidth: 0.3,
+    borderBottomColor: "#ddd",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
   },
 });
