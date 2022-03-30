@@ -12,10 +12,11 @@ const MeetingDetail = ({ navigation, route }) => {
   const { profile, meeting } = route.params;
   const mentor = userStore.users.find((user) => user._id === meeting.mentor);
   const handleBook = () => {
-    meetingStore.bookMeeting(meeting._id);
+    meetingStore.bookMeeting(meeting._id, (price = 20));
+
     navigation.goBack();
     Toast.show({
-      title: "Meeting Booked Success",
+      title: "Meeting Booked",
       placement: "top",
     });
   };
