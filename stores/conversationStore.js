@@ -37,4 +37,5 @@ class ConversationStore {
 }
 
 const conversationStore = new ConversationStore();
+conversationStore.fetchUserConversations();
 export default conversationStore;

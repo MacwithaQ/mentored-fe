@@ -6,16 +6,14 @@ class MessageStore {
   constructor() {
     makeAutoObservable(this);
   }
-    messages = [];
+  messages = [];
 
-    
   sendMessage = async (conversationId, userId, theMessage) => {
     const newMessage = {
       conversation: conversationId,
       user: userId,
       text: theMessage,
     };
-    console.log(newMessage);
     try {
       const res = await instance.post(
         `/conversations/${conversationId}`,
