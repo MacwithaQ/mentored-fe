@@ -27,18 +27,12 @@ class MeetingStore {
   };
   bookMeeting = async (meetingId) => {
     try {
-      console.log("meetingId", meetingId);
       const response = await instance.put("/appointments", { id: meetingId });
       if (response) {
         this.meetings = this.meetings.map((meeting) => {
           return meeting._id === meetingId ? response.data : meeting;
         });
       }
-      console.log("the meeting", response.data);
-      console.log(
-        "this meetings",
-        this.meetings.find((meeting) => meeting._id === meetingId)
-      );
     } catch (error) {
       console.log("err", error);
     }
