@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import authStore from "./authStore";
 import { instance } from "./instance";
 import mentorStore from "./mentorStore";
 import studentStore from "./studentStore";
@@ -25,6 +26,8 @@ class UserStore {
   //* UPDATE MENTOR:
   updateUser = async (updatedUser, image, id, updatedProfile, profileId) => {
     try {
+      const currentUser = this.users.find((user) => user._id === id);
+      console.log({ currentUser });
       //* HELP ADD IMG:
       const formData = new FormData();
       if (updatedUser !== undefined) {
@@ -75,13 +78,17 @@ class UserStore {
         const foundStudent = this.users
           .filter((user) => !user.isMentor)
           .find((user) => user.studentProfile._id === updatedProfile._id);
+        // console.log(foundStudent.studentProfile);
 
         if (foundStudent) {
           foundStudent.studentProfile = {
             _id: foundStudent.studentProfile,
+            balance: currentUser.studentProfile.balance,
+
             ...updatedProfile,
           };
         }
+        // console.log(foundStudent);
       }
     } catch (error) {
       console.log(
