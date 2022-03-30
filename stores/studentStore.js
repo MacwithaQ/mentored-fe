@@ -66,6 +66,14 @@ class StudentStore {
             ? response.data.payload
             : student;
         });
+        const foundStudent = userStore.users
+          .filter((user) => user.isMentor === false)
+          .find(
+            (user) => user.studentProfile._id === response.data.payload._id
+          );
+        if (foundStudent) {
+          foundStudent.studentProfile = response.data.payload;
+        }
       }
     } catch (error) {
       console.log(
