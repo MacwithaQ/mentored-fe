@@ -56,7 +56,6 @@ class UserStore {
           user._id === response.data.payload._id ? response.data.payload : user
         );
       }
-      console.log("inside userStore", response.data.payload);
       if (response.data.payload.isMentor) {
         await mentorStore.updateMentor(updatedProfile, profileId);
 

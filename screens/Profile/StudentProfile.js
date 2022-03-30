@@ -16,6 +16,7 @@ import StudentMtInfo from "./StudentMtInfo";
 import { baseURL } from "../../stores/instance";
 import MyMeetings from "./MyMeetings";
 import BalanceModal from "./BalanceModal";
+import Btn from "../../components/Btn";
 
 const StudentProfile = ({ profile, setProfile }) => {
   //* DECLARE NAV :
@@ -100,18 +101,15 @@ const StudentProfile = ({ profile, setProfile }) => {
         )}
       </VStack>
       <HStack style={styles.balance}>
-        <Pressable>
-          <Text onPress={handleModal}>
-            MY Balance: {profile.studentProfile.balance}KD
-          </Text>
-        </Pressable>
-        <BalanceModal
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
-          balance={profile.studentProfile.balance}
-          id={profile.studentProfile._id}
-        />
+        <Text>MY Balance: {profile.studentProfile.balance}KD</Text>
+        <Btn onPress={handleModal}>Add</Btn>
       </HStack>
+      <BalanceModal
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        balance={profile.studentProfile.balance}
+        id={profile.studentProfile._id}
+      />
     </View>
   );
 };
@@ -158,9 +156,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     padding: 12,
     marginHorizontal: 12,
     marginBottom: 12,
+    // width: "100%",
   },
 });

@@ -28,7 +28,6 @@ class MentorStore {
     try {
       //* RESPOND:
       const response = await instance.put(`/mentors/${id}`, updatedMentor);
-      // console.log("mentor", response.data.payload);
       //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
       if (response) {
         this.mentors = this.mentors.map((mentor) => {

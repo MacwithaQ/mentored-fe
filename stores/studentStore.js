@@ -59,12 +59,23 @@ class StudentStore {
       // const dd = JSON.stringify(cc[0].newBalance);
       // const ff = JSON.parse(dd);
       const totalBalance = +newBalance + +balance;
-      console.log(totalBalance);
-      const response = await instance.put(
-        `/students/balance/${id}`,
-        totalBalance
+      const response = await instance.put(`/students/balance/${id}`, {
+        balance: totalBalance,
+      });
+      //* IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
+      if (response) {
+        this.students = this.students.map((student) => {
+          return student._id === response.data.payload._id
+            ? response.data.payload
+            : student;
+        });
+      }
+      console.log(
+        "student",
+        this.students.find(
+          (student) => student._id === response.data.payload._id
+        )
       );
-      console.log(response.data);
     } catch (error) {
       console.log(
         "🚀 ~ file: StudentStore.js ~ line 55 ~ StudentStore ~ updateStudent= ~ error",

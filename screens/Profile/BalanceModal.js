@@ -1,14 +1,14 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Button, FormControl, HStack, Input, Modal, Stack } from "native-base";
+import { Button, FormControl, HStack, Modal, Stack } from "native-base";
 import Btn from "../../components/Btn";
+import Input from "../../components/Input";
 import studentStore from "../../stores/studentStore";
 
 const BalanceModal = ({ isOpenModal, setIsOpenModal, balance, id }) => {
   const [newBalance, setNewBalance] = useState(0);
-
   const handleBalance = async () => {
-    await studentStore.addStudentBalance(9, balance, id);
+    await studentStore.addStudentBalance(newBalance, balance, id);
     setIsOpenModal(false);
   };
 
@@ -37,10 +37,9 @@ const BalanceModal = ({ isOpenModal, setIsOpenModal, balance, id }) => {
               <HStack style={{ alignItems: "center" }}>
                 <Input
                   placeholder={"Enter the amount in KD"}
-                  style={{ paddingVertical: 2 }}
-                  onChangeText={(value) =>
-                    setNewBalance({ ...newBalance, newBalance: value })
-                  }
+                  style={{ width: "100%" }}
+                  defaultValue={balance || 0}
+                  onChangeText={(value) => setNewBalance(value)}
                 />
               </HStack>
             </FormControl>
