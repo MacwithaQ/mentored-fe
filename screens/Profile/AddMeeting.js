@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { HStack, VStack } from "native-base";
+import { HStack, Toast, VStack } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Btn from "../../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +18,10 @@ const AddMeeting = ({ handleOpen }) => {
   const handleAdd = () => {
     meetingStore.addMeeting(date);
     handleOpen();
+    Toast.show({
+      title: "Meeting Added",
+      placement: "top",
+    });
   };
   return (
     // <View style={styles.container}>
