@@ -55,9 +55,6 @@ class StudentStore {
 
   addStudentBalance = async (newBalance, balance, id) => {
     try {
-      // const cc = [newBalance];
-      // const dd = JSON.stringify(cc[0].newBalance);
-      // const ff = JSON.parse(dd);
       const totalBalance = +newBalance + +balance;
       const response = await instance.put(`/students/balance/${id}`, {
         balance: totalBalance,
@@ -70,12 +67,30 @@ class StudentStore {
             : student;
         });
       }
+    } catch (error) {
       console.log(
-        "student",
-        this.students.find(
-          (student) => student._id === response.data.payload._id
-        )
+        "🚀 ~ file: StudentStore.js ~ line 55 ~ StudentStore ~ updateStudent= ~ error",
+        error
       );
+    }
+  };
+
+  payStudentBalance = async (newBalance, balance, id) => {
+    try {
+      const totalBalance = +balance - +newBalance;
+      console.log({ totalBalance });
+      const response = await instance.put(`/students/balance/${id}`, {
+        balance: totalBalance,
+      });
+      console.log("response", response.data);
+      // * IF RESPOND TRUE MAP IT AND GIVE IT ALL THE PAYLOAD:
+      if (response) {
+        this.students = this.students.map((student) => {
+          return student._id === response.data.payload._id
+            ? response.data.payload
+            : student;
+        });
+      }
     } catch (error) {
       console.log(
         "🚀 ~ file: StudentStore.js ~ line 55 ~ StudentStore ~ updateStudent= ~ error",

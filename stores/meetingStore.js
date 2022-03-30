@@ -1,3 +1,6 @@
+import authStore from "./authStore";
+import studentStore from "./studentStore";
+
 const { makeAutoObservable } = require("mobx");
 const { instance } = require("./instance");
 
@@ -25,9 +28,17 @@ class MeetingStore {
       console.log(error);
     }
   };
-  bookMeeting = async (meetingId) => {
+  bookMeeting = async (meetingId, price) => {
     try {
+      console.log({ price });
       const response = await instance.put("/appointments", { id: meetingId });
+
+      const student = studentStore.students.find(
+        (student) => student.user._id === authStore.user._id
+      );
+      console.log({ student });
+      studentStore.payStudentBalance(price, student.balance, student._id);
+
       if (response) {
         this.meetings = this.meetings.map((meeting) => {
           return meeting._id === meetingId ? response.data : meeting;
