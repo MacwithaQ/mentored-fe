@@ -13,6 +13,7 @@ import { observer } from "mobx-react";
 const MessagingPage = ({ route }) => {
   const { conversation } = route.params;
   const { otherMember } = route.params;
+  const { setMessage } = route.params;
   const navigation = useNavigation();
   const userId = authStore.user._id;
   const [messages, setMessages] = useState([]);

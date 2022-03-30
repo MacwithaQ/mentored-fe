@@ -31,7 +31,7 @@ const MentorMessageCard = ({ conversation }) => {
       }
     };
     fetchMessages();
-  }, [conversation.messages]);
+  }, [conversation]);
 
   return (
     <Pressable

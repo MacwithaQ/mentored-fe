@@ -37,7 +37,11 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
       user && user._id, console.log("conversation with this mentor exists");
       return null;
     } else {
-      conversationStore.createConversation(mentor, navigation);
+      conversationStore.createConversation(
+        authStore.user._id,
+        mentor,
+        navigation
+      );
     }
   };
 

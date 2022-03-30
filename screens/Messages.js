@@ -7,37 +7,16 @@ import { observer } from "mobx-react";
 //* STORES:
 import authStore from "../stores/authStore";
 import { instance } from "../stores/instance";
-
-const Search = () => {
+import userStore from "../stores/userStore";
+import conversationStore from "../stores/conversationStore";
+const Messages = () => {
   const [query, setQuery] = useState("");
-  const [conversations, setConversations] = useState([]);
   const userId = authStore.user._id;
+  const conversationList = conversationStore.conversations.map(
+    (conversation) => <MentorMessageCard conversation={conversation} />
+  );
 
-  const mentorList = mentorStore.mentors
-    .filter((mentor) =>
-      [mentor.firstName, mentor.lastName, mentor.employer].some((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
-      )
-    )
-    .filter((mentor) => mentor.major.includes(active))
-    .map((mentor) => <MentorMessageCard key={mentor._id} mentor={mentor} />);
-
-  useEffect(() => {
-    const fetchConversations = async () => {
-      try {
-        const res = await instance.get("/conversations/" + userId);
-        setConversations(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchConversations();
-  }, [userId]);
-
-  console.log(conversations);
-  const conversationList = conversations.map((conversation) => (
-    <MentorMessageCard conversation={conversation} />
-  ));
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
@@ -75,7 +54,7 @@ const Search = () => {
   );
 };
 
-export default observer(Search);
+export default observer(Messages);
 
 const styles = StyleSheet.create({
   header: {
