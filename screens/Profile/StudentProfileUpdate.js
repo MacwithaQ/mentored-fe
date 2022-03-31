@@ -47,7 +47,7 @@ const OPTIONS = [
   },
   {
     id: 5,
-    educationLevel: "Deploma",
+    educationLevel: "Diploma",
   },
   {
     id: 6,

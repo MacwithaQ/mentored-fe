@@ -12,12 +12,14 @@ import authStore from "../stores/authStore";
 import MentorMyInfo from "./Profile/MentorMyInfo";
 import Btn from "../components/Btn";
 import { Ionicons } from "@expo/vector-icons";
+import { baseURL } from "../stores/instance";
+
 import Schedule from "../components/Schedule";
 import conversationStore from "../stores/conversationStore";
-//import RegisterForPushNotifications from "../components/RegisterForPushNotifications";
 
 const MentorDetails = ({ route, stars = "5.0", navigation }) => {
   const { mentor } = route.params;
+  console.log(mentor);
 
   const user = authStore.user || null;
 
@@ -59,9 +61,9 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
         <SafeAreaView />
         <Image
           source={{
-            uri:
-              //   mentor.image ||  //profile have an image but isnt working
-              "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+            uri: mentor.image
+              ? baseURL + mentor.image
+              : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
           }}
           style={styles.headerProfileImg}
         />
@@ -82,8 +84,6 @@ const MentorDetails = ({ route, stars = "5.0", navigation }) => {
             </Btn>
           </HStack>
         )}
-        {/* ADDED: */}
-        <HStack>{/* <RegisterForPushNotifications /> */}</HStack>
       </VStack>
 
       <VStack style={{ padding: 12 }}>

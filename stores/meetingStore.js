@@ -1,8 +1,8 @@
 import authStore from "./authStore";
+import { instance } from "./instance";
 import studentStore from "./studentStore";
 
 const { makeAutoObservable } = require("mobx");
-const { instance } = require("./instance");
 
 class MeetingStore {
   constructor() {

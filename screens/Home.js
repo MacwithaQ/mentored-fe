@@ -19,8 +19,13 @@ import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
 import userStore from "../stores/userStore";
 import conversationStore from "../stores/conversationStore";
+//Ignore all warnings
 import { LogBox } from "react-native";
-LogBox.ignoreLogs(["Require cycle"]);
+
+// ignoreWarnings(["Warning: ReactNative.createElement"]);
+
+LogBox.ignoreLogs(["Warning: ..."]);
+LogBox.ignoreAllLogs();
 
 const Home = ({ navigation }) => {
   const featuredList = userStore.users
@@ -80,37 +85,8 @@ const Home = ({ navigation }) => {
 
       {/* SHOW MENTORS LIST: */}
       <VStack style={styles.body}>
-        <HStack
-          style={{
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 5,
-            marginBottom: 10,
-          }}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-            Featured Mentors
-          </Text>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("SearchNavigator");
-            }}
-          >
-            <Text style={{ color: "#57A0D7", fontSize: 12 }}>Show All</Text>
-          </Pressable>
-        </HStack>
         <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
           <HStack style={{ flexWrap: "wrap" }}>{featuredList}</HStack>
-        </ScrollView>
-
-        {/* MENTORS NAME: */}
-        <Text style={{ fontWeight: "bold", fontSize: 20, margin: 5 }}>
-          Major Name
-        </Text>
-        <ScrollView horizontal={true}>
-          <HStack>
-            <MentorListCardSm />
-          </HStack>
         </ScrollView>
       </VStack>
     </View>
@@ -163,6 +139,7 @@ const styles = StyleSheet.create({
 
   body: {
     padding: 12,
+    flex: 1,
   },
 
   mentorCard: {

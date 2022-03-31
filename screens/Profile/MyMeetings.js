@@ -39,7 +39,17 @@ const MyMeetings = ({ profile }) => {
           )
         )}
       </View>
-      <VStack>{myMeetings}</VStack>
+      <VStack>
+        {myMeetings.length <= 0 ? (
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
+          >
+            You Have No Meeting
+          </Text>
+        ) : (
+          <VStack style={{ flex: 1, height: "100%" }}>{myMeetings}</VStack>
+        )}
+      </VStack>
     </ScrollView>
   );
 };

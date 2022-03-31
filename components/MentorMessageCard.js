@@ -2,12 +2,12 @@ import { StyleSheet, Text, Image, Pressable } from "react-native";
 import { HStack, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { instance } from "../stores/instance";
+import { baseURL, instance } from "../stores/instance";
 import mentorStore from "../stores/mentorStore";
 import studentStore from "../stores/studentStore";
 import authStore from "../stores/authStore";
 import userStore from "../stores/userStore";
-import observer from "react-native";
+import { observer } from "mobx-react";
 
 const MentorMessageCard = ({ conversation }) => {
   const navigation = useNavigation();
@@ -43,7 +43,9 @@ const MentorMessageCard = ({ conversation }) => {
         <VStack>
           <Image
             source={{
-              uri: "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+              uri: otherMember.image
+                ? baseURL + otherMember.image
+                : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
             }}
             style={styles.cardImg}
           />
@@ -63,7 +65,7 @@ const MentorMessageCard = ({ conversation }) => {
   );
 };
 
-export default MentorMessageCard;
+export default observer(MentorMessageCard);
 
 const styles = StyleSheet.create({
   mentorCard: {

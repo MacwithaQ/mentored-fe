@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState, useCallback, useEffect } from "react";
 import { HStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,9 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import authStore from "../stores/authStore";
-import { instance } from "../stores/instance";
+import { instance, socket } from "../stores/instance";
 import messageStore from "../stores/messageStore";
 import { observer } from "mobx-react";
+import socketIo from "socket.io/client-dist/socket.io";
+import conversationStore from "../stores/conversationStore";
 
 const MessagingPage = ({ route }) => {
   const { conversation } = route.params;
@@ -17,8 +19,10 @@ const MessagingPage = ({ route }) => {
   const navigation = useNavigation();
   const userId = authStore.user._id;
   const [messages, setMessages] = useState([]);
-
+  const counter = messageStore.counter;
   useEffect(() => {
+    console.log("18973819273891729", counter);
+
     const fetchMessages = async () => {
       try {
         const res = await instance.get("/messages/" + conversation._id);
@@ -28,14 +32,15 @@ const MessagingPage = ({ route }) => {
       }
     };
     fetchMessages();
-  }, []);
-
+  }, [counter]);
   //* ON SEND:
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(messages, previousMessages)
     );
-    messageStore.sendMessage(conversation._id, userId, messages[0].text);
+    await messageStore.sendMessage(conversation._id, userId, messages[0].text);
+    await conversationStore.fetchUserConversations(userId);
+    socket.emit("backend", "hi i am sending");
   }, []);
 
   //* READER BUBBLE:
@@ -80,12 +85,13 @@ const MessagingPage = ({ route }) => {
   return (
     <View style={styles.container}>
       <HStack style={styles.header}>
-        <Ionicons
-          name="close-outline"
-          size={24}
-          color="black"
+        <Text
           onPress={() => navigation.navigate("Messages")}
-        />
+          style={{ position: "absolute", left: 30, bottom: 25 }}
+        >
+          {" "}
+          {"Close"}
+        </Text>
         {/* MENTOR NAME: */}
         <HStack>
           <Text style={styles.headerName}>

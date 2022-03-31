@@ -1,5 +1,6 @@
+import { instance } from "./instance";
+
 const { makeAutoObservable } = require("mobx");
-const { instance } = require("./instance");
 const authStore = require("./authStore");
 
 class MessageStore {
@@ -7,7 +8,7 @@ class MessageStore {
     makeAutoObservable(this);
   }
   messages = [];
-
+  counter = 0;
   sendMessage = async (conversationId, userId, theMessage) => {
     const newMessage = {
       conversation: conversationId,
@@ -23,6 +24,9 @@ class MessageStore {
     } catch (error) {
       console.log(error);
     }
+  };
+  increseCounter = () => {
+    this.counter += 1;
   };
 }
 
