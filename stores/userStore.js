@@ -78,7 +78,6 @@ class UserStore {
         const foundStudent = this.users
           .filter((user) => !user.isMentor)
           .find((user) => user.studentProfile._id === updatedProfile._id);
-        // console.log(foundStudent.studentProfile);
 
         if (foundStudent) {
           foundStudent.studentProfile = {
@@ -88,7 +87,6 @@ class UserStore {
             ...updatedProfile,
           };
         }
-        // console.log(foundStudent);
       }
     } catch (error) {
       console.log(

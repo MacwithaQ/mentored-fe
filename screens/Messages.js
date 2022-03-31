@@ -13,11 +13,15 @@ const Messages = () => {
   const [query, setQuery] = useState("");
   const userId = authStore.user._id;
   const conversationList = conversationStore.conversations.map(
-    (conversation) => <MentorMessageCard conversation={conversation} />
+    (conversation) => (
+      <MentorMessageCard key={conversation._id} conversation={conversation} />
+    )
   );
 
   useEffect(() => {}, []);
-
+  if (authStore.user == null) {
+    return <NotUserPage />;
+  }
   return (
     <View style={styles.container}>
       <SafeAreaView />

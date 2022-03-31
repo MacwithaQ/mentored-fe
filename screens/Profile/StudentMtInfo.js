@@ -35,10 +35,6 @@ const StudentMtInfo = ({ profile }) => {
           </Text>
         </VStack>
       </HStack>
-      {/* <VStack style={{ marginVertical: 10 }}>
-        <Text style={{ fontSize: 16,  }}>Balance:</Text>
-        <Text style={{ color: "#828282" }}>{profile.balance}</Text>
-      </VStack> */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="call-outline"
@@ -51,18 +47,6 @@ const StudentMtInfo = ({ profile }) => {
           <Text style={{ color: "#828282" }}>{profile.phone}</Text>
         </VStack>
       </HStack>
-      {/* <HStack style={{ alignItems: "center" }}>
-        <Ionicons
-          name="mail-outline"
-          size={30}
-          color="#57A0D7"
-          style={{ marginRight: 12 }}
-        />
-        <VStack style={{ marginVertical: 10 }}>
-          <Text style={{ fontSize: 16 }}>Email:</Text>
-          <Text style={{ color: "#828282" }}>{authStore.user.email}</Text>
-        </VStack>
-      </HStack> */}
       <HStack style={{ alignItems: "center" }}>
         <Ionicons
           name="people-outline"

@@ -1,6 +1,6 @@
-const { makeAutoObservable } = require("mobx");
-const { instance } = require("./instance");
+import { instance } from "./instance";
 
+const { makeAutoObservable } = require("mobx");
 class ConversationStore {
   constructor() {
     makeAutoObservable(this);
@@ -37,5 +37,5 @@ class ConversationStore {
 }
 
 const conversationStore = new ConversationStore();
-conversationStore.fetchUserConversations();
+// conversationStore.fetchUserConversations();
 export default conversationStore;
