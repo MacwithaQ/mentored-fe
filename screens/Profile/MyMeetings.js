@@ -29,12 +29,13 @@ const MyMeetings = ({ profile }) => {
   return (
     <ScrollView style={{ flex: 1 }}>
       <View>
+        {/* Changed meeting to availability */}
         {isOpen ? (
           <AddMeeting handleOpen={handleOpen} />
         ) : (
           profile.isMentor && (
             <Btn onPress={handleOpen} style={{ marginBottom: 5 }}>
-              Add New Meeting
+              Add Availability
             </Btn>
           )
         )}
@@ -44,7 +45,7 @@ const MyMeetings = ({ profile }) => {
           <Text
             style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
           >
-            You Have No Meeting
+            No Availabilities Set
           </Text>
         ) : (
           <VStack style={{ flex: 1, height: "100%" }}>{myMeetings}</VStack>

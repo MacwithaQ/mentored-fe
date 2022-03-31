@@ -48,7 +48,7 @@ const MentorListCardLg = ({ mentor }) => {
               color: "#828282",
               fontSize: 12,
               marginBottom: 2,
-              textTransform: "capitalize",
+              // textTransform: "capitalize",
             }}
           >
             {mentor.mentorProfile.major}
@@ -59,7 +59,7 @@ const MentorListCardLg = ({ mentor }) => {
               color: "#b2b2b2",
               fontSize: 10,
               marginBottom: 5,
-              textTransform: "capitalize",
+              // textTransform: "capitalize",
             }}
           >
             {mentor.mentorProfile.employer}

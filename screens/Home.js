@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import MentorListCardLg from "../components/MentorListCardLg";
 import MentorListCardSm from "../components/MentorListCardSm";
 import Logo from "../assets/Logo.svg";
+
 //* STORES:
 import authStore from "../stores/authStore";
 import mentorStore from "../stores/mentorStore";
@@ -33,7 +34,6 @@ const Home = ({ navigation }) => {
     .map((mentor) => <MentorListCardLg key={mentor._id} mentor={mentor} />)
     .sort(() => 0.5 - Math.random());
   // .slice(0, 5);
-
   useEffect(() => {
     if (authStore.user !== null) {
       conversationStore.fetchUserConversations(authStore.user._id);
@@ -55,11 +55,13 @@ const Home = ({ navigation }) => {
           {authStore.user ? (
             // <Text>{authStore.user.firstName}</Text>
             <Pressable onPress={authStore.signout}>
+              {/* fixed image rendering issue on header */}
               <Image
                 source={{
-                  uri: authStore.user.image
-                    ? baseURL + authStore.user.image
-                    : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
+                  uri:
+                    authStore.user.image !== ""
+                      ? baseURL + authStore.user.image
+                      : "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max",
                 }}
                 style={styles.headerProfileImg}
               />

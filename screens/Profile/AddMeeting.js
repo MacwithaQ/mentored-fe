@@ -14,12 +14,12 @@ const AddMeeting = ({ handleOpen }) => {
     const currDate = theDate || date;
     setDate(currDate);
   };
-
+  // Changed meeting to availability
   const handleAdd = () => {
     meetingStore.addMeeting(date);
     handleOpen();
     Toast.show({
-      title: "Meeting Added",
+      title: "Availability Added",
       placement: "top",
     });
   };
@@ -35,7 +35,7 @@ const AddMeeting = ({ handleOpen }) => {
             margin: 10,
           }}
         >
-          Add New Meeting
+          Add Availability
         </Text>
 
         <HStack style={{ alignItems: "center", marginBottom: 15 }}>

@@ -31,13 +31,14 @@ const MentorSearchCard = ({ mentor }) => {
             >
               {`${mentor.firstName} ${mentor.lastName}`}
             </Text>
+            {/* removed capitalization from major and employer to allow for actual proper capitalization */}
             <Text
               numberOfLines={1}
               style={{
                 color: "#828282",
                 fontSize: 12,
                 marginBottom: 2,
-                textTransform: "capitalize",
+                // textTransform: "capitalize",
               }}
             >
               {mentor.mentorProfile.major}
@@ -48,7 +49,7 @@ const MentorSearchCard = ({ mentor }) => {
                 color: "#b2b2b2",
                 fontSize: 10,
                 marginBottom: 5,
-                textTransform: "capitalize",
+                // textTransform: "capitalize",
               }}
             >
               {mentor.mentorProfile.employer}

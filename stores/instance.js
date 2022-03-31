@@ -8,7 +8,7 @@ import userStore from "./userStore";
 // export const baseURL = "http://localhost:8000";
 
 //* ifconfig
-export const baseURL = "http://192.168.100.77:8000";
+export const baseURL = "http://192.168.8.154:8000";
 export const socket = io(baseURL);
 socket.on("frontend", async function (msg) {
   // console.log("ggggg", msg);

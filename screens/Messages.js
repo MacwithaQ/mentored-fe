@@ -4,6 +4,7 @@ import { useState, React, useEffect } from "react";
 import { HStack, ScrollView, VStack } from "native-base";
 import MentorMessageCard from "../components/MentorMessageCard";
 import { observer } from "mobx-react";
+import NotUserPage from "../components/NotUserPage";
 //* STORES:
 import authStore from "../stores/authStore";
 import { instance } from "../stores/instance";
@@ -11,7 +12,6 @@ import userStore from "../stores/userStore";
 import conversationStore from "../stores/conversationStore";
 const Messages = () => {
   const [query, setQuery] = useState("");
-  const userId = authStore.user._id;
   const conversationList = conversationStore.conversations.map(
     (conversation) => (
       <MentorMessageCard key={conversation._id} conversation={conversation} />
@@ -19,9 +19,6 @@ const Messages = () => {
   );
 
   useEffect(() => {}, []);
-  if (authStore.user == null) {
-    return <NotUserPage />;
-  }
   return (
     <View style={styles.container}>
       <SafeAreaView />

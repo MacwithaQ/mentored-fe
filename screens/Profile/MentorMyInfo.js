@@ -49,7 +49,10 @@ const MentorMyInfo = ({ profile }) => {
         />
         <VStack style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16 }}>Bio:</Text>
-          <Text style={{ color: "#828282" }}>{profile.mentorProfile.bio}</Text>
+          {/* changed width of bio because it was clipping */}
+          <Text style={{ color: "#828282", width: 350 }}>
+            {profile.mentorProfile.bio}
+          </Text>
         </VStack>
       </HStack>
       <HStack style={{ alignItems: "center" }}>
